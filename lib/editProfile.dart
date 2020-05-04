@@ -1,4 +1,4 @@
-import 'package:profile/main.dart';
+import 'package:E-soor/main.dart';
 import 'package:flutter/material.dart';
 
 
