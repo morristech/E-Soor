@@ -21,6 +21,8 @@ dependencies:
         sdk: flutter
     splashscreen:
     provider: ^4.0.5
+    auto_size_text: ^2.1.0
+    carousel_slider: ^2.1.0
     shared_preferences: ^0.5.7
     flutter_login: any
     sliding_up_panel: ^1.0.0

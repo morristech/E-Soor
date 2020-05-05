@@ -1,6 +1,5 @@
-import 'package:E-soor/main.dart';
+import 'profile.dart';
 import 'package:flutter/material.dart';
-
 
 class EditPage extends StatefulWidget {
   final name;
@@ -12,31 +11,48 @@ class EditPage extends StatefulWidget {
 }
 
 class _EditPageState extends State<EditPage> {
-  var _name='';
-  var _bio='';
+  var _name = '';
+  var _bio = '';
 
-   void alertDialog(BuildContext context) {
+  void alertDialog(BuildContext context) {
     var alertDialog = AlertDialog(
-      title: Text('Discard',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-      content: Text('Discard changes?',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+      title: Text(
+        'Discard',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
+      content: Text(
+        'Discard changes?',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
       backgroundColor: Colors.black,
       actions: [
         FlatButton(
-          child: Text('Yes',
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+          child: Text(
+            'Yes',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
           onPressed: () {},
         ),
         FlatButton(
-            child: Text('No',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold, color: Colors.white)),
-            onPressed: () {
-              Navigator.pop(context);
-
-            }),
+          child: Text(
+            'No',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ],
     );
 
@@ -62,9 +78,10 @@ class _EditPageState extends State<EditPage> {
           ),
           onPressed: () {
             var route = MaterialPageRoute(
-              builder: (BuildContext context) =>
-                  new MyHomePage(name: _name , bio:  _bio,),
-
+              builder: (BuildContext context) => new Profile(
+                name: _name,
+                bio: _bio,
+              ),
             );
 
             Navigator.of(context).push(route);
@@ -75,7 +92,7 @@ class _EditPageState extends State<EditPage> {
                 style: TextStyle(
                     fontWeight: FontWeight.bold, color: Colors.white)),
             onPressed: () {
-               Navigator.pop(context);
+              Navigator.pop(context);
             }),
       ],
     );
@@ -108,9 +125,7 @@ class _EditPageState extends State<EditPage> {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white)),
-                        onTap: () {
-
-                        },
+                        onTap: () {},
                       ),
                       ListTile(
                         leading: Icon(Icons.photo, color: Colors.white),
@@ -118,9 +133,7 @@ class _EditPageState extends State<EditPage> {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white)),
-                        onTap: () {
-
-                        },
+                        onTap: () {},
                       ),
                     ],
                   )));
@@ -180,9 +193,9 @@ class _EditPageState extends State<EditPage> {
                         child: Padding(
                             padding: EdgeInsets.fromLTRB(5, 0, 5, 5),
                             child: TextFormField(
-                              onChanged: (val){
+                              onChanged: (val) {
                                 setState(() {
-                                  _name=val;
+                                  _name = val;
                                 });
                               },
                               initialValue: widget.name,
@@ -200,12 +213,11 @@ class _EditPageState extends State<EditPage> {
                             child: TextFormField(
                               initialValue: widget.bio,
                               cursorColor: Colors.black,
-                              onChanged: (val){
+                              onChanged: (val) {
                                 setState(() {
-                                  _bio=val;
+                                  _bio = val;
                                 });
                               },
-
                               decoration: InputDecoration(
                                   labelText: 'Edit Your Bio',
                                   icon: Icon(

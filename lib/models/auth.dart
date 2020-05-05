@@ -63,7 +63,7 @@ class AuthService {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => LoginPage(),
+          builder: (context) => Login(),
         ),
       );
     } catch (e) {
@@ -78,7 +78,7 @@ class AuthService {
     if (_isLoggedIn == true) {
       return MyHomePage();
     } else {
-      return LoginPage();
+      return Login();
     }
   }
 
