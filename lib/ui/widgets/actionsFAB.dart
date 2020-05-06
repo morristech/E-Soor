@@ -1,5 +1,3 @@
-import 'package:E_Soor/models/category_model.dart';
-import 'package:E_Soor/ui/screens/editCategoriesScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:E_Soor/main.dart';
 
