@@ -14,48 +14,46 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: FlutterLogin(
-        logo: 'allAssets/images/logo.png',
-        onLogin: _auth.loginUser,
-        onSignup: _auth.registerUser,
-        onSubmitAnimationCompleted: () {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => MyHomePage(),
-          ));
-        },
-        onRecoverPassword: _auth.recoverPassword,
-        messages: LoginMessages(
-          usernameHint: 'Email',
-          passwordHint: 'Password',
-          confirmPasswordError: 'Not match!',
-          recoverPasswordDescription: 'Write your email to find your account',
-          recoverPasswordSuccess: 'Password rescued successfully',
+    return FlutterLogin(
+      logo: 'allAssets/images/logo.png',
+      onLogin: _auth.loginUser,
+      onSignup: _auth.registerUser,
+      onSubmitAnimationCompleted: () {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => MyHomePage(),
+        ));
+      },
+      onRecoverPassword: _auth.recoverPassword,
+      messages: LoginMessages(
+        usernameHint: 'Email',
+        passwordHint: 'Password',
+        confirmPasswordError: 'Not match!',
+        recoverPasswordDescription: 'Write your email to find your account',
+        recoverPasswordSuccess: 'Password rescued successfully',
+      ),
+      theme: LoginTheme(
+        primaryColor: Color.fromRGBO(35, 35, 35, 100),
+        accentColor: Colors.white,
+        buttonTheme: LoginButtonTheme(
+          splashColor: Colors.green,
+          backgroundColor: Colors.grey,
         ),
-        theme: LoginTheme(
-          primaryColor: Color.fromRGBO(35, 35, 35, 100),
-          accentColor: Colors.white,
-          buttonTheme: LoginButtonTheme(
-            splashColor: Colors.green,
-            backgroundColor: Colors.grey,
-          ),
-          textFieldStyle: TextStyle(
+        textFieldStyle: TextStyle(
+          color: Colors.white,
+        ),
+        inputTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: Colors.black87,
+          contentPadding: EdgeInsets.zero,
+          errorStyle: TextStyle(
+            backgroundColor: Colors.red.withOpacity(.7),
             color: Colors.white,
           ),
-          inputTheme: InputDecorationTheme(
-            filled: true,
-            fillColor: Colors.black87,
-            contentPadding: EdgeInsets.zero,
-            errorStyle: TextStyle(
-              backgroundColor: Colors.red.withOpacity(.7),
-              color: Colors.white,
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white, width: 2),
-              borderRadius: BorderRadius.circular(100),
-            ),
-            labelStyle: TextStyle(color: Colors.white),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white, width: 2),
+            borderRadius: BorderRadius.circular(100),
           ),
+          labelStyle: TextStyle(color: Colors.white),
         ),
       ),
     );

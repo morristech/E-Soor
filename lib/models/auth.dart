@@ -1,6 +1,6 @@
 import 'package:E_Soor/main.dart';
 import 'package:E_Soor/models/category_model.dart';
-import 'package:E_Soor/ui/screens/login_signup_reset/login.dart';
+import 'package:E_Soor/ui/screens/login_signup_reset/emailLogin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +63,7 @@ class AuthService {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => Login(),
+          builder: (context) => LoginPage(),
         ),
       );
     } catch (e) {
@@ -78,7 +78,7 @@ class AuthService {
     if (_isLoggedIn == true) {
       return MyHomePage();
     } else {
-      return Login();
+      return LoginPage();
     }
   }
 

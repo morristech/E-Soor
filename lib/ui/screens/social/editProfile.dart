@@ -57,10 +57,11 @@ class _EditPageState extends State<EditPage> {
     );
 
     showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return alertDialog;
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return alertDialog;
+      },
+    );
   }
 
   void alertDialog2(BuildContext context) {
@@ -78,7 +79,7 @@ class _EditPageState extends State<EditPage> {
           ),
           onPressed: () {
             var route = MaterialPageRoute(
-              builder: (BuildContext context) => new Profile(
+              builder: (BuildContext context) => Profile(
                 name: _name,
                 bio: _bio,
               ),
