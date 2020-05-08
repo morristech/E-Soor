@@ -22,17 +22,21 @@ dependencies:
     splashscreen:
     provider: ^4.0.5
     auto_size_text: ^2.1.0
+    carousel_slider: ^2.1.0
     shared_preferences: ^0.5.7
     flutter_login: any
     sliding_up_panel: ^1.0.0
     flutter_reactive_button: ^1.1.0
     audioplayers: ^0.15.0
     bottomreveal: ^1.0.0
+    google_sign_in:
+    firebase_auth:
+    firebase_messaging:
+    cached_network_image:
     flutter_rating_bar:
+    timeago:
     circular_profile_avatar:
     login: any
-    googleapis: any
-    googleapis_auth: any
     http: any
     cloud_firestore:
     # The following adds the Cupertino Icons font to your application.

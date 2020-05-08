@@ -2,22 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:E_Soor/ui/screens/social/editProfile.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-class ProfilePage extends StatefulWidget {
+class MyHomePage extends StatefulWidget {
   final String name;
   final String bio;
-  ProfilePage({Key key, this.name, this.bio}) : super(key: key);
+
+  MyHomePage({Key key, this.name, this.bio}) : super(key: key);
+
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
-   @override
+class _MyHomePageState extends State<MyHomePage> {
+  @override
   Widget build(BuildContext context) {
-    return Container(child:ListView(
-      shrinkWrap: false,
+    return Scaffold(
+      backgroundColor: Colors.grey[900],
+      body: ListView(
+        shrinkWrap: true,
         children: <Widget>[
           Container(
-            margin: EdgeInsets.all(0),
             height: 250,
             width: MediaQuery.of(context).size.width * 1,
             color: Colors.black,
@@ -35,7 +38,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             backgroundColor: Colors.white,
                             child: CircleAvatar(
                               radius: 40,
-                              backgroundImage: AssetImage('allAssets/images/omar.jpg'),
+                              backgroundImage: AssetImage('assetss/omar.jpg'),
                             ),
                           ),
                           padding: EdgeInsets.symmetric(
@@ -102,7 +105,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: FittedBox(
                             fit: BoxFit.fill,
                             child: Image(
-                              image: AssetImage('allAssets/images/oliver.jpg'),
+                              image: AssetImage(
+                                  'assetss/howtobefuckingawesome.jpg'),
                             ),
                           ))),
                 ),
@@ -117,7 +121,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: FittedBox(
                             fit: BoxFit.fill,
                             child: Image(
-                              image: AssetImage('allAssets/images/howtobefuckingawesome.jpg'),
+                              image: AssetImage('assetss/oliver.jpg'),
                             ),
                           ))),
                 ),
@@ -132,7 +136,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: FittedBox(
                             fit: BoxFit.fill,
                             child: Image(
-                              image: AssetImage('allAssets/images/davidcopperfield.jpg'),
+                              image: AssetImage('assetss/davidcopperfield.jpg'),
                             ),
                           ))),
                 ),
@@ -147,7 +151,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: FittedBox(
                             fit: BoxFit.fill,
                             child: Image(
-                              image: AssetImage('allAssets/images/lifeiswhatyoumakeit.jpg'),
+                              image:
+                                  AssetImage('assetss/lifeiswhatyoumakeit.jpg'),
                             ),
                           ))),
                 ),
@@ -198,10 +203,8 @@ class _ProfilePageState extends State<ProfilePage> {
             width: MediaQuery.of(context).size.width * 1,
             height: 250,
           ),
-
-        ]
-      ));
-    
+        ],
+      ),
+    );
   }
-
 }
