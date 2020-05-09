@@ -1,10 +1,11 @@
-import 'package:E_Soor/models/auth.dart';
+import 'package:E_Soor/services/firebase.auth.dart';
+import 'package:E_Soor/ui/screens/login_signup_reset/emailLogin.dart';
 import 'package:E_Soor/ui/screens/other/about_us.dart';
 import 'package:E_Soor/ui/screens/settings.dart';
 import 'package:flutter/material.dart';
 
 class MyDrawer extends StatelessWidget {
-  final AuthService _auth = AuthService();
+  final FirebaseAuthService _firebaseAuthService = FirebaseAuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +103,11 @@ class MyDrawer extends StatelessWidget {
                 leading: Icon(Icons.backspace),
                 title: Text("Log out"),
                 onTap: () {
-                  _auth.logOut(context);
+                  _firebaseAuthService.logOut();
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                  );
                 },
               ),
             ],

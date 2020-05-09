@@ -14,6 +14,7 @@ class _MainBodyState extends State<MainBody>
     with SingleTickerProviderStateMixin {
   String transcription = "";
   TabController tabController;
+  ScrollController scrollViewController;
 
   @override
   void initState() {
@@ -21,27 +22,27 @@ class _MainBodyState extends State<MainBody>
       length: 2,
       vsync: this,
     );
+    scrollViewController = ScrollController();
     super.initState();
   }
 
   @override
   void dispose() {
     tabController.dispose();
+    scrollViewController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: DefaultTabController(
-        length: 2,
-        child: NestedScrollView(
-          physics: NeverScrollableScrollPhysics(),
-          headerSliverBuilder: (context, value) {
+    return SafeArea(
+      child: Scaffold(
+        body: NestedScrollView(
+          controller: scrollViewController,
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [
               SliverAppBar(
-                titleSpacing: 0,
-                actions: <Widget>[Constants(child: ThemeSwitch())],
+                centerTitle: true,
                 title: FlatButton(
                   onPressed: () {
                     showSearchPage(context, AppSearch(), transcription);
@@ -63,10 +64,17 @@ class _MainBodyState extends State<MainBody>
                     ],
                   ),
                 ),
-                centerTitle: true,
+                titleSpacing: 0,
+                actions: <Widget>[
+                  Constants(
+                    child: ThemeSwitch(),
+                  ),
+                ],
                 floating: true,
                 pinned: true,
+                forceElevated: innerBoxIsScrolled,
                 bottom: TabBar(
+                  controller: tabController,
                   indicatorColor: Colors.white,
                   tabs: <Widget>[
                     Tab(
@@ -83,6 +91,7 @@ class _MainBodyState extends State<MainBody>
             ];
           },
           body: TabBarView(
+            controller: tabController,
             children: <Widget>[
               Store(),
               Social(),
