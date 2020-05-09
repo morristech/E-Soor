@@ -1,3 +1,4 @@
+import 'package:E_Soor/ui/screens/social/profile.dart';
 import 'profile.dart';
 import 'package:flutter/material.dart';
 
@@ -79,10 +80,9 @@ class _EditPageState extends State<EditPage> {
           ),
           onPressed: () {
             var route = MaterialPageRoute(
-              builder: (BuildContext context) => Profile(
-                name: _name,
-                bio: _bio,
-              ),
+              builder: (BuildContext context) =>
+                  new MyHomePage(name: _name , bio:  _bio,),
+              
             );
 
             Navigator.of(context).push(route);
@@ -179,7 +179,7 @@ class _EditPageState extends State<EditPage> {
                       child: Stack(
                         children: <Widget>[
                           CircleAvatar(
-                            backgroundImage: AssetImage('assets/omar.jpg'),
+                            backgroundImage: AssetImage('allAssets/images/omar.jpg'),
                             radius: 50,
                           ),
                         ],

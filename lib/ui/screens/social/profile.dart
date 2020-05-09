@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:E_Soor/ui/screens/social/editProfile.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'editProfile.dart';
 
-class Profile extends StatefulWidget {
+class MyHomePage extends StatefulWidget {
   final String name;
   final String bio;
-  Profile({Key key, this.name, this.bio}) : super(key: key);
+
+  MyHomePage({Key key, this.name, this.bio}) : super(key: key);
 
   @override
-  _ProfileState createState() => _ProfileState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _ProfileState extends State<Profile> {
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[900],
       body: ListView(
         shrinkWrap: true,
         children: <Widget>[
           Container(
             height: 250,
             width: MediaQuery.of(context).size.width * 1,
+            color: Colors.black,
             padding: EdgeInsets.all(0),
             child: Center(
               child: Column(
@@ -30,76 +33,58 @@ class _ProfileState extends State<Profile> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Padding(
-                        child: CircleAvatar(
-                          radius: 45,
-                          backgroundColor: Colors.white,
                           child: CircleAvatar(
-                            radius: 40,
-                            backgroundImage: AssetImage('allAssets/images/mmm.jpg'),
+                            radius: 45,
+                            backgroundColor: Colors.white,
+                            child: CircleAvatar(
+                              radius: 40,
+                              backgroundImage: AssetImage('assetss/omar.jpg'),
+                            ),
                           ),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                          vertical: 45,
-                          horizontal: 0,
-                        ),
-                      ),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 45, horizontal: 0)),
                       Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 40,
-                          horizontal: 15,
-                        ),
-                        child: Column(
-                          children: <Widget>[
-                            Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 40, horizontal: 15),
+                        child: Column(children: <Widget>[
+                          Padding(
                               padding: EdgeInsets.all(5),
                               child: Container(
                                 height: 30,
                                 width: MediaQuery.of(context).size.width * 0.5,
                                 decoration: BoxDecoration(color: Colors.black),
                                 child: Center(
-                                  child: AutoSizeText(
-                                    "${widget.name}",
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            FlatButton(
-                              color: Colors.blue[700],
-                              textColor: Colors.white,
-                              disabledColor: Colors.grey,
-                              disabledTextColor: Colors.black,
-                              padding: EdgeInsets.symmetric(
+                                    child: AutoSizeText('${widget.name}',
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20))),
+                              )),
+                          FlatButton(
+                            color: Colors.blue[700],
+                            textColor: Colors.white,
+                            disabledColor: Colors.grey,
+                            disabledTextColor: Colors.black,
+                            padding: EdgeInsets.symmetric(
                                 horizontal:
                                     MediaQuery.of(context).size.width / 5,
-                                vertical: 9,
-                              ),
-                              splashColor: Colors.grey[800],
-                              onPressed: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => EditPage(
-                                      widget.name,
-                                      widget.bio,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Text(
-                                "Edit Profile",
-                                style: TextStyle(fontSize: 10),
-                              ),
+                                vertical: 9),
+                            splashColor: Colors.grey[800],
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      EditPage(widget.name, widget.bio)));
+                            },
+                            child: Text(
+                              "Edit Profile",
+                              style: TextStyle(fontSize: 10),
                             ),
-                          ],
-                        ),
+                          )
+                        ]),
                       ),
                     ],
-                  ),
+                  )
                 ],
               ),
             ),
@@ -107,120 +92,106 @@ class _ProfileState extends State<Profile> {
           Container(
             child: ListView(
               shrinkWrap: true,
-              padding: EdgeInsets.all(0),
+              padding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
               children: <Widget>[
                 Card(
                   color: Colors.grey[800],
                   child: Container(
-                    height: 250,
-                    width: 150,
-                    child: Card(
-                      margin: EdgeInsets.symmetric(
-                        vertical: 15,
-                        horizontal: 3.5,
-                      ),
-                      child: FittedBox(
-                        fit: BoxFit.fill,
-                        child: Image.network(
-                            "https://images-na.ssl-images-amazon.com/images/I/51m3dGvkshL.jpg"),
-                      ),
-                    ),
-                  ),
-                ),
-                Card(
-                  color: Colors.grey[800],
-                  child: Container(
-                    height: 250,
-                    width: 150,
-                    child: Card(
-                      margin: EdgeInsets.symmetric(
-                        vertical: 15,
-                        horizontal: 3.5,
-                      ),
-                      child: FittedBox(
-                        fit: BoxFit.fill,
-                        child: Image.network(
-                            "https://pbs.twimg.com/media/DisKV0YXcAANjtL.jpg"),
-                      ),
-                    ),
-                  ),
-                ),
-                Card(
-                  color: Colors.grey[800],
-                  child: Container(
-                    height: 250,
-                    width: 150,
-                    child: Card(
-                      margin: EdgeInsets.symmetric(
-                        vertical: 15,
-                        horizontal: 3.5,
-                      ),
-                      child: FittedBox(
-                        fit: BoxFit.fill,
-                        child: Image.network(
-                            "https://covers.openlibrary.org/b/id/9280427-L.jpg"),
-                      ),
-                    ),
-                  ),
-                ),
-                Card(
-                  color: Colors.grey[800],
-                  child: Container(
-                    height: 250,
-                    width: 150,
-                    child: Card(
-                      margin: EdgeInsets.symmetric(
-                        vertical: 15,
-                        horizontal: 3.5,
-                      ),
-                      child: FittedBox(
-                        fit: BoxFit.fill,
-                        child: Image.network(
-                            "https://images-na.ssl-images-amazon.com/images/I/61jlCHYp3ZL.jpg"),
-                      ),
-                    ),
-                  ),
-                ),
-                Card(
-                  color: Colors.black,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    height: 250,
-                    width: 150,
-                    child: Card(
-                      color: Colors.blue[800],
-                      margin: EdgeInsets.symmetric(
-                        vertical: 15,
-                        horizontal: 3.5,
-                      ),
-                      child: Center(
-                        child: Column(
-                          children: <Widget>[
-                            IconButton(
-                              icon: Icon(
-                                Icons.library_books,
-                                size: 35,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {},
+                      height: 250,
+                      width: 150,
+                      child: Card(
+                          margin: EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 3.5),
+                          child: FittedBox(
+                            fit: BoxFit.fill,
+                            child: Image(
+                              image: AssetImage(
+                                  'assetss/howtobefuckingawesome.jpg'),
                             ),
-                            Text(
-                              'Add Book Highlight',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                          mainAxisAlignment: MainAxisAlignment.center,
-                        ),
-                      ),
-                    ),
-                  ),
+                          ))),
                 ),
+                Card(
+                  color: Colors.grey[800],
+                  child: Container(
+                      height: 250,
+                      width: 150,
+                      child: Card(
+                          margin: EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 3.5),
+                          child: FittedBox(
+                            fit: BoxFit.fill,
+                            child: Image(
+                              image: AssetImage('assetss/oliver.jpg'),
+                            ),
+                          ))),
+                ),
+                Card(
+                  color: Colors.grey[800],
+                  child: Container(
+                      height: 250,
+                      width: 150,
+                      child: Card(
+                          margin: EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 3.5),
+                          child: FittedBox(
+                            fit: BoxFit.fill,
+                            child: Image(
+                              image: AssetImage('assetss/davidcopperfield.jpg'),
+                            ),
+                          ))),
+                ),
+                Card(
+                  color: Colors.grey[800],
+                  child: Container(
+                      height: 250,
+                      width: 150,
+                      child: Card(
+                          margin: EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 3.5),
+                          child: FittedBox(
+                            fit: BoxFit.fill,
+                            child: Image(
+                              image:
+                                  AssetImage('assetss/lifeiswhatyoumakeit.jpg'),
+                            ),
+                          ))),
+                ),
+                Card(
+                    color: Colors.black,
+                    child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                                bottomRight: Radius.circular(10),
+                                bottomLeft: Radius.circular(10))),
+                        height: 250,
+                        width: 150,
+                        child: Card(
+                            color: Colors.blue[800],
+                            margin: EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 3.5),
+                            child: Center(
+                                child: Column(
+                              children: <Widget>[
+                                IconButton(
+                                  icon: Icon(
+                                    Icons.library_books,
+                                    size: 35,
+                                    color: Colors.white,
+                                  ),
+                                  onPressed: () {},
+                                ),
+                                Text(
+                                  'Add Book Highlight',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500),
+                                )
+                              ],
+                              mainAxisAlignment: MainAxisAlignment.center,
+                            ))))),
               ],
               scrollDirection: Axis.horizontal,
               addAutomaticKeepAlives: false,
@@ -229,7 +200,7 @@ class _ProfileState extends State<Profile> {
             decoration: BoxDecoration(
               color: Colors.grey[900],
             ),
-            width: MediaQuery.of(context).size.width,
+            width: MediaQuery.of(context).size.width * 1,
             height: 250,
           ),
         ],
