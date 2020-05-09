@@ -2,7 +2,6 @@ import 'package:E_Soor/main.dart';
 import 'package:E_Soor/services/firebase.auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
-// import 'package:flutter_login/flutter_login.dart';
 
 class LoginPage extends StatelessWidget {
   Duration get loginTime => Duration(milliseconds: 1800);
@@ -18,13 +17,14 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // return Container();
     return FlutterLogin(
       logo: 'allAssets/images/logo.png',
       onLogin: _firebaseAuthService.loginUser,
-      onSignup: _firebaseAuthService.registerUser,
+      onSignup: _firebaseAuthService.registerNewUser,
       onRecoverPassword: _firebaseAuthService.recoverPassword,
-      emailValidator: _firebaseAuthService.emailValidator,
-      passwordValidator: _firebaseAuthService.passwordValidator,
+      emailValidator: (_) {},
+      passwordValidator: (_) {},
       onSubmitAnimationCompleted:
           _firebaseAuthService.isUserValied ? _enterMainScreen(context) : () {},
       theme: LoginTheme(

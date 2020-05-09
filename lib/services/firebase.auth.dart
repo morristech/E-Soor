@@ -3,7 +3,9 @@ import 'package:E_Soor/ui/screens/login_signup_reset/emailLogin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_login/flutter_login.dart';
+// import 'package:flutter_login/flutter_login.dart';
 
 class FirebaseAuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -17,9 +19,14 @@ class FirebaseAuthService {
   String _userPassword;
   String _userEmailAddress;
 
-  Future<String> registerUser(LoginData singinFormIncommingData) async {
+  Future<String> registerNewUser(LoginData singinFormIncommingData) async {
     _userPassword = singinFormIncommingData.password;
     _userEmailAddress = singinFormIncommingData.name;
+    //* checking if the text field has valied  Email and Password
+    /// Errors:
+    ///   • `ERROR_WEAK_PASSWORD` - If the password is not strong enough.
+    ///   • `ERROR_INVALID_EMAIL` - If the email address is malformed.
+    ///   • `ERROR_EMAIL_ALREADY_IN_USE` - If the email is already in use by a different account.
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(
           email: _userEmailAddress, password: _userPassword);
@@ -27,58 +34,99 @@ class FirebaseAuthService {
         'user': _userEmailAddress,
         'pass': _userPassword,
       });
-    } catch (e) {
-      print("Signup: $e");
+      _isUserLoggedin = true;
+      //* Everything went will
       return null;
+    } catch (signUpError) {
+      if (signUpError is PlatformException) {
+        switch (signUpError.code) {
+          case "ERROR_INVALID_EMAIL":
+            return signUpError.message;
+            break;
+          case "ERROR_EMAIL_ALREADY_IN_USE":
+            return signUpError.message;
+            break;
+          //! Will be implemented seperetly
+          case "ERROR_WEAK_PASSWORD":
+            return signUpError.message;
+            break;
+        }
+      }
     }
-    _isUserLoggedin = true;
-    return null;
   }
 
   Future<String> loginUser(LoginData singinFormIncommingData) async {
     _userPassword = singinFormIncommingData.password;
     _userEmailAddress = singinFormIncommingData.name;
-    if (_singInValidator.isFormFieldHasValied) {
-      try {
-        await _firebaseAuth.signInWithEmailAndPassword(
-          email: _userEmailAddress,
-          password: _userPassword,
-        );
-      } catch (e) {
-        print("---->>> Signin: $e");
+    //* checking if the text field has valied  Email and Password
+    /// Errors:
+    ///   • `ERROR_INVALID_EMAIL` - If the [email] address is malformed.
+    ///   • `ERROR_WRONG_PASSWORD` - If the [password] is wrong.
+    ///   • `ERROR_USER_NOT_FOUND` - If there is no user corresponding to the given [email] address, or if the user has been deleted.
+    ///   • `ERROR_USER_DISABLED` - If the user has been disabled (for example, in the Firebase console)
+    ///   • `ERROR_TOO_MANY_REQUESTS` - If there was too many attempts to sign in as this user.
+    ///   • `ERROR_OPERATION_NOT_ALLOWED` - Indicates that Email & Password accounts are not enabled.
+    try {
+      await _firebaseAuth.signInWithEmailAndPassword(
+        email: _userEmailAddress,
+        password: _userPassword,
+      );
+      _isUserLoggedin = true;
+      return null;
+    } catch (signInError) {
+      if (signInError is PlatformException) {
+        switch (signInError.code) {
+          case "ERROR_USER_NOT_FOUND":
+            return signInError.message;
+            break;
+          case "ERROR_WRONG_PASSWORD":
+            return signInError.message;
+            break;
+          case "ERROR_INVALID_EMAIL":
+            return signInError.message;
+            break;
+          case "ERROR_USER_DISABLED":
+            return signInError.message;
+            break;
+          case "ERROR_TOO_MANY_REQUESTS":
+            return signInError.message;
+            break;
+          case "ERROR_OPERATION_NOT_ALLOWED":
+            return signInError.message;
+            break;
+        }
       }
-    } else {
-      print("||| Sorry User is Not Valied, Please Sign Up first |||");
     }
-    _isUserLoggedin = true;
-    return null;
   }
 
   Future<String> recoverPassword(String email) async {
+    /// Errors:
+    ///   • `ERROR_INVALID_EMAIL` - If the [email] address is malformed.
+    ///   • `ERROR_USER_NOT_FOUND` - If there is no user corresponding to the given [email] address.
     try {
       await _firebaseAuth.sendPasswordResetEmail(email: email);
-    } catch (err) {
-      print(err);
       return null;
+    } catch (recoverPasswordError) {
+      if (recoverPasswordError is PlatformException) {
+        switch (recoverPasswordError.code) {
+          case "ERROR_USER_NOT_FOUND":
+            return recoverPasswordError.message;
+            break;
+          case "ERROR_INVALID_EMAIL":
+            return recoverPasswordError.message;
+            break;
+        }
+      }
     }
-    _isUserLoggedin = false;
-    return null;
   }
 
-  Future<void> logOut(BuildContext context) async {
+  Future<void> logOut() async {
     try {
       await _firebaseAuth.signOut();
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => LoginPage(),
-        ),
-      );
-    } catch (e) {
-      throw "Unexpected logout error: $e";
+      _isUserLoggedin = false;
+    } catch (logOutError) {
+      throw "Unexpected logout error: $logOutError";
     }
-    _isUserLoggedin = false;
-    return null;
   }
 
   bool get isUserAlreadyLoggedin => _isUserLoggedin;
@@ -137,3 +185,12 @@ class SingInValidator {
 
   bool get isFormFieldHasValied => _isFormFieldValeid;
 }
+
+//* Adding new password validation structure
+/*
+ bool validateStructure(String value){
+        String  pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+        RegExp regExp = new RegExp(pattern);
+        return regExp.hasMatch(value);
+  }
+*/
