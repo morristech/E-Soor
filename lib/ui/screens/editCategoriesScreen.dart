@@ -20,7 +20,7 @@ class _EditCategoriesScreenState extends State<EditCategoriesScreen> {
       content: Text(
         "Saved successfully",
         textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.subhead.copyWith(
+        style: Theme.of(context).textTheme.subtitle1.copyWith(
               fontWeight: FontWeight.bold,
             ),
       ),
@@ -60,7 +60,7 @@ class _EditCategoriesScreenState extends State<EditCategoriesScreen> {
                   ),
                   child: Text(
                     "Edit Category name :",
-                    style: Theme.of(context).textTheme.title,
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                 ),
                 Padding(
@@ -75,7 +75,7 @@ class _EditCategoriesScreenState extends State<EditCategoriesScreen> {
                           color: Colors.white,
                         ),
                       ),
-                      hasFloatingPlaceholder: true,
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
                       hintText: widget.category.name,
                     ),
                     onSubmitted: (value) {
@@ -97,7 +97,7 @@ class _EditCategoriesScreenState extends State<EditCategoriesScreen> {
                   ),
                   child: Text(
                     "Edit SubCategories :",
-                    style: Theme.of(context).textTheme.title,
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                 ),
                 Padding(
@@ -111,7 +111,7 @@ class _EditCategoriesScreenState extends State<EditCategoriesScreen> {
                           color: Colors.white,
                         ),
                       ),
-                      hasFloatingPlaceholder: true,
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
                     ),
                     controller: listController,
                     onSubmitted: (value) {

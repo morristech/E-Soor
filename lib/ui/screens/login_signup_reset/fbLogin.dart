@@ -10,10 +10,18 @@ class FaceBookLoginPage extends StatefulWidget {
 class _FaceBookLoginPageState extends State<FaceBookLoginPage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Image.asset("allAssets/images/fb.png"),
+    return RaisedButton(
+      child: Container(
+        height: 50,
+        width: 50,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("allAssets/images/fb.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
       ),
+      onPressed: () {},
     );
   }
 }

@@ -37,7 +37,9 @@ class AuthService {
     _email = data.name;
     try {
       await _auth.signInWithEmailAndPassword(
-          email: _email, password: _password);
+        email: _email,
+        password: _password,
+      );
     } catch (err) {
       print(err);
       return null;
