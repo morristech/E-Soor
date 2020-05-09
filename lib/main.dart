@@ -11,8 +11,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 //flutter build ios && tar -zcf build/app.ipa build/ios/iphoneos/Runner.app && ls -lh build/app.ipa
 
-
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -72,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           body: HiddenDrawer(
-            child: mainBody(context),
+            child: MainBody(),
           ),
         ),
       ),
