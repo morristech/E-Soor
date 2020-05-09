@@ -1,37 +1,34 @@
 import 'package:E_Soor/main.dart';
-import 'package:E_Soor/models/auth.dart';
+import 'package:E_Soor/services/firebase.auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
+// import 'package:flutter_login/flutter_login.dart';
 
-class LoginPage extends StatefulWidget {
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
+class LoginPage extends StatelessWidget {
   Duration get loginTime => Duration(milliseconds: 1800);
-  final AuthService _auth = AuthService();
+  final FirebaseAuthService _firebaseAuthService = FirebaseAuthService();
+
+  Function _enterMainScreen(BuildContext context) {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => MyHomePage(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return FlutterLogin(
       logo: 'allAssets/images/logo.png',
-      onLogin: _auth.loginUser,
-      onSignup: _auth.registerUser,
-      onSubmitAnimationCompleted: () {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => MyHomePage(),
-        ));
-      },
-      onRecoverPassword: _auth.recoverPassword,
-      messages: LoginMessages(
-        usernameHint: 'Email',
-        passwordHint: 'Password',
-        confirmPasswordError: 'Not match!',
-        recoverPasswordDescription: 'Write your email to find your account',
-        recoverPasswordSuccess: 'Password rescued successfully',
-      ),
+      onLogin: _firebaseAuthService.loginUser,
+      onSignup: _firebaseAuthService.registerUser,
+      onRecoverPassword: _firebaseAuthService.recoverPassword,
+      emailValidator: _firebaseAuthService.emailValidator,
+      passwordValidator: _firebaseAuthService.passwordValidator,
+      onSubmitAnimationCompleted:
+          _firebaseAuthService.isUserValied ? _enterMainScreen(context) : () {},
       theme: LoginTheme(
+        errorColor: Colors.green,
         primaryColor: Color.fromRGBO(35, 35, 35, 100),
         accentColor: Colors.white,
         buttonTheme: LoginButtonTheme(
