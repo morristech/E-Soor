@@ -1,16 +1,13 @@
 import 'package:E_Soor/models/category_model.dart';
-import 'package:E_Soor/ui/screens/login_signup_reset/emailLogin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_login/flutter_login.dart';
-// import 'package:flutter_login/flutter_login.dart';
 
 class FirebaseAuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final Firestore _firestoreStore = Firestore.instance;
-  final SingInValidator _singInValidator = SingInValidator();
+  final SignInValidator _signInValidator = SignInValidator();
 
   //* User status/info
   bool _isUserLoggedin = false;
@@ -58,7 +55,7 @@ class FirebaseAuthService {
   Future<String> loginUser(LoginData singinFormIncommingData) async {
     _userPassword = singinFormIncommingData.password;
     _userEmailAddress = singinFormIncommingData.name;
-    //* checking if the text field has valied  Email and Password
+    //* checking if the text field has valid  Email and Password
     /// Errors:
     ///   • `ERROR_INVALID_EMAIL` - If the [email] address is malformed.
     ///   • `ERROR_WRONG_PASSWORD` - If the [password] is wrong.
@@ -132,12 +129,12 @@ class FirebaseAuthService {
   bool get isUserAlreadyLoggedin => _isUserLoggedin;
 
   String emailValidator(String userEmail) =>
-      _singInValidator.emailValidator(userEmail);
+      _signInValidator.emailValidator(userEmail);
 
   String passwordValidator(String userPassword) =>
-      _singInValidator.passwordValidator(userPassword);
+      _signInValidator.passwordValidator(userPassword);
 
-  bool get isUserValied => _singInValidator.isFormFieldHasValied;
+  bool get isUserValied => _signInValidator.isFormFieldHasValid;
 
   Future<String> addCategory(Category category) async {
     print(category);
@@ -156,16 +153,16 @@ class FirebaseAuthService {
   }
 }
 
-class SingInValidator {
+class SignInValidator {
   final int minPasswordLength = 8;
   final int maxPasswordLength = 50;
-  bool _isFormFieldValeid = false;
+  bool _isFormFieldValid = false;
 
   String emailValidator(String value) {
     if (value.isEmpty) {
       return "Email can't be empty";
     }
-    _isFormFieldValeid = true;
+    _isFormFieldValid = true;
     return null;
   }
 
@@ -179,11 +176,11 @@ class SingInValidator {
     if (value.length > maxPasswordLength) {
       return "Password must be less than $maxPasswordLength characters long";
     }
-    _isFormFieldValeid = true;
+    _isFormFieldValid = true;
     return null;
   }
 
-  bool get isFormFieldHasValied => _isFormFieldValeid;
+  bool get isFormFieldHasValid => _isFormFieldValid;
 }
 
 //* Adding new password validation structure

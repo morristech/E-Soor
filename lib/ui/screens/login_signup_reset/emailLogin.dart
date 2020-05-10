@@ -7,7 +7,7 @@ class LoginPage extends StatelessWidget {
   Duration get loginTime => Duration(milliseconds: 1800);
   final FirebaseAuthService _firebaseAuthService = FirebaseAuthService();
 
-  Function _enterMainScreen(BuildContext context) {
+  _enterMainScreen(BuildContext context) {
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (context) => MyHomePage(),
@@ -17,14 +17,17 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return Container();
     return FlutterLogin(
       logo: 'allAssets/images/logo.png',
       onLogin: _firebaseAuthService.loginUser,
       onSignup: _firebaseAuthService.registerNewUser,
       onRecoverPassword: _firebaseAuthService.recoverPassword,
-      emailValidator: (_) {},
-      passwordValidator: (_) {},
+      emailValidator: (_) {
+        return;
+      },
+      passwordValidator: (_) {
+        return;
+      },
       onSubmitAnimationCompleted:
           _firebaseAuthService.isUserValied ? _enterMainScreen(context) : () {},
       theme: LoginTheme(
