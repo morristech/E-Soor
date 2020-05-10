@@ -134,7 +134,7 @@ class FirebaseAuthService {
   String passwordValidator(String userPassword) =>
       _signInValidator.passwordValidator(userPassword);
 
-  bool get isUserValied => _signInValidator.isFormFieldHasValid;
+  bool get isUserValid => _signInValidator.isFormFieldHasValid;
 
   Future<String> addCategory(Category category) async {
     print(category);
