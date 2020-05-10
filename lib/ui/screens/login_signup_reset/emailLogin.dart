@@ -29,7 +29,7 @@ class LoginPage extends StatelessWidget {
         return;
       },
       onSubmitAnimationCompleted:
-          _firebaseAuthService.isUserValied ? _enterMainScreen(context) : () {},
+          _firebaseAuthService.isUserValid ? _enterMainScreen(context) : () {},
       theme: LoginTheme(
         errorColor: Colors.green,
         primaryColor: Color.fromRGBO(35, 35, 35, 100),
