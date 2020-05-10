@@ -23,9 +23,11 @@ dependencies:
     provider: ^4.0.5
     auto_size_text: ^2.1.0
     carousel_slider: ^2.1.0
+    material_design_icons_flutter: ^4.0.5145
     shared_preferences: ^0.5.7
     flutter_login: ^1.0.14
     sliding_up_panel: ^1.0.0
+    url_launcher: ^5.4.5
     flutter_reactive_button: ^1.1.0
     audioplayers: ^0.15.0
     bottomreveal: ^1.0.0
