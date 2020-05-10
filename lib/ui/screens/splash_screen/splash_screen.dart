@@ -13,7 +13,7 @@ class MySplashScreen extends StatelessWidget {
         photoSize: 200,
         backgroundColor: Color.fromRGBO(35, 35, 35, 100),
         seconds: 5,
-        navigateAfterSeconds: _firebaseAuthService.isUserAlreadyLoggedin
+        navigateAfterSeconds: _firebaseAuthService.isUserAlreadyLoggedIb
             ? MyHomePage()
             : LoginPage(),
         image: Image.asset("allAssets/images/logo.png"),

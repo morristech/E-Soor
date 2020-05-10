@@ -1,16 +1,18 @@
 import 'package:E_Soor/models/category_model.dart';
-import 'package:E_Soor/ui/screens/login_signup_reset/emailLogin.dart';
+import 'package:E_Soor/services/api.dart';
+import 'package:E_Soor/services/api.keys.dart';
+import 'package:E_Soor/services/users.api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_login/flutter_login.dart';
-// import 'package:flutter_login/flutter_login.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:async';
 
 class FirebaseAuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final Firestore _firestoreStore = Firestore.instance;
-  final SingInValidator _singInValidator = SingInValidator();
 
   //* User status/info
   bool _isUserLoggedin = false;
@@ -19,6 +21,19 @@ class FirebaseAuthService {
   String _userPassword;
   String _userEmailAddress;
 
+  bool get isUserAlreadyLoggedIb => _isUserLoggedin;
+
+  //* GET CURRENT USER
+  Future getCurrentUser() async {
+    return (await _firebaseAuth.currentUser());
+  }
+
+  //* GET UID
+  Future<String> getCurrentUID() async {
+    return (await _firebaseAuth.currentUser()).uid;
+  }
+
+  //* Resister a New user
   Future<String> registerNewUser(LoginData singinFormIncommingData) async {
     _userPassword = singinFormIncommingData.password;
     _userEmailAddress = singinFormIncommingData.name;
@@ -29,13 +44,11 @@ class FirebaseAuthService {
     ///   • `ERROR_EMAIL_ALREADY_IN_USE` - If the email is already in use by a different account.
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(
-          email: _userEmailAddress, password: _userPassword);
-      await _firestoreStore.collection('users').add({
-        'user': _userEmailAddress,
-        'pass': _userPassword,
-      });
+        email: _userEmailAddress,
+        password: _userPassword,
+      );
       _isUserLoggedin = true;
-      //* Everything went will
+      //* if Everything went will return `null`
       return null;
     } catch (signUpError) {
       if (signUpError is PlatformException) {
@@ -44,7 +57,7 @@ class FirebaseAuthService {
             return signUpError.message;
             break;
           case "ERROR_EMAIL_ALREADY_IN_USE":
-            return signUpError.message;
+            return FirebaseUserErrors.registeredEmailIsAlreadyInUse;
             break;
           //! Will be implemented seperetly
           case "ERROR_WEAK_PASSWORD":
@@ -55,6 +68,7 @@ class FirebaseAuthService {
     }
   }
 
+  //* Login
   Future<String> loginUser(LoginData singinFormIncommingData) async {
     _userPassword = singinFormIncommingData.password;
     _userEmailAddress = singinFormIncommingData.name;
@@ -77,13 +91,13 @@ class FirebaseAuthService {
       if (signInError is PlatformException) {
         switch (signInError.code) {
           case "ERROR_USER_NOT_FOUND":
-            return signInError.message;
+            return FirebaseUserErrors.wrongEmailORPassword;
             break;
           case "ERROR_WRONG_PASSWORD":
-            return signInError.message;
+            return FirebaseUserErrors.wrongEmailORPassword;
             break;
           case "ERROR_INVALID_EMAIL":
-            return signInError.message;
+            return FirebaseUserErrors.wrongEmailORPassword;
             break;
           case "ERROR_USER_DISABLED":
             return signInError.message;
@@ -99,27 +113,31 @@ class FirebaseAuthService {
     }
   }
 
+  //* Recover user's password
   Future<String> recoverPassword(String email) async {
     /// Errors:
     ///   • `ERROR_INVALID_EMAIL` - If the [email] address is malformed.
     ///   • `ERROR_USER_NOT_FOUND` - If there is no user corresponding to the given [email] address.
     try {
-      await _firebaseAuth.sendPasswordResetEmail(email: email);
+      await _firebaseAuth.sendPasswordResetEmail(
+        email: email,
+      );
       return null;
     } catch (recoverPasswordError) {
       if (recoverPasswordError is PlatformException) {
         switch (recoverPasswordError.code) {
           case "ERROR_USER_NOT_FOUND":
-            return recoverPasswordError.message;
+            return FirebaseUserErrors.wrongRecoverEmail;
             break;
           case "ERROR_INVALID_EMAIL":
-            return recoverPasswordError.message;
+            return FirebaseUserErrors.wrongEmailORPassword;
             break;
         }
       }
     }
   }
 
+  //* user log out
   Future<void> logOut() async {
     try {
       await _firebaseAuth.signOut();
@@ -129,68 +147,81 @@ class FirebaseAuthService {
     }
   }
 
-  bool get isUserAlreadyLoggedin => _isUserLoggedin;
-
-  String emailValidator(String userEmail) =>
-      _singInValidator.emailValidator(userEmail);
-
-  String passwordValidator(String userPassword) =>
-      _singInValidator.passwordValidator(userPassword);
-
-  bool get isUserValied => _singInValidator.isFormFieldHasValied;
-
-  Future<String> addCategory(Category category) async {
-    print(category);
-    _userId = category.id;
-    _userName = category.name;
+  //* Adding user initail/Important data to the `about` section on Firebase
+  Future<void> uploadUserInitialData(
+      String userEmail, String userPassword) async {
     try {
-      await _firestoreStore.collection('categories').add({
-        'id': _userId,
-        'categoryName': _userName,
-      });
-    } catch (e) {
-      print(e);
-      return null;
+      String userID = (await _firebaseAuth.currentUser()).uid;
+      await _firestoreStore
+          .collection('userData')
+          .document(userID)
+          .collection('about')
+          .add(User(
+            userEmailAddress: userEmail,
+            userPassword: userPassword,
+            userID: userID,
+          ).userToJson());
+    } catch (uploadUserInitialDataError) {
+      throw uploadUserInitialDataError;
     }
-    return null;
+  }
+
+  Future<Null> updateUserDisplayName(String userName) async {
+    try {
+      FirebaseUser currentUser = await _firebaseAuth.currentUser();
+      var userUpdateInfo = UserUpdateInfo();
+      userUpdateInfo.displayName = userName;
+      await currentUser.updateProfile(userUpdateInfo);
+      await currentUser.reload();
+    } catch (updateUserDisplayNameError) {
+      throw "updateUserDisplayName: $updateUserDisplayNameError";
+    }
+  }
+
+  Future<Null> changePassword(String newPassword) async {
+    FirebaseUser currentUser = await _firebaseAuth.currentUser();
+    //! this API key will be omitted from the Github repo
+    final String API_KEY = FIREBASE_API_KEY;
+    final String changePasswordUrl =
+        'https://www.googleapis.com/identitytoolkit/v3/relyingparty/setAccountInfo?key=$API_KEY';
+    final String idToken = (await currentUser.getIdToken()).token;
+    final Map<String, dynamic> payload = {
+      'email': idToken,
+      'password': newPassword,
+      'returnSecureToken': true,
+    };
+    // Common error codes
+    //     `INVALID_ID_TOKEN`:The user's credential is no longer valid. The user must sign in again.
+    //     `WEAK_PASSWORD`: The password must be 6 characters long or more.
+    try {
+      await http.post(
+        changePasswordUrl,
+        body: json.encode(payload),
+        headers: {'Content-Type': 'application/json'},
+      );
+    } catch (httpPostError) {
+      switch (httpPostError) {
+        case 'INVALID_ID_TOKEN':
+          throw "http post error while changing the user password: $httpPostError";
+          break;
+        case 'WEAK_PASSWORD':
+          throw "http post error while changing the user password: $httpPostError";
+          break;
+      }
+    }
+    await currentUser.reload();
   }
 }
 
-class SingInValidator {
-  final int minPasswordLength = 8;
-  final int maxPasswordLength = 50;
-  bool _isFormFieldValeid = false;
-
-  String emailValidator(String value) {
-    if (value.isEmpty) {
-      return "Email can't be empty";
-    }
-    _isFormFieldValeid = true;
-    return null;
-  }
-
-  String passwordValidator(String value) {
-    if (value.isEmpty) {
-      return "Password can't be empty";
-    }
-    if (value.length < minPasswordLength) {
-      return "Password must be at least $minPasswordLength characters long";
-    }
-    if (value.length > maxPasswordLength) {
-      return "Password must be less than $maxPasswordLength characters long";
-    }
-    _isFormFieldValeid = true;
-    return null;
-  }
-
-  bool get isFormFieldHasValied => _isFormFieldValeid;
+class FirebaseUserErrors {
+  static final String wrongEmailORPassword =
+      "There was a problem logging in. Check your email and password or create an account.";
+  static final String wrongRecoverEmail =
+      "Only humans are allowed to submit this form.";
+  static final String registeredEmailIsAlreadyInUse =
+      "There was a problem creating your account. Check that your email address is spelled correctly.";
 }
 
-//* Adding new password validation structure
 /*
- bool validateStructure(String value){
-        String  pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
-        RegExp regExp = new RegExp(pattern);
-        return regExp.hasMatch(value);
-  }
+collection (userData) -> Doc(user ID) -> -> collection(about) -> user data
 */

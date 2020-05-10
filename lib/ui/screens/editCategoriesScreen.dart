@@ -1,6 +1,6 @@
 import 'package:E_Soor/models/category_model.dart';
 import 'package:flutter/material.dart';
-
+/*
 class EditCategoriesScreen extends StatefulWidget {
   final Category category;
   EditCategoriesScreen({this.category});
@@ -139,3 +139,5 @@ class _EditCategoriesScreenState extends State<EditCategoriesScreen> {
     );
   }
 }
+
+*/
