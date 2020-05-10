@@ -19,20 +19,20 @@ class AppSearch extends SearchDelegate<String> {
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
-      IconButton(
-        icon: Icon(Icons.clear),
-        onPressed: () {
-          query = "";
-        },
-      ),
-      IconButton(
-        icon: Icon(Icons.filter_list),
-        onPressed: () {},
-      ),
+      query.isNotEmpty
+          ? IconButton(
+              icon: Icon(Icons.clear),
+              onPressed: () {
+                query = "";
+              },
+            )
+          : IconButton(
+              icon: Icon(Icons.filter_list),
+              onPressed: () {},
+            ),
     ];
   }
 
-  String p;
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
@@ -55,27 +55,31 @@ class AppSearch extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final suggestionList = query.isEmpty
+    final suggestions = query.isEmpty
         ? recentItems
         : items
             .where((p) => p.toLowerCase().contains(query.toLowerCase()))
             .toList();
     return ListView.builder(
-      itemBuilder: (context, index) => ListTile(
-        onTap: () {
-          showResults(context);
-        },
-        leading: Icon(Icons.book),
-        title: RichText(
-          text: TextSpan(
-            text: suggestionList[index],
-            style: TextStyle(
-              color: Colors.orange[300],
+      itemBuilder: (context, index) {
+        final String suggestion = suggestions[index];
+
+        return ListTile(
+          onTap: () {
+            showResults(context);
+          },
+          leading: query.isEmpty ? Icon(Icons.history) : Icon(Icons.book),
+          title: RichText(
+            text: TextSpan(
+              text: suggestion,
+              style: TextStyle(
+                color: Colors.orange[300],
+              ),
             ),
           ),
-        ),
-      ),
-      itemCount: suggestionList.length,
+        );
+      },
+      itemCount: suggestions.length,
     );
   }
 }
@@ -83,11 +87,16 @@ class AppSearch extends SearchDelegate<String> {
 void showSearchPage(
     BuildContext context, SearchDelegate search, String transcription) async {
   final String selected = await showSearch(
-      context: context, delegate: search, query: transcription);
+    context: context,
+    delegate: search,
+    query: transcription,
+  );
 
   if (selected != null) {
-    Scaffold.of(context).showSnackBar(SnackBar(
-      content: Text("You chose this"),
-    ));
+    Scaffold.of(context).showSnackBar(
+      SnackBar(
+        content: Text("You chose this"),
+      ),
+    );
   }
 }
