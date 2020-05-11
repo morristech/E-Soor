@@ -97,9 +97,8 @@ class _RecentChatsState extends State<RecentChats> {
                                   ? Text('')
                                   : Container(
                                       alignment: Alignment.center,
-                                      width:
-                                          MediaQuery.of(context).size.width *
-                                              0.125,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.125,
                                       height:
                                           MediaQuery.of(context).size.height *
                                               0.03,

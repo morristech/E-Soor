@@ -1,35 +1,30 @@
 import 'package:E_Soor/main.dart';
 import 'package:E_Soor/services/firebase.auth.dart';
+import 'package:E_Soor/services/signIn.validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
   Duration get loginTime => Duration(milliseconds: 1800);
-  final FirebaseAuthService _firebaseAuthService = FirebaseAuthService();
-
-  _enterMainScreen(BuildContext context) {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => MyHomePage(),
-      ),
-    );
-  }
+  final SignInValidator _signInValidator = SignInValidator();
 
   @override
   Widget build(BuildContext context) {
+    final _firebaseAuthService = Provider.of<FirebaseAuthService>(context);
     return FlutterLogin(
       logo: 'allAssets/images/logo.png',
       onLogin: _firebaseAuthService.loginUser,
       onSignup: _firebaseAuthService.registerNewUser,
       onRecoverPassword: _firebaseAuthService.recoverPassword,
-      emailValidator: (_) {
-        return;
+      emailValidator:
+          _signInValidator.emailValidator, //_signInValidator.emailValidator,
+      passwordValidator: _signInValidator.passwordValidator,
+      onSubmitAnimationCompleted: () {
+        //! needs to be change to a 'Named Route'
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => MyHomePage()));
       },
-      passwordValidator: (_) {
-        return;
-      },
-      onSubmitAnimationCompleted:
-          _firebaseAuthService.isUserValid ? _enterMainScreen(context) : () {},
       theme: LoginTheme(
         errorColor: Colors.green,
         primaryColor: Color.fromRGBO(35, 35, 35, 100),

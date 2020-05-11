@@ -1,7 +1,7 @@
-import 'package:E_Soor/models/api.dart';
+import 'package:E_Soor/services/api.dart';
 
 class Post {
-  final User author;
+  final Old_User author;
   final String time;
   final String text;
   final bool isLiked;
@@ -16,12 +16,8 @@ class Post {
   final int sadReacts;
   final List comments;
 
-  Post(
-    this.author,
-    this.time,
-    this.text,
-    {
-      this.isLiked,
+  Post(this.author, this.time, this.text,
+      {this.isLiked,
       this.totalReacts,
       this.shares,
       this.isShared,
@@ -31,7 +27,5 @@ class Post {
       this.loveReacts,
       this.hahaReacts,
       this.sadReacts,
-      this.comments
-    }
-  );
+      this.comments});
 }

@@ -1,12 +1,12 @@
-import 'api.dart';
+import 'package:E_Soor/services/api.dart';
 
 class Message {
-  final User sender;
+  final Old_User sender;
   final String time;
   final String text;
   final bool isLiked;
   final bool isRead;
-  
+
   Message({
     this.sender,
     this.time,
@@ -16,56 +16,57 @@ class Message {
   });
 }
 
-final User currentUser = User(
+final Old_User currentUser = Old_User(
   name: 'Omar Yehia',
   username: 'OmarYehiaDev',
   password: '1a3456',
-  profileImage: 'https://drive.google.com/open?id=1Wcu5LK6xGHUMqVdil8H0A3I0pf18528q',
+  profileImage:
+      'https://drive.google.com/open?id=1Wcu5LK6xGHUMqVdil8H0A3I0pf18528q',
   id: 0,
 );
-final User greg = User(
+final Old_User greg = Old_User(
   name: 'Greg Watson',
   username: 'gRegwat?',
   password: 'gW6son',
   profileImage: 'https://randomuser.me/api/portraits/men/49.jpg',
   id: 1,
 );
-final User bravestone = User(
+final Old_User bravestone = Old_User(
   name: 'Doctor Bravestone',
   username: 'BraveSTONE',
   password: 'rockets',
   profileImage: 'https://randomuser.me/api/portraits/men/8.jpg',
   id: 2,
 );
-final User ashley = User(
+final Old_User ashley = Old_User(
   name: 'Ashley Lamar',
   username: 'SisterOfKendric',
   password: 'davidGuette1',
   profileImage: 'https://randomuser.me/api/portraits/women/51.jpg',
   id: 3,
 );
-final User harry = User(
+final Old_User harry = Old_User(
   name: 'Harry Potter',
   username: 'thePotter',
   password: 'ginnyWeasley1',
   profileImage: 'https://randomuser.me/api/portraits/men/60.jpg',
   id: 4,
 );
-final User lily = User(
+final Old_User lily = Old_User(
   name: 'Lilian Piaf',
   username: 'liliPiaf',
   password: 'edithPiaf4',
   profileImage: 'https://randomuser.me/api/portraits/women/49.jpg',
   id: 5,
 );
-final User lona = User(
+final Old_User lona = Old_User(
   name: 'Lona Fox',
   username: 'Lovnox',
   password: 'Lonafoxxy5',
   profileImage: 'https://randomuser.me/api/portraits/women/4.jpg',
   id: 6,
 );
-List<User> favorites = [lily, harry, greg, bravestone];
+List<Old_User> favorites = [lily, harry, greg, bravestone];
 List<Message> chats = [
   Message(
     sender: greg,

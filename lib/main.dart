@@ -1,4 +1,5 @@
 import 'package:E_Soor/helpers/logic/constants.dart';
+import 'package:E_Soor/services/firebase.auth.dart';
 import 'package:E_Soor/ui/screens/splash_screen/splash_screen.dart';
 import 'package:E_Soor/ui/widgets/hiddenDrawer.dart';
 import 'package:E_Soor/ui/widgets/mainBody.dart';
@@ -29,6 +30,9 @@ void main() async {
       providers: <SingleChildWidget>[
         ChangeNotifierProvider<ThemeNotifier>(
           create: (_) => ThemeNotifier(theme),
+        ),
+        Provider<FirebaseAuthService>(
+          create: (_) => FirebaseAuthService(),
         ),
       ],
       child: Constants(
