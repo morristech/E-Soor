@@ -24,14 +24,14 @@ Widget storeContent(context, onTap, onViewMore, List<Category> categories) {
               onViewMore,
               categories[index].name,
               onDoubleTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => EditCategoriesScreen(
-                      category: categories[index],
-                    ),
-                  ),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => EditCategoriesScreen(
+                //       category: categories[index],
+                //     ),
+                //   ),
+                // );
               },
             ),
           );
