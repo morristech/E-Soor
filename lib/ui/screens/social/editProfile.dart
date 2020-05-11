@@ -6,7 +6,6 @@ class EditPage extends StatefulWidget {
   final name;
   final bio;
   EditPage(this.name, this.bio);
-
   @override
   _EditPageState createState() => _EditPageState();
 }
@@ -143,8 +142,6 @@ class _EditPageState extends State<EditPage> {
 
   @override
   Widget build(BuildContext context) {
-    //_textEditingController.value=widget.value;
-
     return GestureDetector(
         onTap: FocusScope.of(context).unfocus,
         child: Scaffold(

@@ -22,8 +22,8 @@ class LoginPage extends StatelessWidget {
       passwordValidator: _singInValidator.passwordValidator,
       onSubmitAnimationCompleted: () {
         //! needs to be change to a 'Named Route'
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => MyHomePage()));
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => MyHomePage()));
       },
       theme: LoginTheme(
         errorColor: Colors.green,
