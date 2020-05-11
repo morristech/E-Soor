@@ -1,13 +1,13 @@
 import 'package:E_Soor/main.dart';
 import 'package:E_Soor/services/firebase.auth.dart';
-import 'package:E_Soor/services/singIn.validator.dart';
+import 'package:E_Soor/services/signIn.validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
   Duration get loginTime => Duration(milliseconds: 1800);
-  final SingInValidator _singInValidator = SingInValidator();
+  final SignInValidator _singInValidator = SignInValidator();
 
   @override
   Widget build(BuildContext context) {

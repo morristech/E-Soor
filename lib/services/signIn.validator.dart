@@ -1,4 +1,4 @@
-class SingInValidator {
+class SignInValidator {
   final int _minPasswordLength = 8;
   final int _maxPasswordLength = 50;
 

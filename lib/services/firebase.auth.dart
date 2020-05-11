@@ -1,4 +1,4 @@
-import 'package:E_Soor/services/API.keys.dart';
+// import 'package:E_Soor/services/API.keys.dart';
 import 'package:E_Soor/services/users.api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -183,9 +183,9 @@ class FirebaseAuthService {
       throw "current user can't be 'null'";
     }
     //! this API key will be omitted from the Github repo
-    final String API_KEY = SECRET_FIREBASE_API_KEY ?? 'omitted';
-    final String changePasswordUrl =
-        'https://www.googleapis.com/identitytoolkit/v3/relyingparty/setAccountInfo?key=$API_KEY';
+    // final String API_KEY = SECRET_FIREBASE_API_KEY ?? 'omitted';
+    // final String changePasswordUrl =
+    //     'https://www.googleapis.com/identitytoolkit/v3/relyingparty/setAccountInfo?key=$API_KEY';
     final String idToken = (await currentUser.getIdToken()).token;
     final Map<String, dynamic> payload = {
       'email': idToken,
@@ -197,11 +197,11 @@ class FirebaseAuthService {
     ///    `INVALID_ID_TOKEN`:The user's credential is no longer valid. The user must sign in again.
     ///    `WEAK_PASSWORD`: The password must be 6 characters long or more.
     try {
-      await http.post(
-        changePasswordUrl,
-        body: json.encode(payload),
-        headers: {'Content-Type': 'application/json'},
-      );
+      // await http.post(
+      //   changePasswordUrl,
+      //   body: json.encode(payload),
+      //   headers: {'Content-Type': 'application/json'},
+      // );
     } catch (httpPostError) {
       switch (httpPostError) {
         case 'INVALID_ID_TOKEN':
