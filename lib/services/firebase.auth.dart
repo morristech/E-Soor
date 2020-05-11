@@ -1,5 +1,3 @@
-import 'package:E_Soor/models/category_model.dart';
-import 'package:E_Soor/services/api.dart';
 import 'package:E_Soor/services/api.keys.dart';
 import 'package:E_Soor/services/users.api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -28,7 +26,7 @@ class FirebaseAuthService {
     return (await _firebaseAuth.currentUser());
   }
 
-  //* GET UID
+  //* GET User ID
   Future<String> getCurrentUID() async {
     return (await _firebaseAuth.currentUser()).uid;
   }
@@ -147,6 +145,7 @@ class FirebaseAuthService {
     }
   }
 
+  //! WILL BE DELETED
   //* Adding user initail/Important data to the `about` section on Firebase
   Future<void> uploadUserInitialData(
       String userEmail, String userPassword) async {
@@ -180,8 +179,11 @@ class FirebaseAuthService {
 
   Future<Null> changePassword(String newPassword) async {
     FirebaseUser currentUser = await _firebaseAuth.currentUser();
+    if (currentUser == null) {
+      throw "current user can't be 'null'";
+    }
     //! this API key will be omitted from the Github repo
-    final String API_KEY = FIREBASE_API_KEY;
+    final String API_KEY = SECRET_FIREBASE_API_KEY ?? 'null';
     final String changePasswordUrl =
         'https://www.googleapis.com/identitytoolkit/v3/relyingparty/setAccountInfo?key=$API_KEY';
     final String idToken = (await currentUser.getIdToken()).token;
@@ -190,9 +192,10 @@ class FirebaseAuthService {
       'password': newPassword,
       'returnSecureToken': true,
     };
-    // Common error codes
-    //     `INVALID_ID_TOKEN`:The user's credential is no longer valid. The user must sign in again.
-    //     `WEAK_PASSWORD`: The password must be 6 characters long or more.
+
+    /// Common error codes
+    ///    `INVALID_ID_TOKEN`:The user's credential is no longer valid. The user must sign in again.
+    ///    `WEAK_PASSWORD`: The password must be 6 characters long or more.
     try {
       await http.post(
         changePasswordUrl,

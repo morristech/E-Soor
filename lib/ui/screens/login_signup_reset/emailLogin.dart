@@ -29,13 +29,7 @@ class LoginPage extends StatelessWidget {
       emailValidator:
           _singInValidator.emailValidator, //_singInValidator.emailValidator,
       passwordValidator: _singInValidator.passwordValidator,
-      onSubmitAnimationCompleted: () async {
-        FirebaseUser currentUser = await _firebaseAuth.currentUser();
-        print(currentUser.displayName);
-        print(currentUser.email);
-        print(currentUser.uid);
-        print(currentUser.phoneNumber);
-      },
+      onSubmitAnimationCompleted: _enterMainScreen(context),
       theme: LoginTheme(
         errorColor: Colors.green,
         primaryColor: Color.fromRGBO(35, 35, 35, 100),
