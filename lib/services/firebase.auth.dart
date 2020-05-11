@@ -183,7 +183,7 @@ class FirebaseAuthService {
       throw "current user can't be 'null'";
     }
     //! this API key will be omitted from the Github repo
-    final String API_KEY = SECRET_FIREBASE_API_KEY ?? 'null';
+    final String API_KEY = SECRET_FIREBASE_API_KEY ?? 'omitted';
     final String changePasswordUrl =
         'https://www.googleapis.com/identitytoolkit/v3/relyingparty/setAccountInfo?key=$API_KEY';
     final String idToken = (await currentUser.getIdToken()).token;

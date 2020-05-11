@@ -1,7 +1,6 @@
 import 'package:E_Soor/main.dart';
 import 'package:E_Soor/services/firebase.auth.dart';
 import 'package:E_Soor/services/singIn.validator.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:provider/provider.dart';
@@ -9,14 +8,6 @@ import 'package:provider/provider.dart';
 class LoginPage extends StatelessWidget {
   Duration get loginTime => Duration(milliseconds: 1800);
   final SingInValidator _singInValidator = SingInValidator();
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  Function _enterMainScreen(BuildContext context) {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => MyHomePage(),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +20,11 @@ class LoginPage extends StatelessWidget {
       emailValidator:
           _singInValidator.emailValidator, //_singInValidator.emailValidator,
       passwordValidator: _singInValidator.passwordValidator,
-      onSubmitAnimationCompleted: _enterMainScreen(context),
+      onSubmitAnimationCompleted: () {
+        //! needs to be change to a 'Named Route'
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => MyHomePage()));
+      },
       theme: LoginTheme(
         errorColor: Colors.green,
         primaryColor: Color.fromRGBO(35, 35, 35, 100),
