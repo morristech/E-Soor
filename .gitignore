@@ -22,6 +22,7 @@
 
 #API keys file
 lib/services/api.keys.dart
+/android/
 
 # Flutter/Dart/Pub related
 **/doc/api/
