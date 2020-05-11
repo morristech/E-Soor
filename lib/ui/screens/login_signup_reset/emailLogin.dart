@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
   Duration get loginTime => Duration(milliseconds: 1800);
-  final SignInValidator _singInValidator = SignInValidator();
+  final SignInValidator _signInValidator = SignInValidator();
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +18,8 @@ class LoginPage extends StatelessWidget {
       onSignup: _firebaseAuthService.registerNewUser,
       onRecoverPassword: _firebaseAuthService.recoverPassword,
       emailValidator:
-          _singInValidator.emailValidator, //_singInValidator.emailValidator,
-      passwordValidator: _singInValidator.passwordValidator,
+          _signInValidator.emailValidator, //_signInValidator.emailValidator,
+      passwordValidator: _signInValidator.passwordValidator,
       onSubmitAnimationCompleted: () {
         //! needs to be change to a 'Named Route'
         Navigator.of(context).pushReplacement(
