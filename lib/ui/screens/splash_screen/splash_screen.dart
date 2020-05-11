@@ -14,7 +14,7 @@ class MySplashScreen extends StatelessWidget {
         backgroundColor: Color.fromRGBO(35, 35, 35, 100),
         seconds: 5,
         navigateAfterSeconds: _firebaseAuthService.isUserAlreadyLoggedin
-            ? MyHomePage()
+            ? ProfilePage()
             : LoginPage(),
         image: Image.asset("allAssets/images/logo.png"),
         loaderColor: Colors.white,

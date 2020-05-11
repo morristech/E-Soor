@@ -27,7 +27,7 @@ class _SocialState extends State<Social> {
       Chats(),
     ),
     PlaceholderWidget(
-      MyHomePage(),
+      ProfilePage(),
     ),
   ];
 
