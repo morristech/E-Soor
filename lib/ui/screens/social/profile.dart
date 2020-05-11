@@ -15,29 +15,30 @@ class _ProfilePageState extends State<ProfilePage> {
       shrinkWrap: true,
       children: <Widget>[
         /// the container that holds the profile name, bio and picture
-         Container(
-           height: 250,
-           width: MediaQuery.of(context).size.width*1,
-           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment:CrossAxisAlignment.center,
+         Wrap(
             children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children:<Widget>[
                    ProfilePicture(),
-                   SizedBox(height: 20),
                    ProfileName(),
-                   SizedBox(height: 20),
                    ProfileBio(),
-                   SizedBox(height:20),
-                   FlatButton(onPressed: null, child: Text("edit profile"))
+                   FlatButton(
+                     color: Colors.grey[900],
+                     onPressed: (){},
+                     child:Padding( 
+                     padding: EdgeInsets.symmetric(horizontal:130, vertical:5),  
+                     child:Text("Edit Profile"), 
+                   )
+                )
              ],
-           ),
          ),
          /// the container that holds the book highlights list view
          Container(
            child: BookHighlightsList()
          ),
       ],
-    );
+    )]);
   }
 }
 
@@ -52,12 +53,12 @@ class _ProfilePictureState extends State<ProfilePicture> {
   @override
   Widget build(BuildContext context) {
     return 
-        CircleAvatar(
-        radius: 45,
-        child: CircleAvatar(
-            radius: 40,
+        Padding(
+        padding:EdgeInsets.all(5),
+        child:CircleAvatar(
+        radius: 70,
             backgroundImage: NetworkImage("")
-      )
+     )
     );
   }
 }
@@ -76,15 +77,18 @@ class ProfileName extends StatefulWidget {
 class _ProfileNameState extends State<ProfileName> {
   @override
   Widget build(BuildContext context) {
-    return AutoSizeText(
-      "${widget.profile_name}",
+    return Padding(
+     padding:EdgeInsets.all(5),
+     child:AutoSizeText(
+     "Omar Hany Hassan",
       maxLines: 1,
       overflow: TextOverflow.ellipsis ,
       style: TextStyle(
-        fontSize: 25, 
+        fontSize: 30, 
         fontWeight: FontWeight.bold,
       ),
-    );
+     )
+    ); 
   }
 }
 
@@ -102,8 +106,11 @@ class ProfileBio extends StatefulWidget {
 class _ProfileBioState extends State<ProfileBio> {
   @override
   Widget build(BuildContext context) {
-    return Text(
-      '${widget.profile_bio}',
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5), 
+      child: Text(
+      'I am in love with reading i like it so much and hope to become a writer one day at my lifge is so. I love my cousins and computer science in MIT is very fantasting and luxury and i love harvard alot. ',
+     )
     );
   }
 }
