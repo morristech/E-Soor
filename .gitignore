@@ -18,11 +18,7 @@
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
-#.vscode/
-
-#API keys file
-lib/services/api.keys.dart
-/android/
+.vscode/
 
 # Flutter/Dart/Pub related
 **/doc/api/
@@ -32,6 +28,7 @@ lib/services/api.keys.dart
 .pub-cache/
 .pub/
 /build/
+API.keys.dart
 
 # Android related
 **/android/**/gradle-wrapper.jar
