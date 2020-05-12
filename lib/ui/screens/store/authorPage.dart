@@ -12,6 +12,8 @@ class _AuthorPageState extends State<AuthorPage> {
     return SafeArea(
       child: Scaffold(
         body: ListView(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
           children: <Widget>[
             Row(
               children: <Widget>[
@@ -61,6 +63,7 @@ List<Item> items = [
       trailing: Icon(Icons.expand_more),
     ),
     bodyValue: Text("blablablablabla"),
+    isExpanded: true,
   ),
   Item(
     headerValue: ListTile(
