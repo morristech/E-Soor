@@ -42,9 +42,9 @@ class Settings extends StatelessWidget {
                     bottom: BorderSide(
                          color: Colors.grey[600],
                          width: 0.5
-                       )
+                       ),
                    ),
-                  color: Colors.grey[900],
+                    color: Colors.grey[900]
                   ),
                   child: ListTile(
                     title: Text("Phone "),
@@ -65,7 +65,7 @@ class Settings extends StatelessWidget {
                      ),
                      color: Colors.grey[900],
                     ),
-                  color: Colors.grey[900],
+                  
                   child: ListTile(
                      title: Text("Email address"),
                      onTap: (){},
@@ -85,7 +85,7 @@ class Settings extends StatelessWidget {
                      ),
                      color: Colors.grey[900],
                     ),
-                  color: Colors.grey[900],
+                  
                   child: ListTile(
                     title: Text( "Password"),
                     onTap: (){},
@@ -104,7 +104,7 @@ class Settings extends StatelessWidget {
                      ),
                      color: Colors.grey[900],
                     ),
-                  color: Colors.grey[900],
+                  
                   child: ListTile(
                     title: Text( "Deactivate your acccount"),
                     onTap: (){},
