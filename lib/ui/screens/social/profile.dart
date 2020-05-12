@@ -10,18 +10,24 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return ListView.builder(
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
-      children: <Widget>[
-        /// the container that holds the profile name, bio and picture
+      itemBuilder: (context, index){
+        /// the Wraper that holds the profile name, bio and picture
          Wrap(
             children: <Widget>[
               Column(
                 children:<Widget>[
-                  Center(child: ProfilePicture()),
-                   Center(child: ProfileName()),
-                   Center(child: ProfileBio()),
+                  Center(
+                    child: ProfilePicture()
+                    ),
+                   Center(
+                     child: ProfileName()
+                     ),
+                   Center(
+                     child: ProfileBio()
+                     ),
                    Center(
                      child:FlatButton(
                        color :Colors.grey[700],
@@ -29,20 +35,20 @@ class _ProfilePageState extends State<ProfilePage> {
                        child:Padding(
                          padding: EdgeInsets.symmetric(horizontal: 120, vertical: 10),
                          child:Text("Edit Profile"), 
-                    )
-                 )
-               ),
-             ],
-         ),
-         /// the container that holds the book highlights list view
+                       )
+                     )
+                   )
+                ]
+              )
+            ]
+         );
+         /// this is the container that holds the book hightlights list view
          Container(
            height: 250,
-           child: BookHighlightsList()
-          ),
-        ],
-      )
-    ] 
-   );
+           child: BookHighlightsList(),
+       );
+      }
+    );
   }
 }
 
@@ -61,7 +67,7 @@ class _ProfilePictureState extends State<ProfilePicture> {
         padding:EdgeInsets.all(5),
         child:CircleAvatar(
         radius: 70,
-            backgroundImage: NetworkImage("")
+            backgroundImage: NetworkImage("") ///get the profile image from the database
      )
     );
   }
@@ -72,7 +78,8 @@ class _ProfilePictureState extends State<ProfilePicture> {
 
 class ProfileName extends StatefulWidget {
   final String profile_name;
-  ProfileName({Key key, this.profile_name}) : super(key: key);
+  /// constructor to recieve the data and address it to the variable above
+  ProfileName({Key key, this.profile_name}) : super(key: key); 
 
   @override
   _ProfileNameState createState() => _ProfileNameState();
@@ -99,7 +106,6 @@ class _ProfileNameState extends State<ProfileName> {
 ////Profile Bio class
 
 class ProfileBio extends StatefulWidget {
-
   final String profile_bio;
   ProfileBio({Key key, this.profile_bio}) : super(key: key);
 
@@ -132,12 +138,12 @@ class _BookHighlightsListState extends State<BookHighlightsList> {
     return Container(
       width: MediaQuery.of(context).size.width * 1,
       height: 250,
-      child: ListView(
+      child: ListView.builder(
         scrollDirection: Axis.horizontal,
         addAutomaticKeepAlives: false,
         reverse: true,
         shrinkWrap: true,
-        children: <Widget>[
+        itemBuilder: (context, index){
           ///these are the card children of the ListView
           ///The user should be able to add cards to this ListView 
           ///These Cards represents some book reviews 
@@ -167,8 +173,8 @@ class _BookHighlightsListState extends State<BookHighlightsList> {
                 )
               )
             )
-          ),
-        ],
+          );
+        }
       ),
     );
   }
