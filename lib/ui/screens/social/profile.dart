@@ -18,27 +18,31 @@ class _ProfilePageState extends State<ProfilePage> {
          Wrap(
             children: <Widget>[
               Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children:<Widget>[
-                   ProfilePicture(),
-                   ProfileName(),
-                   ProfileBio(),
-                   FlatButton(
-                     color: Colors.grey[900],
-                     onPressed: (){},
-                     child:Padding( 
-                     padding: EdgeInsets.symmetric(horizontal:130, vertical:5),  
-                     child:Text("Edit Profile"), 
-                   )
-                )
+                  Center(child: ProfilePicture()),
+                   Center(child: ProfileName()),
+                   Center(child: ProfileBio()),
+                   Center(
+                     child:FlatButton(
+                       color :Colors.grey[700],
+                       onPressed: (){},
+                       child:Padding(
+                         padding: EdgeInsets.symmetric(horizontal: 120, vertical: 10),
+                         child:Text("Edit Profile"), 
+                    )
+                 )
+               ),
              ],
          ),
          /// the container that holds the book highlights list view
          Container(
+           height: 250,
            child: BookHighlightsList()
-         ),
-      ],
-    )]);
+          ),
+        ],
+      )
+    ] 
+   );
   }
 }
 
@@ -80,7 +84,7 @@ class _ProfileNameState extends State<ProfileName> {
     return Padding(
      padding:EdgeInsets.all(5),
      child:AutoSizeText(
-     "Omar Hany Hassan",
+     "${widget.profile_name}",
       maxLines: 1,
       overflow: TextOverflow.ellipsis ,
       style: TextStyle(
@@ -109,7 +113,7 @@ class _ProfileBioState extends State<ProfileBio> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5), 
       child: Text(
-      'I am in love with reading i like it so much and hope to become a writer one day at my lifge is so. I love my cousins and computer science in MIT is very fantasting and luxury and i love harvard alot. ',
+      '${widget.profile_bio}',
      )
     );
   }
