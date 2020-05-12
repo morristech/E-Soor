@@ -10,10 +10,10 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return ListView.builder(
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
-      children: <Widget>[
+      itemBuilder: (context, index){
         /// the container that holds the profile name, bio and picture
          Wrap(
             children: <Widget>[
@@ -29,20 +29,20 @@ class _ProfilePageState extends State<ProfilePage> {
                        child:Padding(
                          padding: EdgeInsets.symmetric(horizontal: 120, vertical: 10),
                          child:Text("Edit Profile"), 
-                    )
-                 )
-               ),
-             ],
-         ),
-         /// the container that holds the book highlights list view
+                       )
+                     )
+                   )
+                ]
+              )
+            ]
+         );
+         /// this is the container that holds the book hightlights list view
          Container(
            height: 250,
-           child: BookHighlightsList()
-          ),
-        ],
-      )
-    ] 
-   );
+           child: BookHighlightsList(),
+         );
+      }
+    );
   }
 }
 
@@ -132,12 +132,12 @@ class _BookHighlightsListState extends State<BookHighlightsList> {
     return Container(
       width: MediaQuery.of(context).size.width * 1,
       height: 250,
-      child: ListView(
+      child: ListView.builder(
         scrollDirection: Axis.horizontal,
         addAutomaticKeepAlives: false,
         reverse: true,
         shrinkWrap: true,
-        children: <Widget>[
+        itemBuilder: (context, index){
           ///these are the card children of the ListView
           ///The user should be able to add cards to this ListView 
           ///These Cards represents some book reviews 
@@ -167,8 +167,8 @@ class _BookHighlightsListState extends State<BookHighlightsList> {
                 )
               )
             )
-          ),
-        ],
+          );
+        }
       ),
     );
   }
