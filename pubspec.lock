@@ -169,6 +169,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.0.15"
+  firebase_remote_config:
+    dependency: "direct main"
+    description:
+      name: firebase_remote_config
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.0+3"
+  firebase_storage:
+    dependency: "direct main"
+    description:
+      name: firebase_storage
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.5"
   flushbar:
     dependency: "direct main"
     description:
@@ -344,7 +358,7 @@ packages:
       name: pedantic
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.9.0"
+    version: "1.8.0+1"
   petitparser:
     dependency: transitive
     description:
@@ -372,7 +386,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.1.1"
+    version: "4.0.5+1"
   quiver:
     dependency: transitive
     description:
@@ -569,4 +583,4 @@ packages:
     version: "3.6.1"
 sdks:
   dart: ">=2.7.2 <3.0.0"
-  flutter: ">=1.17.0 <2.0.0"
+  flutter: ">=1.12.13+hotfix.5 <2.0.0"

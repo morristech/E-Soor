@@ -40,10 +40,9 @@ class Old_User {
 getUsers() async {
   List<Old_User> users = [];
   //var req = await http.get("http://my-json-server.typicode.com/OmarYehiaDev/E-Soor/db");
-  var headers = await http
-      .get("https://api.jsonbin.io/b/5e58fd4b1534d9052ce38751", headers: {
-    'Content-Type': 'application/json',
-  });
+  var headers = await http.get(
+      "https://api.jsonbin.io/b/5e58fd4b1534d9052ce38751",
+      headers: {'Content-Type': 'application/json'});
   if (headers.statusCode == 200) {
     print(headers.statusCode);
     String jsonString = headers.body.toString();
