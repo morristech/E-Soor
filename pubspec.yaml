@@ -19,32 +19,40 @@ environment:
 dependencies:
     flutter:
         sdk: flutter
-    splashscreen:
+    #state managment
     provider: ^4.0.5
+    #packages
+    splashscreen:
     auto_size_text: ^2.1.0
     carousel_slider: ^2.1.0
     material_design_icons_flutter: ^4.0.5145
-    shared_preferences: ^0.5.7
     flutter_login: ^1.0.14
     sliding_up_panel: ^1.0.0
-    url_launcher: ^5.4.5
     flutter_reactive_button: ^1.1.0
     audioplayers: ^0.15.0
     bottomreveal: ^1.0.0
+    timeago:
+    circular_profile_avatar:
+    cupertino_icons: ^0.1.2
+    ##### Remove Comment #######
+    ###########################
+    # flushbar: ^1.10.2
+    ##########################
+    #local database
+    shared_preferences: ^0.5.7
+    #backend
+    url_launcher: ^5.4.5
     google_sign_in:
     firebase_auth:
     firebase_messaging:
     cached_network_image:
     flutter_rating_bar:
-    timeago:
-    circular_profile_avatar:
-    login: any
-    http: any
+    login:
+    http:
     cloud_firestore:
-    # The following adds the Cupertino Icons font to your application.
-    # Use with the CupertinoIcons class for iOS style icons.
-    cupertino_icons: ^0.1.2
-    flushbar: ^1.10.2
+    firebase_remote_config: ^0.3.0+3
+    firebase_storage: ^3.1.5
+    flushbar: 1.9.1
 
 dev_dependencies:
     flutter_test:
