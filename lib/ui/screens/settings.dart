@@ -9,20 +9,21 @@ class Settings extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
+          /// This is all the settings before deactivating
 
-          /*1*/CustomExpansionPanelList(),
+          CustomExpansionPanelList(),
 
+          /// This is the deactivating button
 
-          /*2*/Container(
-            decoration: BoxDecoration(
-              color: Colors.grey[700]
-            ),
+          Container(
+            decoration: BoxDecoration(color: Colors.grey[700]),
             child: ListTile(
               title: Text('Deactivate Account'),
-              onTap: () {  /* a function that deactivates the users account */  },         
+
+              /// This is the function for `Deactivating User Account`
+
+              onTap: () {},
             ),
-
-
           )
         ],
       ),
@@ -30,7 +31,7 @@ class Settings extends StatelessWidget {
   }
 }
 
-
+/// This Class was built to store the `ExpansionPanel Data` within it
 
 class Item {
   Item({
@@ -44,7 +45,11 @@ class Item {
   bool isExpanded;
 }
 
+/// This is a `List of ExpansionPanels` wrapped in `Item` class which stores the data of the panels
+
 List<Item> items = [
+  /// This is for changing `UserName`
+
   Item(
     headerValue: ListTile(
       title: Text("Username"),
@@ -54,16 +59,18 @@ List<Item> items = [
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-           TextField(
-             decoration: InputDecoration(
-               labelText: "Edit your username"
-             ),
-           ),
-          Buttons()
+          TextField(
+            decoration: InputDecoration(
+              labelText: "Edit your username",
+            ),
+          ),
+          Buttons(),
         ],
       ),
     ),
   ),
+
+  /// This is for changing `Email`
 
   Item(
     headerValue: ListTile(
@@ -71,43 +78,47 @@ List<Item> items = [
     ),
     bodyValue: Padding(
       padding: EdgeInsets.all(20),
-      child:Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
           TextField(
             decoration: InputDecoration(
-               labelText: "Edit your E-mail"
-             ),
+              labelText: "Edit your E-mail",
+            ),
             keyboardType: TextInputType.emailAddress,
           ),
-       Buttons()
-      ],
+          Buttons(),
+        ],
+      ),
     ),
   ),
-),
-  
-       Item(
+
+  /// This is for changing `Password`
+
+  Item(
     headerValue: ListTile(
       title: Text("Password"),
     ),
     bodyValue: Padding(
       padding: EdgeInsets.all(20),
-      child:Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
           TextField(
             decoration: InputDecoration(
-               labelText: "Edit your password"
-             ),
+              labelText: "Edit your password",
+            ),
             keyboardType: TextInputType.visiblePassword,
           ),
-         Buttons()
-      ],
+          Buttons(),
+        ],
+      ),
     ),
   ),
-), 
 
-    Item(
+  /// This is for changing `Phone`
+
+  Item(
     headerValue: ListTile(
       title: Text("Phone"),
     ),
@@ -116,14 +127,12 @@ List<Item> items = [
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-            TextField(
+          TextField(
             decoration: InputDecoration(
-               labelText: "Edit your phone number"
-             ),
+              labelText: "Edit your phone number",
+            ),
           ),
-
-            Buttons()    
-          
+          Buttons(),
         ],
       ),
     ),
@@ -151,20 +160,20 @@ class _CustomExpansionPanelListState extends State<CustomExpansionPanelList> {
           },
         );
       },
-      children: items.map<ExpansionPanel>((Item item) {
-        return ExpansionPanel(
-          headerBuilder: (BuildContext context, bool isExpanded) {
-            return item.headerValue;
-          },
-          body: item.bodyValue,
-          isExpanded: item.isExpanded,
-        );
-      }).toList(),
+      children: items.map<ExpansionPanel>(
+        (Item item) {
+          return ExpansionPanel(
+            headerBuilder: (BuildContext context, bool isExpanded) {
+              return item.headerValue;
+            },
+            body: item.bodyValue,
+            isExpanded: item.isExpanded,
+          );
+        },
+      ).toList(),
     );
   }
 }
-
-
 
 ///this is a class with a column of buttons and i made it because it is repeated 4 times
 
@@ -174,19 +183,14 @@ class Buttons extends StatelessWidget {
     return ButtonBar(
       children: <Widget>[
         FlatButton(
-                 onPressed: (){ /* a function that saves all the changes occured*/ },
-                 child: Text(
-                   "save"
-                 )
-              ),
-
-              FlatButton(
-                child: Text("cancel"),
-                onPressed:(){ /*a function that cancel all the changes occured*/ }
+          onPressed: () {/* a function that saves all the changes occured*/},
+          child: Text("save"),
+        ),
+        FlatButton(
+          child: Text("cancel"),
+          onPressed: () {/*a function that cancel all the changes occured*/},
         )
       ],
     );
   }
 }
-
-
