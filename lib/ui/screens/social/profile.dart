@@ -10,10 +10,10 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ListView(
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
-      itemBuilder: (context, index){
+      children: <Widget>[
         /// the Wraper that holds the profile name, bio and picture
          Wrap(
             children: <Widget>[
@@ -41,16 +41,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 ]
               )
             ]
-         );
-         /// this is the container that holds the book hightlights list view
-         Container(
-           height: 250,
-           child: BookHighlightsList(),
-       );
-      }
-    );
+          ),
+        ]
+      );
+    }
   }
-}
 
 /////Profile picture class
 
@@ -91,7 +86,7 @@ class _ProfileNameState extends State<ProfileName> {
     return Padding(
      padding:EdgeInsets.all(5),
      child:AutoSizeText(
-     "${widget.profile_name}",
+     "${widget.profile_name}", /// get the value of the string stored inside the profile_name variable
       maxLines: 1,
       overflow: TextOverflow.ellipsis ,
       style: TextStyle(
@@ -119,15 +114,46 @@ class _ProfileBioState extends State<ProfileBio> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5), 
       child: Text(
-      '${widget.profile_bio}',
+      '${widget.profile_bio}', 
      )
     );
   }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ///book highlights List View
 
-class BookHighlightsList extends StatefulWidget {
+/*class BookHighlightsList extends StatefulWidget {
   @override
   _BookHighlightsListState createState() => _BookHighlightsListState();
 }
@@ -139,15 +165,16 @@ class _BookHighlightsListState extends State<BookHighlightsList> {
       width: MediaQuery.of(context).size.width * 1,
       height: 250,
       child: ListView.builder(
+        itemCount: 3,////the item count should equal the number of the book reviews and highlights in the user's database 
         scrollDirection: Axis.horizontal,
-        addAutomaticKeepAlives: false,
+        addAutomaticKeepAlives: true,
         reverse: true,
         shrinkWrap: true,
         itemBuilder: (context, index){
           ///these are the card children of the ListView
           ///The user should be able to add cards to this ListView 
           ///These Cards represents some book reviews 
-          Card(
+          return Card(
               child: Container(
                   height: 250,
                   width: 150,
@@ -178,4 +205,4 @@ class _BookHighlightsListState extends State<BookHighlightsList> {
       ),
     );
   }
-}
+}*/
