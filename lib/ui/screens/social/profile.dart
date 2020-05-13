@@ -42,7 +42,6 @@ class _ProfilePageState extends State<ProfilePage> {
               )
             ]
           ),
-          Container(child: BookHighlightsList(),height: 250,)
         ]
       );
     }
@@ -87,7 +86,7 @@ class _ProfileNameState extends State<ProfileName> {
     return Padding(
      padding:EdgeInsets.all(5),
      child:AutoSizeText(
-     "${widget.profile_name}",
+     "${widget.profile_name}", /// get the value of the string stored inside the profile_name variable
       maxLines: 1,
       overflow: TextOverflow.ellipsis ,
       style: TextStyle(
@@ -115,15 +114,46 @@ class _ProfileBioState extends State<ProfileBio> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5), 
       child: Text(
-      '${widget.profile_bio}',
+      '${widget.profile_bio}', 
      )
     );
   }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ///book highlights List View
 
-class BookHighlightsList extends StatefulWidget {
+/*class BookHighlightsList extends StatefulWidget {
   @override
   _BookHighlightsListState createState() => _BookHighlightsListState();
 }
@@ -175,4 +205,4 @@ class _BookHighlightsListState extends State<BookHighlightsList> {
       ),
     );
   }
-}
+}*/
