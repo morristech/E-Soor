@@ -8,9 +8,11 @@ class Constants extends InheritedWidget {
 
   static final ThemeData kDarkTheme = ThemeData.dark().copyWith(
     accentColor: Colors.blue[800],
+    dividerColor: Colors.white,
   );
   static final ThemeData kLightTheme = ThemeData.light().copyWith(
     primaryColor: Colors.deepOrange[600],
+    dividerColor: Colors.black,
   );
 
   @override

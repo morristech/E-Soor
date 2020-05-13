@@ -10,10 +10,10 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ListView(
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
-      itemBuilder: (context, index){
+      children: <Widget>[
         /// the Wraper that holds the profile name, bio and picture
          Wrap(
             children: <Widget>[
@@ -41,16 +41,12 @@ class _ProfilePageState extends State<ProfilePage> {
                 ]
               )
             ]
-         );
-         /// this is the container that holds the book hightlights list view
-         Container(
-           height: 250,
-           child: BookHighlightsList(),
-       );
-      }
-    );
+          ),
+          Container(child: BookHighlightsList(),height: 250,)
+        ]
+      );
+    }
   }
-}
 
 /////Profile picture class
 
@@ -139,15 +135,16 @@ class _BookHighlightsListState extends State<BookHighlightsList> {
       width: MediaQuery.of(context).size.width * 1,
       height: 250,
       child: ListView.builder(
+        itemCount: 3,////the item count should equal the number of the book reviews and highlights in the user's database 
         scrollDirection: Axis.horizontal,
-        addAutomaticKeepAlives: false,
+        addAutomaticKeepAlives: true,
         reverse: true,
         shrinkWrap: true,
         itemBuilder: (context, index){
           ///these are the card children of the ListView
           ///The user should be able to add cards to this ListView 
           ///These Cards represents some book reviews 
-          Card(
+          return Card(
               child: Container(
                   height: 250,
                   width: 150,

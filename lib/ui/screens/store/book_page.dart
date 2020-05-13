@@ -1,3 +1,4 @@
+import 'package:E_Soor/ui/screens/store/authorPage.dart';
 import 'package:E_Soor/ui/widgets/AppSearch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -75,7 +76,14 @@ class _BookState extends State<BookPage> {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AuthorPage(),
+                              ),
+                            );
+                          },
                         ),
                         RatingBarIndicator(
                           rating: 2.6,

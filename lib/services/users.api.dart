@@ -9,26 +9,23 @@ class User {
   final String userBio;
   final String userName;
   final String userEmailAddress;
-  final String userPassword;
   final String userProfilePicture;
 
   User({
-    this.userID = "Firebase ID",
+    this.userID,
     @required this.userEmailAddress,
-    @required this.userPassword,
-    this.userName = "null",
-    this.userBio = "null",
-    this.userProfilePicture = "null",
+    this.userName,
+    this.userBio,
+    this.userProfilePicture,
   });
 
   // formatting for upload to Firbase when creating the new User
-  Map<String, dynamic> userToJson() => {
+  Map<String, dynamic> toJson() => {
         'ID': userID,
         'Bio': userBio,
         'userName': userName,
         'E-mail': userEmailAddress,
         'profile picture': userProfilePicture,
-        'password': userPassword,
       };
 
   // creating a User object from a firebase snapshot
@@ -37,7 +34,6 @@ class User {
         userBio = snapshot['Bio'],
         userName = snapshot['userName'],
         userEmailAddress = snapshot['E-mail'],
-        userPassword = snapshot['password'],
         userProfilePicture = snapshot['profile picture'];
 }
 
