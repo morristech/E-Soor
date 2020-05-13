@@ -54,12 +54,12 @@ List<Item> items = [
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-           TextField(),
-           ButtonBar(
-             children: <Widget>[
-               Buttons()
-            ]
-          )
+           TextField(
+             decoration: InputDecoration(
+               labelText: "Edit your username"
+             ),
+           ),
+          Buttons()
         ],
       ),
     ),
@@ -75,13 +75,12 @@ List<Item> items = [
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
           TextField(
+            decoration: InputDecoration(
+               labelText: "Edit your E-mail"
+             ),
             keyboardType: TextInputType.emailAddress,
           ),
-          ButtonBar(
-            children: <Widget>[
-              Buttons()
-          ],
-        )
+       Buttons()
       ],
     ),
   ),
@@ -97,13 +96,12 @@ List<Item> items = [
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
           TextField(
+            decoration: InputDecoration(
+               labelText: "Edit your password"
+             ),
             keyboardType: TextInputType.visiblePassword,
           ),
-          ButtonBar(
-             children:<Widget>[
-               Buttons()
-          ]
-        )
+         Buttons()
       ],
     ),
   ),
@@ -119,13 +117,13 @@ List<Item> items = [
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
             TextField(
-              keyboardType: TextInputType.number
-            ),
-            ButtonBar(
-              children: <Widget>[
+            decoration: InputDecoration(
+               labelText: "Edit your phone number"
+             ),
+          ),
+
             Buttons()    
-            ],
-          )
+          
         ],
       ),
     ),
@@ -173,19 +171,22 @@ class _CustomExpansionPanelListState extends State<CustomExpansionPanelList> {
 class Buttons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ButtonBar(
       children: <Widget>[
         FlatButton(
                  onPressed: (){ /* a function that saves all the changes occured*/ },
                  child: Text(
                    "save"
                  )
-              ), 
+              ),
+
               FlatButton(
                 child: Text("cancel"),
                 onPressed:(){ /*a function that cancel all the changes occured*/ }
-              )
+        )
       ],
     );
   }
 }
+
+
