@@ -38,7 +38,7 @@ dependencies:
     #local database
     shared_preferences: ^0.5.7
     #backend
-    url_launcher: ^5.4.5
+    url_launcher: 5.4.5
     google_sign_in:
     firebase_auth:
     firebase_messaging:
@@ -47,8 +47,9 @@ dependencies:
     login:
     http:
     cloud_firestore:
-    firebase_remote_config: ^0.3.0+3
-    firebase_storage: ^3.1.5
+    firebase_remote_config: 0.3.0+3
+    firebase_storage: 3.1.5
+    firebase_core: 0.4.0
 
 dev_dependencies:
     flutter_test:
