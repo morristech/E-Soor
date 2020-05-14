@@ -4,6 +4,7 @@ import 'package:E_Soor/services/signIn.validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:provider/provider.dart';
+import 'package:response/response.dart';
 
 class LoginPage extends StatelessWidget {
   Duration get loginTime => Duration(milliseconds: 1800);
@@ -12,7 +13,10 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _firebaseAuthService = Provider.of<FirebaseAuthService>(context);
-    return FlutterLogin(
+    return Response(
+      originalScreenHeight: MediaQuery.of(context).size.height*1,
+      originalScreenWidth: MediaQuery.of(context).size.width*1,
+      child:FlutterLogin(
       logo: 'allAssets/images/logo.png',
       onLogin: _firebaseAuthService.loginUser,
       onSignup: _firebaseAuthService.registerNewUser,
@@ -49,8 +53,9 @@ class LoginPage extends StatelessWidget {
             borderRadius: BorderRadius.circular(100),
           ),
           labelStyle: TextStyle(color: Colors.white),
+          ),
         ),
-      ),
+      )
     );
   }
 }

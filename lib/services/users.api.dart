@@ -5,36 +5,44 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class User {
-  final String userID;
-  final String userBio;
-  final String userName;
-  final String userEmailAddress;
-  final String userProfilePicture;
+  final String uid;
+  final String bioStatus;
+  final String displayName;
+  final String emailAddress;
+  final String profilePicUrl;
+  final DateTime creationTime;
+  final DateTime lastInfoUpdate;
 
   User({
-    this.userID,
-    @required this.userEmailAddress,
-    this.userName,
-    this.userBio,
-    this.userProfilePicture,
+    this.creationTime,
+    this.uid,
+    this.emailAddress,
+    this.displayName,
+    this.bioStatus,
+    this.profilePicUrl,
+    this.lastInfoUpdate,
   });
 
   // formatting for upload to Firbase when creating the new User
   Map<String, dynamic> toJson() => {
-        'ID': userID,
-        'Bio': userBio,
-        'userName': userName,
-        'E-mail': userEmailAddress,
-        'profile picture': userProfilePicture,
+        'uid': uid,
+        'displayName': displayName,
+        'emailAddress': emailAddress,
+        'creationTime': creationTime,
+        'profilePicUrl': profilePicUrl,
+        'bioStatus': bioStatus,
+        'lastInfoUpdate': lastInfoUpdate,
       };
 
   // creating a User object from a firebase snapshot
   User.fromSnapshot(DocumentSnapshot snapshot)
-      : userID = snapshot['ID'],
-        userBio = snapshot['Bio'],
-        userName = snapshot['userName'],
-        userEmailAddress = snapshot['E-mail'],
-        userProfilePicture = snapshot['profile picture'];
+      : uid = snapshot['uid'],
+        bioStatus = snapshot['bioStatus'],
+        displayName = snapshot['displayName'],
+        emailAddress = snapshot['emailAddress'],
+        creationTime = snapshot['creationTime'],
+        lastInfoUpdate = snapshot['lastInfoUpdate'],
+        profilePicUrl = snapshot['profilePicUrl'];
 }
 
 // getUsers() async {

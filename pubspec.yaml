@@ -28,6 +28,7 @@ dependencies:
     material_design_icons_flutter: ^4.0.5145
     flutter_login: ^1.0.14
     sliding_up_panel: ^1.0.0
+    response: ^0.0.1+4
     flutter_reactive_button: ^1.1.0
     audioplayers: ^0.15.0
     bottomreveal: ^1.0.0
@@ -35,20 +36,20 @@ dependencies:
     circular_profile_avatar:
     cupertino_icons: ^0.1.2
     flushbar: 1.10.2
+    cached_network_image:
+    flutter_rating_bar:
+    login:
     #local database
     shared_preferences: ^0.5.7
     #backend
-    url_launcher: ^5.4.5
+    url_launcher: 5.4.5
     flutter_facebook_login: ^3.0.0
     google_sign_in:
     firebase_auth:
     firebase_messaging:
-    cached_network_image:
-    flutter_rating_bar:
-    login:
     http:
     cloud_firestore:
-    #firebase_remote_config: ^0.3.0+3
+    firebase_remote_config: ^0.3.0+3
     firebase_storage: ^3.1.5
 
 dev_dependencies:
