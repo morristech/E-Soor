@@ -32,19 +32,12 @@ class _SettingsState extends State<Settings> {
               color: Colors.grey[700],
             ),
             child: ListTile(
-              title: Text("Language"),
+              title: Text('Deactivate Account'),
               onTap: () {
-                /// calling the CLASS that displays the `BottomSheet` to choose the language settings.
-                showModalBottomSheet(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return BottomSheet(
-                        selectedRadio: _selectedRadio,
-                        valueChanged: (val) {
-                          _selectedRadio = val;
-                        },
-                      );
-                    });
+                /// call the function which displays the `Alert Dialog` to make sure that
+                /// the user wants to deactivate account
+                ///
+                alertDialog(context);
               },
             ),
           ),
@@ -52,16 +45,20 @@ class _SettingsState extends State<Settings> {
           /// Deactivate account
           /*3*/ Container(
             decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: Colors.white,
-                    width: 1,
-                  ),
+              border: Border(
+                bottom: BorderSide(
+                  color: Colors.white,
+                  width: 1,
                 ),
-                color: Colors.grey[700],),
+              ),
+              color: Colors.grey[700],
+            ),
             child: ListTile(
               title: Text('Deactivate Account'),
-              onTap: () {/* a function that deactivates the users account */},
+
+              /// A function that deactivates the users account
+
+              onTap: () {},
             ),
           ),
         ],
@@ -217,17 +214,24 @@ class _CustomExpansionPanelListState extends State<CustomExpansionPanelList> {
 /// This is a class with a `ButtonBar` and I made it because it is repeated 4 times
 
 class Buttons extends StatelessWidget {
+  /// This is the function that saves the changes and can be accessed when calling the class
+  Buttons({this.saveChanges});
+  final VoidCallback saveChanges;
   @override
   Widget build(BuildContext context) {
     return ButtonBar(
       alignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         FlatButton(
-            onPressed: () {/* a function that saves all the changes occured*/},
-            child: Text("save")),
+          onPressed: () => saveChanges(),
+          child: Text("save"),
+        ),
         FlatButton(
-            child: Text("cancel"),
-            onPressed: () {/*a function that cancel all the changes occured*/})
+          child: Text("cancel"),
+          onPressed: () {
+            Item(isExpanded: false);
+          },
+        ),
       ],
     );
   }
@@ -289,4 +293,48 @@ class _BottomSheetState extends State<BottomSheet> {
       ),
     );
   }
+}
+
+/// An `Alert Dialog` that warns user before Deactivating the account
+void alertDialog(BuildContext context) {
+  var alertDialog = AlertDialog(
+    title: Text(
+      'Deactivating Account',
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+    content: Text(
+      'Are you sure that you want to deactivate your account?',
+    ),
+    actions: [
+      FlatButton(
+        child: Text(
+          'Yes',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        onPressed: () {
+          /// `Write a function that deactivates the user account`
+        },
+      ),
+      FlatButton(
+        child: Text(
+          'No',
+          style: TextStyle(),
+        ),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+    ],
+  );
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alertDialog;
+    },
+  );
 }

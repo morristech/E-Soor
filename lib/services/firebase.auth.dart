@@ -13,7 +13,7 @@ class FirebaseAuthService {
   String _userPassword;
   String _userEmailAddress;
 
-  //* check weather the user has loggeed in or
+  //* check weather the user has loggeed in or not
   //!needs passing to widgets improvment
   Future<bool> isUserAllradyLoggedIn() async =>
       await _firebaseAuth.currentUser() != null ? true : false;
@@ -44,6 +44,7 @@ class FirebaseAuthService {
         email: _userEmailAddress,
         password: _userPassword,
       );
+      await _createUserData(userEmail: _userEmailAddress);
       _isUserLoggedin = true;
       //* if Everything went will return `null`
       return null;
@@ -56,7 +57,6 @@ class FirebaseAuthService {
           case "ERROR_EMAIL_ALREADY_IN_USE":
             return FirebaseUserErrors.registeredEmailIsAlreadyInUse;
             break;
-          //! Will be implemented seperetly
           case "ERROR_WEAK_PASSWORD":
             return signUpError.message;
             break;
@@ -134,20 +134,20 @@ class FirebaseAuthService {
     }
   }
 
-  //! WILL BE Implemented Later
   //* Adding user initail/Important data to the `about` section on Firebase
-  Future<void> uploadUserInitialData(
-      String userEmail, String userPassword) async {
+  Future<void> _createUserData({String userEmail}) async {
+    DateTime creationTime = DateTime.now();
     try {
       String userID = (await _firebaseAuth.currentUser()).uid;
       await _firestore
-          .collection('userData')
-          .document(userID)
-          .collection('about')
-          .add(
+          .collection("usersData/$userID/about")
+          .document("user info")
+          .setData(
             User(
-              userEmailAddress: userEmail,
-              userID: userID,
+              emailAddress: userEmail,
+              uid: userID,
+              creationTime: creationTime,
+              lastInfoUpdate: creationTime,
             ).toJson(),
           );
     } catch (uploadUserInitialDataError) {
