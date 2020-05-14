@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
-class Settings extends StatelessWidget {
+class Settings extends StatefulWidget {
+  @override
+  _SettingsState createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
+  int _selectedRadio;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,12 +51,21 @@ class Settings extends StatelessWidget {
             child: ListTile(
               title: Text("Language"),
               onTap: () {
-                /// calling the function to display the bottom sheet to choose the language settings.
-                 bottomSheet(context); 
+                /// calling the CLASS that displays the `BottomSheet` to choose the language settings.
+                 showModalBottomSheet(
+                   context: context, 
+                   builder: (BuildContext context){
+                  return BottomSheet(
+                   selectedRadio: _selectedRadio,
+                    valueChanged: (val){
+                    _selectedRadio = val;
+                     },
+                    );
+                  }
+                ); 
               },         
             ),
           )
-
         ],
       ),
     );
@@ -201,7 +216,7 @@ class _CustomExpansionPanelListState extends State<CustomExpansionPanelList> {
   }
 }
 
-///this is a class with a column of buttons and i made it because it is repeated 4 times
+///this is a class with a `Column of 2 buttons` and I made it because it is repeated 4 times
 
 class Buttons extends StatelessWidget {
   @override
@@ -224,64 +239,55 @@ class Buttons extends StatelessWidget {
 }
 
 
-/// A function that displays a bottom sheet and that has 2 radio buttons to choose the prefered language 
- void bottomSheet(BuildContext context){
-  showModalBottomSheet(
-    context: context,
-    builder: (BuildContext context){
-        return Container(
-          height: 120,
-          child: RadioButtons()
-      );
-    }
-  );
-}
-
-
-///A class that groups some radio buttons
-class RadioButtons extends StatefulWidget {
+/// A class that displays a `bottomSheet` that has the 2 `radioButtons` to choose the prefered language 
+class BottomSheet extends StatefulWidget {
+   BottomSheet({@required this.selectedRadio, @required this.valueChanged});
+  final int selectedRadio;
+  final ValueChanged valueChanged;
   @override
-  _RadioButtonsState createState() => _RadioButtonsState();
+  _BottomSheetState createState() => _BottomSheetState();
 }
 
-class _RadioButtonsState extends State<RadioButtons> {
-  int selectedRadio;
+class _BottomSheetState extends State<BottomSheet> {
+  int _selectedRadio;
   @override
   void initState() {
-    ///setting the intial value of the selectedRadio to zero
-    selectedRadio = 0; 
+    _selectedRadio = widget.selectedRadio;
     super.initState();
-  }
-
-  setSelectedRadio(int value){
-    setState(() {
-      selectedRadio = value;
-    });
   }
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        RadioListTile(
-          value: 1,
-          groupValue:selectedRadio,
-          title: Text("English"), 
-          onChanged: (val){
-            setSelectedRadio(val);
-           
-          },
-        ), 
-        RadioListTile(
-          title: Text("العربيه"),
-          value: 2,
-          groupValue: selectedRadio,
-          onChanged: (val2){
-            setSelectedRadio(val2);
-           
-          },
-        )
-      ],
+    return Container(
+      height: 150,
+      child: Column(
+        children: <Widget>[
+          RadioListTile(
+            value: 1, 
+            groupValue:_selectedRadio,
+            title: Text("English"),
+            onChanged: (int val){
+              setState(() {
+                _selectedRadio = val;
+                widget.valueChanged(val);
+              });
+            },
+          ),
+
+          RadioListTile(
+            value: 2, 
+            groupValue:_selectedRadio,
+            title: Text("العربيه"),
+            onChanged: (int val){
+              setState(() {
+                _selectedRadio = val;
+                widget.valueChanged(val);
+              });
+            },
+          )
+        ],
+      )
     );
   }
 }
+
 
