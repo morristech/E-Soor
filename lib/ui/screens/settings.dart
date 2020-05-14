@@ -11,20 +11,43 @@ class Settings extends StatelessWidget {
         children: <Widget>[
           /// This is all the settings before deactivating
 
-          CustomExpansionPanelList(),
+          ///settings expansion panel list
+          /*1*/ CustomExpansionPanelList(),
 
-          /// This is the deactivating button
-
-          Container(
-            decoration: BoxDecoration(color: Colors.grey[700]),
+          ///deactivate account
+          /*2*/ Container(
+            decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.white,
+                    width: 1,
+                  ),
+                ),
+                color: Colors.grey[700]),
             child: ListTile(
               title: Text('Deactivate Account'),
-
-              /// This is the function for `Deactivating User Account`
-
-              onTap: () {},
+              onTap: () {/* a function that deactivates the users account */},
             ),
           ),
+
+          /// change the language
+          /*3*/ Container(
+            decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.white,
+                    width: 1,
+                  ),
+                ),
+                color: Colors.grey[700]),
+            child: ListTile(
+              title: Text("Language"),
+              onTap: () {
+                /// calling the function to display the bottom sheet to choose the language settings.
+                bottomSheet(context);
+              },
+            ),
+          )
         ],
       ),
     );
@@ -184,16 +207,65 @@ class Buttons extends StatelessWidget {
       alignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         FlatButton(
-          /// This is a function that saves all the changes occured
-
-          onPressed: () {},
-          child: Text("Save"),
-        ),
+            onPressed: () {/* a function that saves all the changes occured*/},
+            child: Text("save")),
         FlatButton(
-          /// This is a function that cancel all the changes occured
+            child: Text("cancel"),
+            onPressed: () {/*a function that cancel all the changes occured*/})
+      ],
+    );
+  }
+}
 
-          onPressed: () {},
-          child: Text("Cancel"),
+/// A function that displays a bottom sheet and that has 2 radio buttons to choose the prefered language
+void bottomSheet(BuildContext context) {
+  showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(height: 120, child: RadioButtons());
+      });
+}
+
+///A class that groups some radio buttons
+class RadioButtons extends StatefulWidget {
+  @override
+  _RadioButtonsState createState() => _RadioButtonsState();
+}
+
+class _RadioButtonsState extends State<RadioButtons> {
+  int selectedRadio;
+  @override
+  void initState() {
+    ///setting the intial value of the selectedRadio to zero
+    selectedRadio = 0;
+    super.initState();
+  }
+
+  setSelectedRadio(int value) {
+    setState(() {
+      selectedRadio = value;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        RadioListTile(
+          value: 1,
+          groupValue: selectedRadio,
+          title: Text("English"),
+          onChanged: (val) {
+            setSelectedRadio(val);
+          },
+        ),
+        RadioListTile(
+          title: Text("العربيه"),
+          value: 2,
+          groupValue: selectedRadio,
+          onChanged: (val2) {
+            setSelectedRadio(val2);
+          },
         )
       ],
     );
