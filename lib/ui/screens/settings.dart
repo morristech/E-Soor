@@ -20,23 +20,36 @@ class _SettingsState extends State<Settings> {
           ///settings expansion panel list
           /*1*/ CustomExpansionPanelList(),
 
-          ///deactivate account
+          /// change the language
           /*2*/ Container(
             decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: Colors.white,
-                    width: 1,
-                  ),
+              border: Border(
+                bottom: BorderSide(
+                  color: Colors.white,
+                  width: 1,
                 ),
-                color: Colors.grey[700]),
+              ),
+              color: Colors.grey[700],
+            ),
             child: ListTile(
-              title: Text('Deactivate Account'),
-              onTap: () {/* a function that deactivates the users account */},
+              title: Text("Language"),
+              onTap: () {
+                /// calling the CLASS that displays the `BottomSheet` to choose the language settings.
+                showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return BottomSheet(
+                        selectedRadio: _selectedRadio,
+                        valueChanged: (val) {
+                          _selectedRadio = val;
+                        },
+                      );
+                    });
+              },
             ),
           ),
 
-          /// change the language
+          /// Deactivate account
           /*3*/ Container(
             decoration: BoxDecoration(
                 border: Border(
@@ -45,25 +58,12 @@ class _SettingsState extends State<Settings> {
                     width: 1,
                   ),
                 ),
-                color: Colors.grey[700]),
+                color: Colors.grey[700],),
             child: ListTile(
-              title: Text("Language"),
-              onTap: () {
-                /// calling the CLASS that displays the `BottomSheet` to choose the language settings.
-                 showModalBottomSheet(
-                   context: context, 
-                   builder: (BuildContext context){
-                  return BottomSheet(
-                   selectedRadio: _selectedRadio,
-                    valueChanged: (val){
-                    _selectedRadio = val;
-                     },
-                    );
-                  }
-                ); 
-              },         
+              title: Text('Deactivate Account'),
+              onTap: () {/* a function that deactivates the users account */},
             ),
-          )
+          ),
         ],
       ),
     );
@@ -214,7 +214,7 @@ class _CustomExpansionPanelListState extends State<CustomExpansionPanelList> {
   }
 }
 
-///this is a class with a `Column of 2 buttons` and I made it because it is repeated 4 times
+/// This is a class with a `ButtonBar` and I made it because it is repeated 4 times
 
 class Buttons extends StatelessWidget {
   @override
@@ -233,10 +233,13 @@ class Buttons extends StatelessWidget {
   }
 }
 
-
-/// A class that displays a `bottomSheet` that has the 2 `radioButtons` to choose the prefered language 
+/// A class that displays a `bottomSheet` that has the `2 radioButtons` to choose the prefered language
+///
 class BottomSheet extends StatefulWidget {
-   BottomSheet({@required this.selectedRadio, @required this.valueChanged});
+  BottomSheet({
+    @required this.selectedRadio,
+    @required this.valueChanged,
+  });
   final int selectedRadio;
   final ValueChanged valueChanged;
   @override
@@ -250,39 +253,40 @@ class _BottomSheetState extends State<BottomSheet> {
     _selectedRadio = widget.selectedRadio;
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
+      ),
+      height: 200,
       child: Column(
         children: <Widget>[
           RadioListTile(
-            value: 1, 
-            groupValue:_selectedRadio,
+            value: 1,
+            groupValue: _selectedRadio,
             title: Text("English"),
-            onChanged: (int val){
+            onChanged: (int val) {
               setState(() {
                 _selectedRadio = val;
                 widget.valueChanged(val);
               });
             },
           ),
-
           RadioListTile(
-            value: 2, 
-            groupValue:_selectedRadio,
-            title: Text("العربيه"),
-            onChanged: (int val){
+            value: 2,
+            groupValue: _selectedRadio,
+            title: Text("العربية"),
+            onChanged: (int val) {
               setState(() {
                 _selectedRadio = val;
                 widget.valueChanged(val);
               });
             },
-          )
+          ),
         ],
-      )
+      ),
     );
   }
 }
-
-
