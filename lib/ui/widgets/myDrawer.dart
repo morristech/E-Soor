@@ -84,11 +84,7 @@ class MyDrawer extends StatelessWidget {
                 title: Text("Privacy"),
                 onTap: () {},
               ),
-              ListTile(
-                leading: Icon(Icons.language),
-                title: Text("Language"),
-                onTap: () {},
-              ),
+
               ListTile(
                 leading: Icon(Icons.info),
                 title: Text("About us"),
