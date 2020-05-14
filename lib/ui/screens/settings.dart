@@ -6,6 +6,8 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  _onValueChange() {}
+
   int _selectedRadio;
   @override
   Widget build(BuildContext context) {
@@ -32,12 +34,20 @@ class _SettingsState extends State<Settings> {
               color: Colors.grey[700],
             ),
             child: ListTile(
-              title: Text('Deactivate Account'),
+              title: Text('Change Launguage'),
               onTap: () {
-                /// call the function which displays the `Alert Dialog` to make sure that
-                /// the user wants to deactivate account
-                ///
-                alertDialog(context);
+                /// call the function which displays the `BottomSheet` to let the user
+                /// choice the preferred language
+
+                showBottomSheet(
+                  context: context,
+                  builder: (context) => BottomSheet(
+                    selectedRadio: _selectedRadio,
+                    valueChanged: (val) {
+                      _selectedRadio = val;
+                    },
+                  ),
+                );
               },
             ),
           ),
@@ -55,10 +65,12 @@ class _SettingsState extends State<Settings> {
             ),
             child: ListTile(
               title: Text('Deactivate Account'),
+              onTap: () {
+                /// call the function which displays the `Alert Dialog` to make sure that
+                /// the user wants to deactivate account
 
-              /// A function that deactivates the users account
-
-              onTap: () {},
+                alertDialog(context);
+              },
             ),
           ),
         ],
@@ -296,6 +308,7 @@ class _BottomSheetState extends State<BottomSheet> {
 }
 
 /// An `Alert Dialog` that warns user before Deactivating the account
+
 void alertDialog(BuildContext context) {
   var alertDialog = AlertDialog(
     title: Text(
