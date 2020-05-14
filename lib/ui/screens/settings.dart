@@ -10,20 +10,46 @@ class Settings extends StatelessWidget {
       body: ListView(
         children: <Widget>[
 
+          ///settings expansion panel list 
           /*1*/CustomExpansionPanelList(),
-
-
+ 
+          ///deactivate account
           /*2*/Container(
             decoration: BoxDecoration(
+              border: Border(
+                    bottom: BorderSide(
+                      color: Colors.white,
+                      width: 1,
+                    ),
+                  ),
               color: Colors.grey[700]
             ),
             child: ListTile(
               title: Text('Deactivate Account'),
               onTap: () {  /* a function that deactivates the users account */  },         
             ),
-
-
+          ),
+           
+           /// change the language
+          /*3*/Container(
+            decoration: BoxDecoration(
+              border: Border(
+                    bottom: BorderSide(
+                      color: Colors.white,
+                      width: 1,
+                    ),
+                  ),
+              color: Colors.grey[700]
+            ),
+            child: ListTile(
+              title: Text("Language"),
+              onTap: () {
+                /// calling the function to display the bottom sheet to choose the language settings.
+                 bottomSheet(context); 
+              },         
+            ),
           )
+
         ],
       ),
     );
@@ -179,7 +205,6 @@ class Buttons extends StatelessWidget {
                    "save"
                  )
               ),
-
               FlatButton(
                 child: Text("cancel"),
                 onPressed:(){ /*a function that cancel all the changes occured*/ }
@@ -189,4 +214,65 @@ class Buttons extends StatelessWidget {
   }
 }
 
+
+/// A function that displays a bottom sheet and that has 2 radio buttons to choose the prefered language 
+ void bottomSheet(BuildContext context){
+  showModalBottomSheet(
+    context: context,
+    builder: (BuildContext context){
+        return Container(
+          height: 120,
+          child: RadioButtons()
+      );
+    }
+  );
+}
+
+
+///A class that groups some radio buttons
+class RadioButtons extends StatefulWidget {
+  @override
+  _RadioButtonsState createState() => _RadioButtonsState();
+}
+
+class _RadioButtonsState extends State<RadioButtons> {
+  int selectedRadio;
+  @override
+  void initState() {
+    ///setting the intial value of the selectedRadio to zero
+    selectedRadio = 0; 
+    super.initState();
+  }
+
+  setSelectedRadio(int value){
+    setState(() {
+      selectedRadio = value;
+    });
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        RadioListTile(
+          value: 1,
+          groupValue:selectedRadio,
+          title: Text("English"), 
+          onChanged: (val){
+            setSelectedRadio(val);
+            /*A function that */
+          },
+        ), 
+        RadioListTile(
+          title: Text("العربيه"),
+          value: 2,
+          groupValue: selectedRadio,
+          onChanged: (val2){
+            setSelectedRadio(val2);
+            /*A function that changes the  */
+          },
+        )
+      ],
+    );
+  }
+}
 
