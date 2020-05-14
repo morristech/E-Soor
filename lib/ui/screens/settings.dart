@@ -24,7 +24,7 @@ class Settings extends StatelessWidget {
 
               onTap: () {},
             ),
-          )
+          ),
         ],
       ),
     );
@@ -175,20 +175,25 @@ class _CustomExpansionPanelListState extends State<CustomExpansionPanelList> {
   }
 }
 
-///this is a class with a column of buttons and i made it because it is repeated 4 times
+/// This is a class with a column of buttons and i made it because it is repeated 4 times
 
 class Buttons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ButtonBar(
+      alignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         FlatButton(
-          onPressed: () {/* a function that saves all the changes occured*/},
-          child: Text("save"),
+          /// This is a function that saves all the changes occured
+
+          onPressed: () {},
+          child: Text("Save"),
         ),
         FlatButton(
-          child: Text("cancel"),
-          onPressed: () {/*a function that cancel all the changes occured*/},
+          /// This is a function that cancel all the changes occured
+
+          onPressed: () {},
+          child: Text("Cancel"),
         )
       ],
     );
