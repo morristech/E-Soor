@@ -1,4 +1,4 @@
-import 'package:E_Soor/ui/screens/social/profile.dart';
+/*import 'package:E_Soor/ui/screens/social/profile.dart';
 import 'package:flutter/material.dart';
 
 class EditPage extends StatefulWidget {
@@ -225,4 +225,4 @@ class _EditPageState extends State<EditPage> {
                   ],
                 ))));
   }
-}
+}*/
