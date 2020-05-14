@@ -17,37 +17,35 @@ class _SettingsState extends State<Settings> {
         children: <Widget>[
           /// This is all the settings before deactivating
 
-          ///settings expansion panel list 
-          /*1*/CustomExpansionPanelList(),
- 
+          ///settings expansion panel list
+          /*1*/ CustomExpansionPanelList(),
+
           ///deactivate account
-          /*2*/Container(
+          /*2*/ Container(
             decoration: BoxDecoration(
-              border: Border(
-                    bottom: BorderSide(
-                      color: Colors.white,
-                      width: 1,
-                    ),
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.white,
+                    width: 1,
                   ),
-              color: Colors.grey[700]
-            ),
+                ),
+                color: Colors.grey[700]),
             child: ListTile(
               title: Text('Deactivate Account'),
-              onTap: () {  /* a function that deactivates the users account */  },         
+              onTap: () {/* a function that deactivates the users account */},
             ),
           ),
-           
-           /// change the language
-          /*3*/Container(
+
+          /// change the language
+          /*3*/ Container(
             decoration: BoxDecoration(
-              border: Border(
-                    bottom: BorderSide(
-                      color: Colors.white,
-                      width: 1,
-                    ),
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.white,
+                    width: 1,
                   ),
-              color: Colors.grey[700]
-            ),
+                ),
+                color: Colors.grey[700]),
             child: ListTile(
               title: Text("Language"),
               onTap: () {
@@ -222,17 +220,14 @@ class Buttons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ButtonBar(
+      alignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         FlatButton(
-                 onPressed: (){ /* a function that saves all the changes occured*/ },
-                 child: Text(
-                   "save"
-                 )
-              ),
-              FlatButton(
-                child: Text("cancel"),
-                onPressed:(){ /*a function that cancel all the changes occured*/ }
-        )
+            onPressed: () {/* a function that saves all the changes occured*/},
+            child: Text("save")),
+        FlatButton(
+            child: Text("cancel"),
+            onPressed: () {/*a function that cancel all the changes occured*/})
       ],
     );
   }
