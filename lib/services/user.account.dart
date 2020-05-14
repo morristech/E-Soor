@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -7,21 +8,66 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+enum UpdateType { photoUrl, diplayName, bioStatus }
+
 //! Needs to be tested
 //! --> Don't use <--
 //! Error handling XX
 class UserAccount {
-  FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final Firestore _firestore = Firestore.instance;
+
+  Future<void> _updatePhotoUrl(String profilePicDownloadLink) async {
+    final FirebaseUser currentUser = await _firebaseAuth.currentUser();
+    var userUpdateInfo = UserUpdateInfo();
+    userUpdateInfo.photoUrl = profilePicDownloadLink;
+    await currentUser.updateProfile(userUpdateInfo);
+    await currentUser.reload();
+  }
+
+  //* we are using every spacific argumant to its use case
+  Future<void> _updateFirestoreUserData(
+      {UpdateType updateType, FirebaseUser user, String customUpdate}) async {
+    try {
+      final String userID = (await _firebaseAuth.currentUser()).uid;
+      final DateTime infoUpdateTime = DateTime.now();
+      final DocumentReference ref = _firestore
+          .collection("usersData/$userID/about")
+          .document("user info");
+      switch (updateType) {
+        case UpdateType.diplayName:
+          await ref.updateData(<String, dynamic>{
+            'displayName': user.displayName,
+            'lastInfoUpdate': infoUpdateTime,
+          });
+          return;
+        case UpdateType.photoUrl:
+          await ref.updateData(<String, dynamic>{
+            'profilePicUrl': user.photoUrl,
+            'lastInfoUpdate': infoUpdateTime,
+          });
+          return;
+        case UpdateType.bioStatus:
+          await ref.updateData(<String, dynamic>{
+            'bioStatus': customUpdate,
+            'lastInfoUpdate': infoUpdateTime,
+          });
+          return;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   //! weak error handling --> needs to be improved
   Future<void> uploadUserProfilePic(File imageFile) async {
     try {
       final DateTime profileImageCreationTime = DateTime.now();
+      final FirebaseUser currentUser = await _firebaseAuth.currentUser();
       final String currentUserID = (await _firebaseAuth.currentUser()).uid;
       StorageReference ref = FirebaseStorage.instance
           .ref()
-          .child("users_profile_pictures")
-          .child("$currentUserID-profilePic.jpg");
+          .child("users_profile_pictures/$currentUserID-profilePic.jpg");
       StorageUploadTask uploadTask = ref.putFile(
           imageFile,
           StorageMetadata(
@@ -32,19 +78,20 @@ class UserAccount {
       String profilePicDownloadLink =
           (await (await uploadTask.onComplete).ref.getDownloadURL()).toString();
       try {
-        final FirebaseUser currentUser = await _firebaseAuth.currentUser();
-        var userUpdateInfo = UserUpdateInfo();
-        userUpdateInfo.photoUrl = profilePicDownloadLink;
-        await currentUser.updateProfile(userUpdateInfo);
-        await currentUser.reload();
+        await _updatePhotoUrl(profilePicDownloadLink);
+        await _updateFirestoreUserData(
+            updateType: UpdateType.photoUrl, user: currentUser);
       } catch (updatingUserProfileUrl) {
-        print("updatingUserProfileUrl:" + updatingUserProfileUrl);
+        throw PlatformException(code: 'ERROR_WHILE_UPDATING_USER_INFO');
       }
       // return profilePicDownloadLink;
-    } catch (uploadUserProfilePicError) {
-      print("uploadUserProfilePicError:" + uploadUserProfilePicError);
-      print("retrying...");
-      return uploadUserProfilePic(imageFile);
+    } on PlatformException catch (uploadUserProfilePicError) {
+      throw PlatformException(
+          code: "ERROR_COULDN'T_UPLOAD_PHOTO_FROM_USER_DEVICE",
+          message:
+              'three was an error while taking/uploading user photo from user\'s device gallery',
+          details:
+              "Details --> code: ${uploadUserProfilePicError.code}: message: ${uploadUserProfilePicError.message}");
     }
   }
 
@@ -82,29 +129,56 @@ class UserAccount {
         body: json.encode(payload),
         headers: {'Content-Type': 'application/json'},
       );
-    } catch (httpPostError) {
+    } on PlatformException catch (httpPostError) {
       throw PlatformException(
-          code: httpPostError.code, message: httpPostError.message);
+        code: 'CHANGEING_USER_PASSWORD_FAILED',
+        message: httpPostError.message,
+        details:
+            "Details --> code: ${httpPostError.code}: message: ${httpPostError.message}",
+      );
     }
     await currentUser.reload();
   }
 
   //* Changging userName
-  Future<void> updateUserName(String userName) async {
+  Future<void> updateDisplayName(String userName) async {
     try {
-      FirebaseUser currentUser = await _firebaseAuth.currentUser();
-      var userUpdateInfo = UserUpdateInfo();
+      final FirebaseUser currentUser = await _firebaseAuth.currentUser();
+      final UserUpdateInfo userUpdateInfo = UserUpdateInfo();
       userUpdateInfo.displayName = userName;
       await currentUser.updateProfile(userUpdateInfo);
       await currentUser.reload();
+      await _updateFirestoreUserData(
+          updateType: UpdateType.diplayName, user: currentUser);
     } catch (updateUserDisplayNameError) {
-      throw "updateUserDisplayName: $updateUserDisplayNameError";
+      throw PlatformException(
+        code: 'CHANGING_USER_DISPLAY_NAME_FAILED',
+        message:
+            'check the user collection data (usersData/[user ID]/about/user info)',
+        details:
+            "Details --> code: ${updateUserDisplayNameError.code}: message: ${updateUserDisplayNameError.message}",
+      );
     }
   }
 
-  //* changing bio
+  //* updating bio
+  //? comes only from FirebaseStore
+  Future<void> updateBioStatus(String bioStatus) async {
+    try {
+      await _updateFirestoreUserData(
+          updateType: UpdateType.bioStatus, customUpdate: bioStatus);
+    } catch (updateUserBioStatusError) {
+      throw PlatformException(
+        code: 'CHANGING_USER_BIO_FAILED',
+        message:
+            'check the user collection data (usersData/[user ID]/about/user info)',
+        details:
+            "Details --> code: ${updateUserBioStatusError.code}: message: ${updateUserBioStatusError.message}",
+      );
+    }
+  }
 
-  //! still under developing: DELETING USER INFORMATION FROM FIRESTORE STORAGE
+  //! [DONE]: still under developing: DELETING USER INFORMATION FROM FIRESTORE STORAGE
   //* delete account
   //? Credential operation
   /// Errors:
@@ -121,11 +195,17 @@ class UserAccount {
   ///   • `ERROR_USER_NOT_FOUND` - If the user has been deleted (for example, in the Firebase console)
   Future<void> deleteUser(String email, String password) async {
     try {
-      FirebaseUser user = await _firebaseAuth.currentUser();
+      final FirebaseUser currentUser = await _firebaseAuth.currentUser();
       AuthCredential credentials =
           EmailAuthProvider.getCredential(email: email, password: password);
-      AuthResult result = await user.reauthenticateWithCredential(credentials);
+      AuthResult result =
+          await currentUser.reauthenticateWithCredential(credentials);
       await result.user.delete();
+      //* deleting from firestore
+      await _firestore
+          .collection("usersData")
+          .document(currentUser.uid)
+          .delete();
     } catch (deleteError) {
       throw PlatformException(
           code: deleteError.code, message: deleteError.message);

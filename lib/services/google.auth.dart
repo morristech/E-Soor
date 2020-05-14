@@ -1,12 +1,19 @@
+import 'package:E_Soor/services/users.api.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-//! Error Handling Docs weren't finished, yet
+//! [Solved] Error Handling Docs weren't finished, yet
+//! [solved] saving auth data to firebase store
 
 class GoogleAuthSignIn {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final Firestore _firestore = Firestore.instance;
+  bool _isNewUser;
+
+  bool get isNewUser => _isNewUser;
 
   Future<GoogleSignInAuthentication> _getGoogleSignInAuthAccount(
       GoogleSignInAccount googleSignInAccount) async {
@@ -25,8 +32,9 @@ class GoogleAuthSignIn {
       GoogleSignInAuthentication googleSignInAuth) async {
     try {
       final AuthCredential credential = GoogleAuthProvider.getCredential(
-          accessToken: googleSignInAuth.accessToken,
-          idToken: googleSignInAuth.idToken);
+        accessToken: googleSignInAuth.accessToken,
+        idToken: googleSignInAuth.idToken,
+      );
       final AuthResult authResult =
           await _firebaseAuth.signInWithCredential(credential);
 
@@ -47,10 +55,41 @@ class GoogleAuthSignIn {
           code: 'ERROR_GOOGLE_AUTH_USER_MISMATCH',
           message:
               "Google auth user doesn't match the current logged Firebse user");
+    } else {
+      _createUserData(userEmail: currentUser.email, authResultUser: authResult);
     }
   }
 
-  //! [SOLVED]: can return PlatformException (sign_in_failed) {not in docs}
+  //* Adding user initail/Important data to the `about` section on Firebase
+  Future<void> _createUserData(
+      {String userEmail, AuthResult authResultUser}) async {
+    _isNewUser = authResultUser.additionalUserInfo.isNewUser;
+    if (!authResultUser.additionalUserInfo.isNewUser) {
+      return;
+    }
+    final DateTime creationTime = DateTime.now();
+    try {
+      String userID = (await _firebaseAuth.currentUser()).uid;
+      await _firestore
+          .collection("usersData/$userID/about")
+          .document("user info")
+          .setData(
+            User(
+              uid: userID,
+              emailAddress: userEmail,
+              creationTime: creationTime,
+              lastInfoUpdate: creationTime,
+              displayName: authResultUser.user.displayName,
+            ).toJson(),
+          );
+    } on PlatformException catch (uploadUserInitialDataError) {
+      throw PlatformException(
+          code: 'ERROR_WHILE_SAVING_USER_DATA',
+          message: 'check the user data entered by the user');
+    }
+  }
+
+  //? [SOLVED]: can return PlatformException (sign_in_failed) {not in docs}
   Future<void> signInWithGoogle() async {
     final GoogleSignInAccount googleSignInAccount =
         await _googleSignIn.signIn();
@@ -66,8 +105,8 @@ class GoogleAuthSignIn {
   }
 
   Future<void> signOutGoogleAndFirebase() async {
-    await _googleSignIn.signOut();
     await _firebaseAuth.signOut();
+    await _googleSignIn.signOut();
   }
 
   // Future<void> signOutOnlyGoogle() async {
