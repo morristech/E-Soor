@@ -1,6 +1,5 @@
-import 'package:E_Soor/models/message_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-/*import 'package:firebase_remote_config/firebase_remote_config.dart';*/
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
@@ -51,10 +50,10 @@ class UserAccount {
 
   Future<String> _getAPI_KEY() async {
     try {
-      /*RemoteConfig remoteConfig = await RemoteConfig.instance;
+      RemoteConfig remoteConfig = await RemoteConfig.instance;
       await remoteConfig.fetch(expiration: const Duration(hours: 1));
       await remoteConfig.activateFetched();
-      return remoteConfig.getValue('firebase_api_key').asString();*/
+      return remoteConfig.getValue('firebase_api_key').asString();
     } catch (e) {
       print(e);
     }

@@ -14,9 +14,8 @@ class MySplashScreen extends StatelessWidget {
         photoSize: 200,
         backgroundColor: Color.fromRGBO(35, 35, 35, 100),
         seconds: 2,
-        navigateAfterSeconds: _userAuthProvider.isUserAlreadyLoggedIb
-            ? ProfilePage()
-            : LoginPage(),
+        navigateAfterSeconds:
+            _userAuthProvider.isUserLoggeedIn ? ProfilePage() : LoginPage(),
         image: Image.asset("allAssets/images/logo.png"),
         loaderColor: Colors.white,
         loadingText: Text(

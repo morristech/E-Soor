@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:E_Soor/services/users.api.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
@@ -14,7 +13,12 @@ class FirebaseAuthService {
   String _userPassword;
   String _userEmailAddress;
 
-  bool get isUserAlreadyLoggedIb => _isUserLoggedin;
+  //* check weather the user has loggeed in or
+  //!needs passing to widgets improvment
+  Future<bool> isUserAllradyLoggedIn() async =>
+      await _firebaseAuth.currentUser() != null ? true : false;
+
+  bool get isUserLoggeedIn => _isUserLoggedin;
 
   //* GET CURRENT USER
   Future<FirebaseUser> getCurrentUser() async {
