@@ -336,7 +336,6 @@ void alertDialog(BuildContext context) {
           style: TextStyle(),
         ),
         onPressed: () {
-          Navigator.pop(context);
         },
       ),
     ],

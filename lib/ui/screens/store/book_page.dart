@@ -54,7 +54,12 @@ class _BookState extends State<BookPage> {
           },
           child: ListView(
             shrinkWrap: true,
-            children: <Widget>[BookInfo(), BookFeedBack(), BookRating(),PeopelBookFeedBack()],
+            children: <Widget>[
+              BookInfo(),
+              BookFeedBack(),
+              BookRating(),
+              PeopelBookFeedBack()
+            ],
           )),
     );
   }
@@ -90,21 +95,20 @@ class _BookInfoState extends State<BookInfo> {
                 children: <Widget>[
                   ///This is the `BOOK NAME`
                   AutoSizeText(
-                      "David copper field",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                      maxLines: 2,
-                      maxFontSize: 30,
+                    "David copper field",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
                     ),
-                  
+                    maxLines: 2,
+                    maxFontSize: 30,
+                  ),
+
                   ////This is the `Author Name`
                   AutoSizeText(
-                      "by:-Charles dickens",
-                      maxLines: 2,
-                      maxFontSize: 30,
-                    ),
-                  
+                    "by:-Charles dickens",
+                    maxLines: 2,
+                    maxFontSize: 30,
+                  ),
 
                   ///This is the `Rating of the book`
                   RatingBarIndicator(
@@ -141,7 +145,7 @@ class _BookInfoState extends State<BookInfo> {
           Padding(
             padding: const EdgeInsets.all(10),
             child: Container(
-                width: MediaQuery.of(context).size.width*0.5,
+                width: MediaQuery.of(context).size.width * 0.5,
                 height: 250,
                 decoration: BoxDecoration(color: Colors.green)),
           )
@@ -179,9 +183,7 @@ class _BookRatingState extends State<BookRating> {
                   Icons.star,
                   color: Colors.amber,
                 ),
-                onRatingUpdate: (rating) {
-                  
-                },
+                onRatingUpdate: (rating) {},
               ),
             ),
           ),
@@ -209,7 +211,8 @@ class _BookFeedBackState extends State<BookFeedBack> {
             minLines: 1,
             maxLines: 5,
             decoration: InputDecoration(
-              suffixIcon: IconButton(icon: Icon(Icons.send), onPressed: (){}),
+                suffixIcon:
+                    IconButton(icon: Icon(Icons.send), onPressed: () {}),
                 labelText: "Write your feedback about the book")),
       ),
     );
@@ -229,13 +232,11 @@ class _PeopelBookFeedBackState extends State<PeopelBookFeedBack> {
   }
 }
 
-
 class Item {
   Item({
     this.headerValue,
     this.isExpanded = false,
     this.bodyValue,
-    
   });
 
   Widget headerValue;
@@ -247,19 +248,25 @@ class Item {
 
 List<Item> items = [
   Item(
-    headerValue: ListTile(
-      title: Text("See other's feedbacks"),
+      headerValue: ListTile(
+        title: Text("See other's feedbacks"),
+      ),
+      bodyValue:
+          ListView.builder(
+            itemCount: 7,
+            shrinkWrap: true, 
+            itemBuilder: (BuildContext ctx, int index){
+              return Wrap(
+               children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Text("This is a book feedback"),
+              )
+            ],
+          );
+        }
+      ),
     ),
-    bodyValue: ListView.builder(
-      itemCount: 6,
-      itemBuilder: (BuildContext ctx, int index){
-            return Padding(
-              padding: EdgeInsets.all(15),
-              child: Text("this nhdchjdashbjkcsgd") 
-        );
-      } 
-    )
-  ),
 ];
 
 class CustomExpansionPanelList extends StatefulWidget {
