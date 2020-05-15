@@ -32,7 +32,10 @@ class _BookState extends State<BookPage> {
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () {
-              showSearch(context: context, delegate: AppSearch());
+              showSearch(
+                context: context,
+                delegate: AppSearch(),
+              );
             },
           ),
           PopupMenuButton(
@@ -96,7 +99,7 @@ class _BookInfoState extends State<BookInfo> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  ///This is the `BOOK NAME`
+                  /// This is the `BOOK NAME`
                   AutoSizeText(
                     "David copper field",
                     style: TextStyle(
@@ -106,14 +109,14 @@ class _BookInfoState extends State<BookInfo> {
                     maxFontSize: 30,
                   ),
 
-                  ////This is the `Author Name`
+                  /// This is the `Author Name`
                   AutoSizeText(
                     "by:-Charles dickens",
                     maxLines: 2,
                     maxFontSize: 30,
                   ),
 
-                  ///This is the `Rating of the book`
+                  /// This is the `Rating of the book`
                   RatingBarIndicator(
                     rating: 4,
                     itemSize: 30,
@@ -138,7 +141,7 @@ class _BookInfoState extends State<BookInfo> {
                   ),
 
                   ///This is the `PRICE`
-                  Text("price:-$price")
+                  Text("price:-$price"),
                 ],
               ),
             ),
@@ -148,17 +151,20 @@ class _BookInfoState extends State<BookInfo> {
           Padding(
             padding: const EdgeInsets.all(10),
             child: Container(
-                width: MediaQuery.of(context).size.width * 0.5,
-                height: 250,
-                decoration: BoxDecoration(color: Colors.green)),
-          )
+              width: MediaQuery.of(context).size.width * 0.5,
+              height: 250,
+              decoration: BoxDecoration(
+                color: Colors.green,
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 }
 
-////THIS IS A CLASS WHICH `BOOK RATING BAR`
+/// THIS IS A CLASS WHICH `BOOK RATING BAR`
 class BookRating extends StatefulWidget {
   @override
   _BookRatingState createState() => _BookRatingState();
@@ -248,25 +254,24 @@ class Item {
 
 List<Item> items = [
   Item(
-      headerValue: ListTile(
-        title: Text("See other's feedbacks"),
-      ),
-      bodyValue:
-          ListView.builder(
-            itemCount: 7,
-            shrinkWrap: true, 
-            itemBuilder: (BuildContext ctx, int index){
-              return Wrap(
-               children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Text("This is a book feedback"),
-              )
-            ],
-          );
-        }
-      ),
+    headerValue: ListTile(
+      title: Text("See other's feedbacks"),
     ),
+    bodyValue: ListView.builder(
+      itemCount: 7,
+      shrinkWrap: true,
+      itemBuilder: (BuildContext ctx, int index) {
+        return Wrap(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Text("This is a book feedback"),
+            ),
+          ],
+        );
+      },
+    ),
+  ),
 ];
 
 class CustomExpansionPanelList extends StatefulWidget {
