@@ -103,7 +103,7 @@ class _BookInfoState extends State<BookInfo> {
                     maxFontSize: 30,
                   ),
 
-                  /// This is the `Author Name`
+                  ////This is the `Author Name`
                   AutoSizeText(
                     "by:-Charles dickens",
                     maxLines: 2,
@@ -208,16 +208,12 @@ class _BookFeedBackState extends State<BookFeedBack> {
       child: Padding(
         padding: EdgeInsets.all(20),
         child: TextField(
-          minLines: 1,
-          maxLines: 5,
-          decoration: InputDecoration(
-            suffixIcon: IconButton(
-              icon: Icon(Icons.send),
-              onPressed: () {},
-            ),
-            labelText: "Write your feedback about the book",
-          ),
-        ),
+            minLines: 1,
+            maxLines: 5,
+            decoration: InputDecoration(
+                suffixIcon:
+                    IconButton(icon: Icon(Icons.send), onPressed: () {}),
+                labelText: "Write your feedback about the book")),
       ),
     );
   }
@@ -252,16 +248,23 @@ class Item {
 
 List<Item> items = [
   Item(
-      headerValue: ListTile(
-        title: Text("See other's feedbacks"),
-      ),
-      bodyValue: ListView.builder(
-          itemCount: 6,
-          itemBuilder: (BuildContext ctx, int index) {
-            return Padding(
-                padding: EdgeInsets.all(15),
-                child: Text("this nhdchjdashbjkcsgd"));
-          })),
+    headerValue: ListTile(
+      title: Text("See other's feedbacks"),
+    ),
+    bodyValue: ListView.builder(
+        itemCount: 7,
+        shrinkWrap: true,
+        itemBuilder: (BuildContext ctx, int index) {
+          return Wrap(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text("This is a book feedback"),
+              )
+            ],
+          );
+        }),
+  ),
 ];
 
 class CustomExpansionPanelList extends StatefulWidget {
