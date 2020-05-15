@@ -30,7 +30,10 @@ class _BookState extends State<BookPage> {
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () {
-              showSearch(context: context, delegate: AppSearch());
+              showSearch(
+                context: context,
+                delegate: AppSearch(),
+              );
             },
           ),
           PopupMenuButton(
@@ -49,18 +52,19 @@ class _BookState extends State<BookPage> {
         ],
       ),
       body: RefreshIndicator(
-          onRefresh: () {
-            return;
-          },
-          child: ListView(
-            shrinkWrap: true,
-            children: <Widget>[
-              BookInfo(),
-              BookFeedBack(),
-              BookRating(),
-              PeopelBookFeedBack()
-            ],
-          )),
+        onRefresh: () {
+          return;
+        },
+        child: ListView(
+          shrinkWrap: true,
+          children: <Widget>[
+            BookInfo(),
+            BookFeedBack(),
+            BookRating(),
+            PeopelBookFeedBack(),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -103,7 +107,7 @@ class _BookInfoState extends State<BookInfo> {
                     maxFontSize: 30,
                   ),
 
-                  ////This is the `Author Name`
+                  /// This is the `Author Name`
                   AutoSizeText(
                     "by:-Charles dickens",
                     maxLines: 2,
@@ -135,7 +139,7 @@ class _BookInfoState extends State<BookInfo> {
                   ),
 
                   ///This is the `PRICE`
-                  Text("price:-$price")
+                  Text("price:-$price"),
                 ],
               ),
             ),
@@ -145,10 +149,13 @@ class _BookInfoState extends State<BookInfo> {
           Padding(
             padding: const EdgeInsets.all(10),
             child: Container(
-                width: MediaQuery.of(context).size.width * 0.5,
-                height: 250,
-                decoration: BoxDecoration(color: Colors.green)),
-          )
+              width: MediaQuery.of(context).size.width * 0.5,
+              height: 250,
+              decoration: BoxDecoration(
+                color: Colors.green,
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -208,12 +215,16 @@ class _BookFeedBackState extends State<BookFeedBack> {
       child: Padding(
         padding: EdgeInsets.all(20),
         child: TextField(
-            minLines: 1,
-            maxLines: 5,
-            decoration: InputDecoration(
-                suffixIcon:
-                    IconButton(icon: Icon(Icons.send), onPressed: () {}),
-                labelText: "Write your feedback about the book")),
+          minLines: 1,
+          maxLines: 5,
+          decoration: InputDecoration(
+            suffixIcon: IconButton(
+              icon: Icon(Icons.send),
+              onPressed: () {},
+            ),
+            labelText: "Write your feedback about the book",
+          ),
+        ),
       ),
     );
   }
@@ -252,18 +263,19 @@ List<Item> items = [
       title: Text("See other's feedbacks"),
     ),
     bodyValue: ListView.builder(
-        itemCount: 7,
-        shrinkWrap: true,
-        itemBuilder: (BuildContext ctx, int index) {
-          return Wrap(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text("This is a book feedback"),
-              )
-            ],
-          );
-        }),
+      itemCount: 7,
+      shrinkWrap: true,
+      itemBuilder: (BuildContext ctx, int index) {
+        return Wrap(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Text("This is a book feedback"),
+            ),
+          ],
+        );
+      },
+    ),
   ),
 ];
 
