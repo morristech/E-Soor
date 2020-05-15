@@ -1,4 +1,4 @@
-import 'package:E_Soor/ui/screens/store/authorPage.dart';
+/*import 'package:E_Soor/ui/screens/store/authorPage.dart';*/
 import 'package:E_Soor/ui/widgets/AppSearch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -54,7 +54,7 @@ class _BookState extends State<BookPage> {
           },
           child: ListView(
             shrinkWrap: true,
-            children: <Widget>[BookInfo(), BookFeedBack(), BookRating()],
+            children: <Widget>[BookInfo(), BookFeedBack(), BookRating(),PeopelBookFeedBack()],
           )),
     );
   }
@@ -166,22 +166,23 @@ class _BookRatingState extends State<BookRating> {
       child: Column(
         children: <Widget>[
           Text("Rate The Book"),
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: RatingBar(
-              initialRating: 0,
-              minRating: 0,
-              direction: Axis.horizontal,
-              allowHalfRating: true,
-              itemCount: 5,
-              itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-              itemBuilder: (context, _) => Icon(
-                Icons.star,
-                color: Colors.amber,
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: RatingBar(
+                initialRating: 0,
+                minRating: 0,
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemBuilder: (context, _) => Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                onRatingUpdate: (rating) {
+                  
+                },
               ),
-              onRatingUpdate: (rating) {
-                print(rating);
-              },
             ),
           ),
         ],
@@ -224,6 +225,75 @@ class PeopelBookFeedBack extends StatefulWidget {
 class _PeopelBookFeedBackState extends State<PeopelBookFeedBack> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return CustomExpansionPanelList();
+  }
+}
+
+
+class Item {
+  Item({
+    this.headerValue,
+    this.isExpanded = false,
+    this.bodyValue,
+    
+  });
+
+  Widget headerValue;
+  Widget bodyValue;
+  bool isExpanded;
+}
+
+/// This is a `List of ExpansionPanels` wrapped in `Item` class which stores the data of the panels
+
+List<Item> items = [
+  Item(
+    headerValue: ListTile(
+      title: Text("See other's feedbacks"),
+    ),
+    bodyValue: ListView.builder(
+      itemCount: 6,
+      itemBuilder: (BuildContext ctx, int index){
+            return Padding(
+              padding: EdgeInsets.all(15),
+              child: Text("this nhdchjdashbjkcsgd") 
+        );
+      } 
+    )
+  ),
+];
+
+class CustomExpansionPanelList extends StatefulWidget {
+  @override
+  _CustomExpansionPanelListState createState() =>
+      _CustomExpansionPanelListState();
+}
+
+class _CustomExpansionPanelListState extends State<CustomExpansionPanelList> {
+  @override
+  Widget build(BuildContext context) {
+    return _buildPanel();
+  }
+
+  Widget _buildPanel() {
+    return ExpansionPanelList(
+      expansionCallback: (int index, bool isExpanded) {
+        setState(
+          () {
+            items[index].isExpanded = !isExpanded;
+          },
+        );
+      },
+      children: items.map<ExpansionPanel>(
+        (Item item) {
+          return ExpansionPanel(
+            headerBuilder: (BuildContext context, bool isExpanded) {
+              return item.headerValue;
+            },
+            body: item.bodyValue,
+            isExpanded: item.isExpanded,
+          );
+        },
+      ).toList(),
+    );
   }
 }
