@@ -1,4 +1,6 @@
 /*import 'package:E_Soor/ui/screens/store/authorPage.dart';*/
+
+
 import 'package:E_Soor/ui/widgets/AppSearch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -53,14 +55,15 @@ class _BookState extends State<BookPage> {
             return;
           },
           child: ListView(
-            shrinkWrap: true,
-            children: <Widget>[
-              BookInfo(),
-              BookFeedBack(),
-              BookRating(),
-              PeopelBookFeedBack()
+              shrinkWrap: true,
+              children: <Widget>[
+                BookInfo(),
+                BookFeedBack(),
+                BookRating(),
+                PeopelBookFeedBack()
             ],
-          )),
+          )
+        ),
     );
   }
 }
@@ -164,10 +167,8 @@ class BookRating extends StatefulWidget {
 class _BookRatingState extends State<BookRating> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      width: MediaQuery.of(context).size.width * 1,
-      child: Column(
+    return Wrap(
+      children: <Widget> [Column(
         children: <Widget>[
           Text("Rate The Book"),
           Center(
@@ -189,7 +190,7 @@ class _BookRatingState extends State<BookRating> {
           ),
         ],
       ),
-    );
+      ]);
   }
 }
 
@@ -202,10 +203,8 @@ class BookFeedBack extends StatefulWidget {
 class _BookFeedBackState extends State<BookFeedBack> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 120,
-      width: MediaQuery.of(context).size.width * 1,
-      child: Padding(
+    return Wrap(
+      children: <Widget>[ Padding(
         padding: EdgeInsets.all(20),
         child: TextField(
             minLines: 1,
@@ -214,7 +213,8 @@ class _BookFeedBackState extends State<BookFeedBack> {
                 suffixIcon:
                     IconButton(icon: Icon(Icons.send), onPressed: () {}),
                 labelText: "Write your feedback about the book")),
-      ),
+        ),
+      ]
     );
   }
 }
