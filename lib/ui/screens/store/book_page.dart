@@ -109,22 +109,16 @@ class _BookInfoState extends State<BookInfo> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     /// This is the `BOOK NAME`
-                    Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: Text(
-                        "David copper field",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                    Text(
+                      "David copper field",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
 
                     /// This is the `Author Name`
-                    Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: Text(
-                        "by:-Charles dickens",
-                      ),
+                    Text(
+                      "by:-Charles dickens",
                     ),
 
                     /// This is the `Rating of the book`
