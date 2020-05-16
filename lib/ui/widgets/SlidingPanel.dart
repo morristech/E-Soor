@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-
+import 'package:E_Soor/ui/screens/store/checkout.dart';
 BorderRadiusGeometry radius = BorderRadius.only(
   topLeft: Radius.circular(25.0),
   topRight: Radius.circular(25.0),
@@ -112,7 +112,13 @@ class _SlidingPanelState extends State<SlidingPanel> {
                 shape: RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(50.0),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                   /*Navigator.push(
+                     context,
+                     MaterialPageRoute(builder: (context)=>CheckOutPage()
+                     )
+                   );*/
+                },
               ),
             ),
           ],
