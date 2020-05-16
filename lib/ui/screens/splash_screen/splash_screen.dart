@@ -17,9 +17,7 @@ class MySplashScreen extends StatelessWidget {
         seconds: 2,
         navigateAfterSeconds:
             _userAuthProvider.isUserLoggeedIn ? ProfilePage() : LoginPage(),
-        image: 
-           Image.asset("allAssets/images/logo.png"),
-        
+        image: Image.asset("assets/images/logo.png"),
         loaderColor: Colors.white,
         loadingText: Text(
           "Loading",

@@ -1,6 +1,4 @@
 /*import 'package:E_Soor/ui/screens/store/authorPage.dart';*/
-
-
 import 'package:E_Soor/ui/widgets/AppSearch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -54,19 +52,26 @@ class _BookState extends State<BookPage> {
         ],
       ),
       body: RefreshIndicator(
-          onRefresh: () {
-            return;
-          },
+        onRefresh: () {
+          return;
+        },
+        child: SingleChildScrollView(
           child: ListView(
-              shrinkWrap: true,
-              children: <Widget>[
-                BookInfo(),
-                BookFeedBack(),
-                BookRating(),
-                PeopelBookFeedBack()
+            primary: false,
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            children: <Widget>[
+              BookInfo(),
+              BookFeedBack(),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: BookRating(),
+              ),
+              PeopelBookFeedBack(),
             ],
-          )
+          ),
         ),
+      ),
     );
   }
 }
@@ -151,7 +156,6 @@ class _BookInfoState extends State<BookInfo> {
           Padding(
             padding: const EdgeInsets.all(10),
             child: Container(
-              width: MediaQuery.of(context).size.width * 0.5,
               height: 250,
               decoration: BoxDecoration(
                 color: Colors.green,
@@ -173,8 +177,9 @@ class BookRating extends StatefulWidget {
 class _BookRatingState extends State<BookRating> {
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      children: <Widget> [Column(
+    return Container(
+      width: MediaQuery.of(context).size.width * 1,
+      child: Column(
         children: <Widget>[
           Text("Rate The Book"),
           Center(
@@ -196,7 +201,7 @@ class _BookRatingState extends State<BookRating> {
           ),
         ],
       ),
-      ]);
+    );
   }
 }
 
@@ -209,18 +214,23 @@ class BookFeedBack extends StatefulWidget {
 class _BookFeedBackState extends State<BookFeedBack> {
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      children: <Widget>[ Padding(
+    return Container(
+      height: 120,
+      width: MediaQuery.of(context).size.width * 1,
+      child: Padding(
         padding: EdgeInsets.all(20),
         child: TextField(
-            minLines: 1,
-            maxLines: 5,
-            decoration: InputDecoration(
-                suffixIcon:
-                    IconButton(icon: Icon(Icons.send), onPressed: () {}),
-                labelText: "Write your feedback about the book")),
+          minLines: 1,
+          maxLines: 5,
+          decoration: InputDecoration(
+            suffixIcon: IconButton(
+              icon: Icon(Icons.send),
+              onPressed: () {},
+            ),
+            labelText: "Write your feedback about the book",
+          ),
         ),
-      ]
+      ),
     );
   }
 }

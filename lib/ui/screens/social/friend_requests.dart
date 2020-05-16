@@ -14,7 +14,7 @@ class _FriendRequestsState extends State<FriendRequests> {
       decoration: BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.fill,
-          image: ExactAssetImage("allAssets/images/bg.png"),
+          image: ExactAssetImage("assets/images/bg.png"),
         ),
       ),
       child: Scaffold(
@@ -28,8 +28,7 @@ class _FriendRequestsState extends State<FriendRequests> {
                 leading: SizedBox(
                   child: CircleAvatar(
                     maxRadius: 30,
-                    backgroundImage:
-                        ExactAssetImage("allAssets/images/mmm.jpg"),
+                    backgroundImage: ExactAssetImage("assets/images/mmm.jpg"),
                   ),
                 ),
                 title: Row(
