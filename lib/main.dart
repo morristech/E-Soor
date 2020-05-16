@@ -1,4 +1,5 @@
 import 'package:E_Soor/helpers/logic/constants.dart';
+import 'package:E_Soor/models/selection.dart';
 import 'package:E_Soor/services/firebase.auth.dart';
 import 'package:E_Soor/services/google.auth.dart';
 import 'package:E_Soor/ui/screens/splash_screen/splash_screen.dart';
@@ -31,6 +32,9 @@ void main() async {
       providers: <SingleChildWidget>[
         ChangeNotifierProvider<ThemeNotifier>(
           create: (_) => ThemeNotifier(theme),
+        ),
+        ChangeNotifierProvider<SelectionNotifier>(
+          create: (_) => SelectionNotifier(),
         ),
         Provider<FirebaseAuthService>(
           create: (_) => FirebaseAuthService(),

@@ -1,7 +1,9 @@
 import 'package:E_Soor/models/category_model.dart';
+import 'package:E_Soor/models/selection.dart';
 import 'package:E_Soor/ui/widgets/categoryItems.dart';
-import 'package:E_Soor/ui/widgets/selectionAlertDialog.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:provider/provider.dart';
 
 String categoryName(name) {
   if (name != null) {
@@ -11,7 +13,6 @@ String categoryName(name) {
   }
 }
 
-bool isSelected = false;
 final Category category = Category();
 
 Widget onViewMoreBuild(onViewMore) {
@@ -33,59 +34,54 @@ Widget onViewMoreBuild(onViewMore) {
   }
 }
 
-Widget _buildCategoryBar(context, onTap, onViewMore, name) {
+Widget _buildCategoryBar(context, onTap, onViewMore, name, isSelected) {
   if (isSelected == true) {
-    return Container(
-      width: double.infinity,
-      color: Colors.transparent,
-      child: Column(
-        children: <Widget>[
-          // Category Header
-          Column(
+    return Wrap(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(5),
+          child: Icon(MdiIcons.checkboxMarkedCircle),
+        ),
+        Container(
+          width: double.infinity,
+          color: Colors.transparent,
+          child: Column(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 15.0),
-                      child: Icon(Icons.check_circle),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width - 50,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            categoryName(name),
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                            ),
+              // Category Header
+              Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          categoryName(name),
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
                           ),
-                          onViewMoreBuild(onViewMore)
-                        ],
-                      ),
+                        ),
+                        onViewMoreBuild(onViewMore)
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
+              // Category Items
+              categoryItems(context, onTap, Axis.horizontal),
+              // Spacer
+              Divider(
+                color: Colors.white,
+                thickness: 4,
+                height: 30,
+                endIndent: MediaQuery.of(context).size.width * 0.35,
+                indent: MediaQuery.of(context).size.width * 0.35,
+              )
             ],
           ),
-          // Category Items
-          categoryItems(context, onTap, Axis.horizontal),
-          // Spacer
-          Divider(
-            color: Colors.white,
-            thickness: 4,
-            height: 30,
-            endIndent: MediaQuery.of(context).size.width * 0.35,
-            indent: MediaQuery.of(context).size.width * 0.35,
-          )
-        ],
-      ),
+        ),
+      ],
     );
   } else {
     return Container(
@@ -131,10 +127,15 @@ class CategoryBar extends StatefulWidget {
   final String name;
   final Function onViewMore;
   final Function onTap;
-  final void Function() onDoubleTap;
+  final provider;
 
-  CategoryBar(this.context, this.onTap, this.onViewMore, this.name,
-      {this.onDoubleTap});
+  CategoryBar(
+    this.context,
+    this.onTap,
+    this.onViewMore,
+    this.name, {
+    this.provider,
+  });
   @override
   _CategoryBarState createState() => _CategoryBarState();
 }
@@ -142,13 +143,25 @@ class CategoryBar extends StatefulWidget {
 class _CategoryBarState extends State<CategoryBar> {
   @override
   Widget build(BuildContext context) {
+    var selectionProvider = widget.provider;
+    bool isSelected = selectionProvider.getValue();
+
     return GestureDetector(
-      onDoubleTap: widget.onDoubleTap,
       onLongPress: () {
-        showAlertDialog(context, widget.name);
+        if (isSelected) {
+          return selectionProvider.setValue(false);
+        } else {
+          return selectionProvider.setValue(true);
+        }
+        // showAlertDialog(context, widget.name);
       },
       child: _buildCategoryBar(
-          context, widget.onTap, widget.onViewMore, widget.name),
+        context,
+        widget.onTap,
+        widget.onViewMore,
+        widget.name,
+        isSelected,
+      ),
     );
   }
 }

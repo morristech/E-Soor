@@ -12,10 +12,6 @@ class Store extends StatefulWidget {
 }
 
 class _StoreState extends State<Store> {
-  /*_onRefresh(){
-
-  }*/
-
   @override
   Widget build(BuildContext context) {
     final List<Category> categories = List<Category>.generate(
@@ -30,7 +26,7 @@ class _StoreState extends State<Store> {
         return;
       },
       child: Scaffold(
-        floatingActionButton: ActionsFAB(),
+        // floatingActionButton: ActionsFAB(),
         backgroundColor: Colors.transparent,
         body: Stack(
           children: <Widget>[
