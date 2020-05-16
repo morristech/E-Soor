@@ -27,8 +27,7 @@ class _AuthorPageState extends State<AuthorPage> {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: CircleAvatar(
-                    backgroundImage:
-                        ExactAssetImage("allAssets/images/omar.jpg"),
+                    backgroundImage: ExactAssetImage("assets/images/omar.jpg"),
                     radius: 80,
                   ),
                 ),

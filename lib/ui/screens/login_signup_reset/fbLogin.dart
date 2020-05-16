@@ -16,7 +16,7 @@ class _FaceBookLoginPageState extends State<FaceBookLoginPage> {
         width: 50,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("allAssets/images/fb.png"),
+            image: AssetImage("assets/images/fb.png"),
             fit: BoxFit.cover,
           ),
         ),

@@ -18,25 +18,50 @@ class _SettingsState extends State<Settings> {
           /// This is all the settings before deactivating
 
           ///settings expansion panel list
-          /*1*/ CustomExpansionPanelList(),
+          /*1*/ Container(
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  color: Colors.white,
+                  width: 1,
+                ),
+              ),
+              color: Colors.grey[700],
+            ),
+            child: CustomExpansionPanelList(),
+          ),
 
-          ///deactivate account
+          /// Change the language
           /*2*/ Container(
             decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: Colors.white,
-                    width: 1,
-                  ),
+              border: Border(
+                bottom: BorderSide(
+                  color: Colors.white,
+                  width: 1,
                 ),
-                color: Colors.grey[700]),
+              ),
+              color: Colors.grey[700],
+            ),
             child: ListTile(
-              title: Text('Deactivate Account'),
-              onTap: () {/* a function that deactivates the users account */},
+              title: Text("Change language"),
+              onTap: () {
+                /// calling the CLASS that displays the `BottomSheet` to choose the language settings.
+                showModalBottomSheet(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return BottomSheet(
+                      selectedRadio: _selectedRadio,
+                      valueChanged: (val) {
+                        _selectedRadio = val;
+                      },
+                    );
+                  },
+                );
+              },
             ),
           ),
 
-          /// change the language
+          /// Deactivate account
           /*3*/ Container(
             decoration: BoxDecoration(
                 border: Border(
@@ -47,23 +72,13 @@ class _SettingsState extends State<Settings> {
                 ),
                 color: Colors.grey[700]),
             child: ListTile(
-              title: Text("Language"),
+              title: Text('Deactivate Account'),
               onTap: () {
-                /// calling the CLASS that displays the `BottomSheet` to choose the language settings.
-                 showModalBottomSheet(
-                   context: context, 
-                   builder: (BuildContext context){
-                  return BottomSheet(
-                   selectedRadio: _selectedRadio,
-                    valueChanged: (val){
-                    _selectedRadio = val;
-                     },
-                    );
-                  }
-                ); 
-              },         
+                /// call the function which displays the `Alert Dialog` to make sure that the user wants to deactivate account
+                alertDialog(context);
+              },
             ),
-          )
+          ),
         ],
       ),
     );
@@ -217,26 +232,32 @@ class _CustomExpansionPanelListState extends State<CustomExpansionPanelList> {
 ///this is a class with a `Column of 2 buttons` and I made it because it is repeated 4 times
 
 class Buttons extends StatelessWidget {
+  /// This is the function that saves the changes and can be accessed when calling the class
+  Buttons({this.saveChanges});
+  final VoidCallback saveChanges;
   @override
   Widget build(BuildContext context) {
     return ButtonBar(
       alignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         FlatButton(
-            onPressed: () {/* a function that saves all the changes occured*/},
-            child: Text("save")),
+          onPressed: () => saveChanges(),
+          child: Text("save"),
+        ),
         FlatButton(
-            child: Text("cancel"),
-            onPressed: () {/*a function that cancel all the changes occured*/})
+          child: Text("cancel"),
+          onPressed: () {
+            Item(isExpanded: false);
+          },
+        )
       ],
     );
   }
 }
 
-
-/// A class that displays a `bottomSheet` that has the 2 `radioButtons` to choose the prefered language 
+/// A class that displays a `bottomSheet` that has the 2 `radioButtons` to choose the prefered language
 class BottomSheet extends StatefulWidget {
-   BottomSheet({@required this.selectedRadio, @required this.valueChanged});
+  BottomSheet({@required this.selectedRadio, @required this.valueChanged});
   final int selectedRadio;
   final ValueChanged valueChanged;
   @override
@@ -250,6 +271,7 @@ class _BottomSheetState extends State<BottomSheet> {
     _selectedRadio = widget.selectedRadio;
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -257,32 +279,72 @@ class _BottomSheetState extends State<BottomSheet> {
       child: Column(
         children: <Widget>[
           RadioListTile(
-            value: 1, 
-            groupValue:_selectedRadio,
+            value: 1,
+            groupValue: _selectedRadio,
             title: Text("English"),
-            onChanged: (int val){
+            onChanged: (int val) {
               setState(() {
                 _selectedRadio = val;
                 widget.valueChanged(val);
               });
             },
           ),
-
           RadioListTile(
-            value: 2, 
-            groupValue:_selectedRadio,
-            title: Text("العربيه"),
-            onChanged: (int val){
+            value: 2,
+            groupValue: _selectedRadio,
+            title: Text("العربية"),
+            onChanged: (int val) {
               setState(() {
                 _selectedRadio = val;
                 widget.valueChanged(val);
               });
             },
-          )
+          ),
         ],
-      )
+      ),
     );
   }
 }
 
+///An `Alert Dialog` that warns user before Deactivating the account
+void alertDialog(BuildContext context) {
+  var alertDialog = AlertDialog(
+    title: Text(
+      'Deactivating Account',
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+    content: Text(
+      'Are you sure that you want to deactivate your account?',
+    ),
+    actions: [
+      FlatButton(
+        child: Text(
+          'Yes',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        onPressed: () {
+          /// `Write a function that deactivates the user account`
+        },
+      ),
+      FlatButton(
+        child: Text(
+          'No',
+          style: TextStyle(),
+        ),
+        onPressed: () {
+        },
+      ),
+    ],
+  );
 
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alertDialog;
+    },
+  );
+}

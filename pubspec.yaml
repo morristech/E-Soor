@@ -28,6 +28,8 @@ dependencies:
     material_design_icons_flutter: ^4.0.5145
     flutter_login: ^1.0.14
     sliding_up_panel: ^1.0.0
+    response: ^0.0.1+4
+    flutter_rating_bar: ^3.0.1+1
     flutter_reactive_button: ^1.1.0
     audioplayers: ^0.15.0
     bottomreveal: ^1.0.0
@@ -36,7 +38,6 @@ dependencies:
     cupertino_icons: ^0.1.2
     flushbar: 1.10.2
     cached_network_image:
-    flutter_rating_bar:
     login:
     #local database
     shared_preferences: ^0.5.7

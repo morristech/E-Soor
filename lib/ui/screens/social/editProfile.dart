@@ -175,7 +175,7 @@ class _EditPageState extends State<EditPage> {
                       child: Stack(
                         children: <Widget>[
                           CircleAvatar(
-                            backgroundImage: AssetImage('allAssets/images/omar.jpg'),
+                            backgroundImage: AssetImage('assets/images/omar.jpg'),
                             radius: 50,
                           ),
                         ],

@@ -1,7 +1,8 @@
-import 'package:E_Soor/ui/screens/store/authorPage.dart';
+/*import 'package:E_Soor/ui/screens/store/authorPage.dart';*/
 import 'package:E_Soor/ui/widgets/AppSearch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class BookPage extends StatefulWidget {
   @override
@@ -29,7 +30,10 @@ class _BookState extends State<BookPage> {
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () {
-              showSearch(context: context, delegate: AppSearch());
+              showSearch(
+                context: context,
+                delegate: AppSearch(),
+              );
             },
           ),
           PopupMenuButton(
@@ -51,120 +55,267 @@ class _BookState extends State<BookPage> {
         onRefresh: () {
           return;
         },
-        child: Flex(
-          direction: Axis.vertical,
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                child: Row(
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Text(
-                          "Book Name",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        FlatButton(
-                          child: Text(
-                            "Author Name",
-                            style: TextStyle(
-                              fontSize: 16.5,
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => AuthorPage(),
-                              ),
-                            );
-                          },
-                        ),
-                        RatingBarIndicator(
-                          rating: 2.6,
-                          itemSize: 30,
-                          unratedColor: Colors.white,
-                          itemCount: 5,
-                          itemBuilder: (context, _) => Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                          ),
-                        ),
-                        RaisedButton(
-                          elevation: 0.0,
-                          child: Text(
-                            "Category",
-                            style: TextStyle(
-                              fontSize: 15,
-                            ),
-                          ),
-                          onPressed: () {},
-                        ),
-                        Text(
-                          "Price:- $price",
-                          style: TextStyle(
-                            fontSize: 15.5,
-                          ),
-                        ),
-                      ],
+        child: SingleChildScrollView(
+          child: ListView(
+            primary: false,
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            children: <Widget>[
+              BookInfo(),
+              BookFeedBack(),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: BookRating(),
+              ),
+              PeopelBookFeedBack(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// THIS IS THE CLASS THAT HOLDS THE `book Info`
+class BookInfo extends StatefulWidget {
+  @override
+  _BookInfoState createState() => _BookInfoState();
+}
+
+class _BookInfoState extends State<BookInfo> {
+  ///Essential `variables`
+  int price = 60;
+  String authorName;
+  String bookName;
+  int rating;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.black,
+      height: 300,
+      width: MediaQuery.of(context).size.width * 1,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          ///The column Which holds the `Book INFO`
+          Padding(
+            padding: const EdgeInsets.all(0),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  /// This is the `BOOK NAME`
+                  AutoSizeText(
+                    "David copper field",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
                     ),
-                    Expanded(
-                      child: Container(
-                        color: Colors.green,
+                    maxLines: 2,
+                    maxFontSize: 30,
+                  ),
+
+                  /// This is the `Author Name`
+                  AutoSizeText(
+                    "by:-Charles dickens",
+                    maxLines: 2,
+                    maxFontSize: 30,
+                  ),
+
+                  /// This is the `Rating of the book`
+                  RatingBarIndicator(
+                    rating: 4,
+                    itemSize: 30,
+                    unratedColor: Colors.white,
+                    itemCount: 5,
+                    itemBuilder: (context, _) => Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                    ),
+                  ),
+
+                  ///This is the `CATEGORY BUTTON`
+                  RaisedButton(
+                    elevation: 0.0,
+                    child: Text(
+                      "Category",
+                      style: TextStyle(
+                        fontSize: 15,
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Divider(),
-            ),
-            Expanded(
-              child: Column(
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      color: Colors.red,
-                    ),
+                    onPressed: () {},
                   ),
-                  Expanded(
-                    child: Container(
-                      color: Colors.black,
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      color: Colors.cyan,
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      color: Colors.orange,
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      color: Colors.blueGrey,
-                    ),
-                  ),
+
+                  ///This is the `PRICE`
+                  Text("price:-$price"),
                 ],
               ),
             ),
-            Expanded(
-              child: Container(
+          ),
+
+          ///The `Book Image`
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Container(
+              height: 250,
+              decoration: BoxDecoration(
                 color: Colors.green,
               ),
             ),
-          ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// THIS IS A CLASS WHICH `BOOK RATING BAR`
+class BookRating extends StatefulWidget {
+  @override
+  _BookRatingState createState() => _BookRatingState();
+}
+
+class _BookRatingState extends State<BookRating> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 1,
+      child: Column(
+        children: <Widget>[
+          Text("Rate The Book"),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: RatingBar(
+                initialRating: 0,
+                minRating: 0,
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemBuilder: (context, _) => Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                onRatingUpdate: (rating) {},
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+///THIS IS THE CLASS THAT HOLDS THE `TEXT FIELD FOR WRITING BOOK FEEDBACK`
+class BookFeedBack extends StatefulWidget {
+  @override
+  _BookFeedBackState createState() => _BookFeedBackState();
+}
+
+class _BookFeedBackState extends State<BookFeedBack> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 120,
+      width: MediaQuery.of(context).size.width * 1,
+      child: Padding(
+        padding: EdgeInsets.all(20),
+        child: TextField(
+          minLines: 1,
+          maxLines: 5,
+          decoration: InputDecoration(
+            suffixIcon: IconButton(
+              icon: Icon(Icons.send),
+              onPressed: () {},
+            ),
+            labelText: "Write your feedback about the book",
+          ),
         ),
       ),
+    );
+  }
+}
+
+/// THIS IS THE CLASS THAT HOLDS `THE EXPANSIION PANNEL LIST OF BOOK FEEDBACKS FROM DIFFERENT USERES`
+class PeopelBookFeedBack extends StatefulWidget {
+  @override
+  _PeopelBookFeedBackState createState() => _PeopelBookFeedBackState();
+}
+
+class _PeopelBookFeedBackState extends State<PeopelBookFeedBack> {
+  @override
+  Widget build(BuildContext context) {
+    return CustomExpansionPanelList();
+  }
+}
+
+class Item {
+  Item({
+    this.headerValue,
+    this.isExpanded = false,
+    this.bodyValue,
+  });
+
+  Widget headerValue;
+  Widget bodyValue;
+  bool isExpanded;
+}
+
+/// This is a `List of ExpansionPanels` wrapped in `Item` class which stores the data of the panels
+
+List<Item> items = [
+  Item(
+    headerValue: ListTile(
+      title: Text("See other's feedbacks"),
+    ),
+    bodyValue: ListView.builder(
+      itemCount: 7,
+      shrinkWrap: true,
+      itemBuilder: (BuildContext ctx, int index) {
+        return Wrap(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Text("This is a book feedback"),
+            ),
+          ],
+        );
+      },
+    ),
+  ),
+];
+
+class CustomExpansionPanelList extends StatefulWidget {
+  @override
+  _CustomExpansionPanelListState createState() =>
+      _CustomExpansionPanelListState();
+}
+
+class _CustomExpansionPanelListState extends State<CustomExpansionPanelList> {
+  @override
+  Widget build(BuildContext context) {
+    return _buildPanel();
+  }
+
+  Widget _buildPanel() {
+    return ExpansionPanelList(
+      expansionCallback: (int index, bool isExpanded) {
+        setState(
+          () {
+            items[index].isExpanded = !isExpanded;
+          },
+        );
+      },
+      children: items.map<ExpansionPanel>(
+        (Item item) {
+          return ExpansionPanel(
+            headerBuilder: (BuildContext context, bool isExpanded) {
+              return item.headerValue;
+            },
+            body: item.bodyValue,
+            isExpanded: item.isExpanded,
+          );
+        },
+      ).toList(),
     );
   }
 }
