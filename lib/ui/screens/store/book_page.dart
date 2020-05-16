@@ -1,9 +1,10 @@
 /*import 'package:E_Soor/ui/screens/store/authorPage.dart';*/
+import 'package:E_Soor/services/firebase.auth.dart';
 import 'package:E_Soor/ui/widgets/AppSearch.dart';
 import 'package:E_Soor/ui/widgets/previewImage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
+import 'package:provider/provider.dart';
 
 class BookPage extends StatefulWidget {
   @override
@@ -15,12 +16,14 @@ class _BookState extends State<BookPage> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<FirebaseAuthService>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
+            // provider.updatePassword();
           },
         ),
         actions: <Widget>[

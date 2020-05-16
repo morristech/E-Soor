@@ -7,13 +7,12 @@ import 'package:google_sign_in/google_sign_in.dart';
 //! [Solved] Error Handling Docs weren't finished, yet
 //! [solved] saving auth data to firebase store
 
-class GoogleAuthSignIn {
+class GoogleAuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final Firestore _firestore = Firestore.instance;
   final String _usersCollectionData = "users";
   bool _isNewUser;
-
   bool get isNewUser => _isNewUser;
 
   Future<GoogleSignInAuthentication> _getGoogleSignInAuthAccount(
@@ -61,7 +60,7 @@ class GoogleAuthSignIn {
     }
   }
 
-  //* Adding user initail/Important data to the `about` section on Firebase
+  //* Adding user initail/Important data on Firestore
   Future<void> _createUserData(
       {String userEmail, AuthResult authResultUser}) async {
     _isNewUser = authResultUser.additionalUserInfo.isNewUser;
@@ -104,12 +103,8 @@ class GoogleAuthSignIn {
         code: 'ERROR_ABORTED_BY_USER', message: 'Sign in aborted by user');
   }
 
-  Future<void> signOutGoogleAndFirebase() async {
-    await _firebaseAuth.signOut();
+  Future<void> signOut() async {
     await _googleSignIn.signOut();
+    await _firebaseAuth.signOut();
   }
-
-  // Future<void> signOutOnlyGoogle() async {
-  //   await _googleSignIn.signOut();
-  // }
 }

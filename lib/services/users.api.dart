@@ -1,8 +1,4 @@
-import 'dart:convert' as convert;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
 
 class User {
   final String uid;

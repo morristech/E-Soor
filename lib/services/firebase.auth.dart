@@ -21,6 +21,8 @@ class FirebaseAuthService {
   Future<bool> isUserAllradyLoggedIn() async =>
       await _firebaseAuth.currentUser() != null ? true : false;
 
+  Stream<FirebaseUser> onAuthSateChange() => _firebaseAuth.onAuthStateChanged;
+
   bool get isUserLoggeedIn => _isUserLoggedin;
 
   //* GET CURRENT USER
@@ -170,6 +172,36 @@ class FirebaseAuthService {
       _isUserLoggedin = false;
     } catch (logOutError) {
       throw "Unexpected logout error: $logOutError";
+    }
+  }
+
+  //* we are using it to reAuthanticate Users to do sensitive operation
+  //! needs UI work
+  /// This is used to prevent or resolve `ERROR_REQUIRES_RECENT_LOGIN`
+  /// response to operations that require a recent sign-in.
+  ///
+  /// If the user associated with the supplied credential is different from the
+  /// current user, or if the validation of the supplied credentials fails; an
+  /// error is returned and the current user remains signed in.
+  ///
+  /// Errors:
+  ///   • `ERROR_INVALID_CREDENTIAL` - If the [authToken] or [authTokenSecret] is malformed or has expired.
+  ///   • `ERROR_USER_DISABLED` - If the user has been disabled (for example, in the Firebase console)
+  ///   • `ERROR_USER_NOT_FOUND` - If the user has been deleted (for example, in the Firebase console)
+  ///   • `ERROR_OPERATION_NOT_ALLOWED` - Indicates that Email & Password accounts are not enabled.
+  Future<FirebaseUser> reAuthanticateUser(String password,
+      {String email}) async {
+    final FirebaseUser user = await _firebaseAuth.currentUser();
+    try {
+      AuthResult authResult = await user.reauthenticateWithCredential(
+        EmailAuthProvider.getCredential(
+          email: email ?? user.email,
+          password: password,
+        ),
+      );
+      return authResult.user;
+    } catch (e) {
+      print(e);
     }
   }
 }
