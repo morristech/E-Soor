@@ -3,7 +3,7 @@ import 'package:E_Soor/ui/widgets/AppSearch.dart';
 import 'package:E_Soor/ui/widgets/previewImage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:auto_size_text/auto_size_text.dart';
+
 
 class BookPage extends StatefulWidget {
   @override
@@ -109,48 +109,54 @@ class _BookInfoState extends State<BookInfo> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     /// This is the `BOOK NAME`
-                    AutoSizeText(
-                      "David copper field",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                      maxLines: 2,
-                      maxFontSize: 30,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal:5),
+                      child: Text(
+                          "David copper field",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                     ),
+                    
 
                     /// This is the `Author Name`
-                    AutoSizeText(
-                      "by:-Charles dickens",
-                      maxLines: 2,
-                      maxFontSize: 30,
-                    ),
+                   Padding(
+                     padding: const EdgeInsets.symmetric(horizontal:5),
+                     child: Text(
+                          "by:-Charles dickens",
+                        ),
+                   ),
 
                     /// This is the `Rating of the book`
-                    RatingBarIndicator(
-                      rating: 4,
-                      itemSize: 30,
-                      unratedColor: Colors.white,
-                      itemCount: 5,
-                      itemBuilder: (context, _) => Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                      ),
-                    ),
-
-                    ///This is the `CATEGORY BUTTON`
-                    RaisedButton(
-                      elevation: 0.0,
-                      child: Text(
-                        "Category",
-                        style: TextStyle(
-                          fontSize: 15,
+                   RatingBarIndicator(
+                        rating: 4,
+                        itemSize: 30,
+                        unratedColor: Colors.white,
+                        itemCount: 5,
+                        itemBuilder: (context, _) => Icon(
+                          Icons.star,
+                          color: Colors.amber,
                         ),
                       ),
-                      onPressed: () {},
-                    ),
+                    
+
+                    ///This is the `CATEGORY BUTTON`
+                     RaisedButton(
+                        elevation: 0.0,
+                        child: Text(
+                          "Category",
+                          style: TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                        onPressed: () {},
+                      ),
+                    
 
                     ///This is the `PRICE`
-                    Text("price:-$price"),
+                  Text("price:-$price"),
+                    
                   ],
                 ),
               ),
