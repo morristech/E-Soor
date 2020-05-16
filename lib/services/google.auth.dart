@@ -11,6 +11,7 @@ class GoogleAuthSignIn {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final Firestore _firestore = Firestore.instance;
+  final String _usersCollectionData = "users";
   bool _isNewUser;
 
   bool get isNewUser => _isNewUser;
@@ -61,7 +62,6 @@ class GoogleAuthSignIn {
   }
 
   //* Adding user initail/Important data to the `about` section on Firebase
-  //! NEEDS WORK
   Future<void> _createUserData(
       {String userEmail, AuthResult authResultUser}) async {
     _isNewUser = authResultUser.additionalUserInfo.isNewUser;
@@ -71,8 +71,9 @@ class GoogleAuthSignIn {
     final DateTime creationTime = DateTime.now();
     try {
       String userID = (await _firebaseAuth.currentUser()).uid;
-      var doc = _firestore.collection("users").document(userID);
-      await doc.setData(
+      var userDoc =
+          _firestore.collection(_usersCollectionData).document(userID);
+      await userDoc.setData(
         User(
           uid: userID,
           emailAddress: userEmail,

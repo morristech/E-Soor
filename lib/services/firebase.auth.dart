@@ -5,6 +5,8 @@ import 'package:E_Soor/services/users.api.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 
+//users => userID => [user data]
+
 class FirebaseAuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final Firestore _firestore = Firestore.instance;
@@ -12,6 +14,7 @@ class FirebaseAuthService {
   bool _isUserLoggedin = false;
   String _userPassword;
   String _userEmailAddress;
+  final String _usersCollectionData = "users";
 
   //* check weather the user has loggeed in or not
   //!needs passing to widgets improvment
@@ -135,22 +138,20 @@ class FirebaseAuthService {
   }
 
   //* Adding user initail/Important data to the `about` section on Firebase
-  //! NEEDS WORK
   Future<void> _createUserData({String userEmail}) async {
     DateTime creationTime = DateTime.now();
     try {
       String userID = (await _firebaseAuth.currentUser()).uid;
-      await _firestore
-          .collection("usersData/$userID/about")
-          .document("user info")
-          .setData(
-            User(
-              emailAddress: userEmail,
-              uid: userID,
-              creationTime: creationTime,
-              lastInfoUpdate: creationTime,
-            ).toJson(),
-          );
+      var userDoc =
+          _firestore.collection(_usersCollectionData).document(userID);
+      await userDoc.setData(
+        User(
+          uid: userID,
+          emailAddress: userEmail,
+          creationTime: creationTime,
+          lastInfoUpdate: creationTime,
+        ).toJson(),
+      );
     } catch (uploadUserInitialDataError) {
       throw uploadUserInitialDataError;
     }
@@ -183,5 +184,5 @@ class FirebaseUserErrors {
 }
 
 /*
-collection (userData) -> Doc(user ID) -> -> collection(about) -> user data
+collection (userData) -> Doc(user ID) -> user data
 */
