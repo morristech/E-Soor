@@ -16,7 +16,9 @@ enum UpdateType { photoUrl, diplayName, bioStatus }
 class UserAccount {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final Firestore _firestore = Firestore.instance;
+  final String _usersCollectionData = "users";
 
+  //*
   Future<void> _updatePhotoUrl(String profilePicDownloadLink) async {
     final FirebaseUser currentUser = await _firebaseAuth.currentUser();
     var userUpdateInfo = UserUpdateInfo();
@@ -31,24 +33,23 @@ class UserAccount {
     try {
       final String userID = (await _firebaseAuth.currentUser()).uid;
       final DateTime infoUpdateTime = DateTime.now();
-      final DocumentReference ref = _firestore
-          .collection("usersData/$userID/about")
-          .document("user info");
+      final DocumentReference userDoc =
+          _firestore.collection(_usersCollectionData).document(userID);
       switch (updateType) {
         case UpdateType.diplayName:
-          await ref.updateData(<String, dynamic>{
+          await userDoc.updateData(<String, dynamic>{
             'displayName': user.displayName,
             'lastInfoUpdate': infoUpdateTime,
           });
           return;
         case UpdateType.photoUrl:
-          await ref.updateData(<String, dynamic>{
+          await userDoc.updateData(<String, dynamic>{
             'profilePicUrl': user.photoUrl,
             'lastInfoUpdate': infoUpdateTime,
           });
           return;
         case UpdateType.bioStatus:
-          await ref.updateData(<String, dynamic>{
+          await userDoc.updateData(<String, dynamic>{
             'bioStatus': customUpdate,
             'lastInfoUpdate': infoUpdateTime,
           });
@@ -64,10 +65,10 @@ class UserAccount {
     try {
       final DateTime profileImageCreationTime = DateTime.now();
       final FirebaseUser currentUser = await _firebaseAuth.currentUser();
-      final String currentUserID = (await _firebaseAuth.currentUser()).uid;
+      final String userID = (await _firebaseAuth.currentUser()).uid;
       StorageReference ref = FirebaseStorage.instance
           .ref()
-          .child("users_profile_pictures/$currentUserID-profilePic.jpg");
+          .child("$userID/$userID-profilePic.jpg");
       StorageUploadTask uploadTask = ref.putFile(
           imageFile,
           StorageMetadata(
@@ -131,11 +132,10 @@ class UserAccount {
       );
     } on PlatformException catch (httpPostError) {
       throw PlatformException(
-        code: 'CHANGEING_USER_PASSWORD_FAILED',
-        message: httpPostError.message,
-        details:
-            "Details --> code: ${httpPostError.code}: message: ${httpPostError.message}",
-      );
+          code: 'CHANGEING_USER_PASSWORD_FAILED',
+          message: httpPostError.message,
+          details:
+              "Details --> code: ${httpPostError.code}: message: ${httpPostError.message}");
     }
     await currentUser.reload();
   }
@@ -152,12 +152,11 @@ class UserAccount {
           updateType: UpdateType.diplayName, user: currentUser);
     } catch (updateUserDisplayNameError) {
       throw PlatformException(
-        code: 'CHANGING_USER_DISPLAY_NAME_FAILED',
-        message:
-            'check the user collection data (usersData/[user ID]/about/user info)',
-        details:
-            "Details --> code: ${updateUserDisplayNameError.code}: message: ${updateUserDisplayNameError.message}",
-      );
+          code: 'CHANGING_USER_DISPLAY_NAME_FAILED',
+          message:
+              'check the user collection data ($_usersCollectionData/[user ID])',
+          details:
+              "Details --> code: ${updateUserDisplayNameError.code}: message: ${updateUserDisplayNameError.message}");
     }
   }
 
@@ -203,7 +202,7 @@ class UserAccount {
       await result.user.delete();
       //* deleting from firestore
       await _firestore
-          .collection("usersData")
+          .collection(_usersCollectionData)
           .document(currentUser.uid)
           .delete();
     } catch (deleteError) {
