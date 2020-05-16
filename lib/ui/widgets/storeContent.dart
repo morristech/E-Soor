@@ -1,12 +1,9 @@
 import 'package:E_Soor/models/category_model.dart';
-import 'package:E_Soor/models/selection.dart';
 import 'package:E_Soor/ui/screens/editCategoriesScreen.dart';
 import 'package:E_Soor/ui/widgets/categoryBar.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 Widget storeContent(context, onTap, onViewMore, List<Category> categories) {
-  var selectionProvider = Provider.of<SelectionNotifier>(context);
   Widget buildContent() {
     if (categories.length == 0) {
       return Center(
@@ -26,7 +23,6 @@ Widget storeContent(context, onTap, onViewMore, List<Category> categories) {
               onTap,
               onViewMore,
               categories[index].name,
-              provider: selectionProvider,
             ),
           );
         },
