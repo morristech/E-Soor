@@ -135,6 +135,7 @@ class FirebaseAuthService {
   }
 
   //* Adding user initail/Important data to the `about` section on Firebase
+  //! NEEDS WORK
   Future<void> _createUserData({String userEmail}) async {
     DateTime creationTime = DateTime.now();
     try {

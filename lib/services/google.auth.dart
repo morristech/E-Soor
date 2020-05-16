@@ -61,6 +61,7 @@ class GoogleAuthSignIn {
   }
 
   //* Adding user initail/Important data to the `about` section on Firebase
+  //! NEEDS WORK
   Future<void> _createUserData(
       {String userEmail, AuthResult authResultUser}) async {
     _isNewUser = authResultUser.additionalUserInfo.isNewUser;
@@ -70,18 +71,16 @@ class GoogleAuthSignIn {
     final DateTime creationTime = DateTime.now();
     try {
       String userID = (await _firebaseAuth.currentUser()).uid;
-      await _firestore
-          .collection("usersData/$userID/about")
-          .document("user info")
-          .setData(
-            User(
-              uid: userID,
-              emailAddress: userEmail,
-              creationTime: creationTime,
-              lastInfoUpdate: creationTime,
-              displayName: authResultUser.user.displayName,
-            ).toJson(),
-          );
+      var doc = _firestore.collection("users").document(userID);
+      await doc.setData(
+        User(
+          uid: userID,
+          emailAddress: userEmail,
+          creationTime: creationTime,
+          lastInfoUpdate: creationTime,
+          displayName: authResultUser.user.displayName,
+        ).toJson(),
+      );
     } on PlatformException catch (uploadUserInitialDataError) {
       throw PlatformException(
           code: 'ERROR_WHILE_SAVING_USER_DATA',
