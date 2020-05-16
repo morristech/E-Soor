@@ -3,7 +3,6 @@ import 'package:E_Soor/ui/screens/login_signup_reset/emailLogin.dart';
 import 'package:E_Soor/ui/screens/social/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:response/response.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 class MySplashScreen extends StatelessWidget {
@@ -17,9 +16,7 @@ class MySplashScreen extends StatelessWidget {
         seconds: 2,
         navigateAfterSeconds:
             _userAuthProvider.isUserLoggeedIn ? ProfilePage() : LoginPage(),
-        image: 
-           Image.asset("allAssets/images/logo.png"),
-        
+        image: Image.asset("assets/images/logo.png"),
         loaderColor: Colors.white,
         loadingText: Text(
           "Loading",

@@ -1,85 +1,84 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-Widget bookItem(context, onTap) {
-  return Padding(
-    padding: const EdgeInsets.all(3.0),
-    child: GestureDetector(
+class BookItem extends StatelessWidget {
+  final Function onTap;
+  BookItem(this.onTap);
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
       onTap: onTap,
-      child: Card(
+      child: AspectRatio(
+        aspectRatio: 0.75,
         child: Padding(
           padding: const EdgeInsets.all(5.0),
-          child: Row(
-            children: <Widget>[
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      width: 150,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                            'https://flutter.dev/images/catalog-widget-placeholder.png',
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      /// `Book Image`
+
+                      Expanded(
+                        child: Container(
+                          child: Image.network(
+                            "https://rethinkpress.com/wp-content/uploads/2016/04/9781781331880.jpg",
                           ),
                         ),
                       ),
-                    ),
+
+                      /// `Book Name`
+
+                      AutoSizeText(
+                        "Book Name",
+                        softWrap: true,
+                        wrapWords: true,
+                        maxLines: 2,
+                        maxFontSize: 16,
+                        minFontSize: 12,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+
+                      /// `Author Name`
+
+                      AutoSizeText(
+                        "Author Name",
+                        maxLines: 2,
+                        maxFontSize: 16,
+                        minFontSize: 12,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 2.0),
-                    child: Row(
-                      children: <Widget>[
-                        Column(
-                          children: <Widget>[
-                            Flex(
-                              direction: Axis.vertical,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      left: 2.0, top: 3.0, right: 10.0),
-                                  child: Text("Book Name"),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      left: 2.0, top: 3.0, right: 10.0),
-                                  child: Text("Author Name"),
-                                ),
-                              ],
-                            ),
-                          ],
+
+                  /// `Rating`
+
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      RatingBarIndicator(
+                        rating: 4.5,
+                        direction: Axis.vertical,
+                        itemCount: 5,
+                        itemBuilder: (context, _) => Icon(
+                          Icons.star,
+                          color: Colors.amber,
                         ),
-                        Padding(
-                          padding: EdgeInsets.all(5),
-                          child: Text(
-                            "20" + " LE",
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
+                      ),
+                      Text("\$60"),
+                    ],
+                  ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(6.0),
-                child: RatingBarIndicator(
-                  rating: 2.5,
-                  itemBuilder: (context, index) => Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                  ),
-                  itemCount: 5,
-                  itemSize: 35.0,
-                  direction: Axis.vertical,
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }

@@ -1,9 +1,11 @@
 import 'package:E_Soor/helpers/logic/constants.dart';
+import 'package:E_Soor/models/selection.dart';
 import 'package:E_Soor/ui/screens/tabs/social.dart';
 import 'package:E_Soor/ui/screens/tabs/store.dart';
 import 'package:E_Soor/ui/widgets/AppSearch.dart';
 import 'package:E_Soor/ui/widgets/ThemeSwitch.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MainBody extends StatefulWidget {
   @override
@@ -35,6 +37,9 @@ class _MainBodyState extends State<MainBody>
 
   @override
   Widget build(BuildContext context) {
+    var selectionProvider = Provider.of<SelectionNotifier>(context);
+    bool isSelected = selectionProvider.getValue();
+
     return SafeArea(
       child: Scaffold(
         body: NestedScrollView(
@@ -73,20 +78,24 @@ class _MainBodyState extends State<MainBody>
                 floating: true,
                 pinned: true,
                 forceElevated: innerBoxIsScrolled,
-                bottom: TabBar(
-                  controller: tabController,
-                  indicatorColor: Colors.white,
-                  tabs: <Widget>[
-                    Tab(
-                      text: "Store",
-                      icon: Icon(Icons.store),
-                    ),
-                    Tab(
-                      text: "Social",
-                      icon: Icon(Icons.people),
-                    )
-                  ],
-                ),
+                bottom: isSelected
+                    ? AppBar(
+                        title: Text("This is working!"),
+                      )
+                    : TabBar(
+                        controller: tabController,
+                        indicatorColor: Colors.white,
+                        tabs: <Widget>[
+                          Tab(
+                            text: "Store",
+                            icon: Icon(Icons.store),
+                          ),
+                          Tab(
+                            text: "Social",
+                            icon: Icon(Icons.people),
+                          ),
+                        ],
+                      ),
               ),
             ];
           },

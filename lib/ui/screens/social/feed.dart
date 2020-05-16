@@ -18,27 +18,27 @@ bool isChecked = false;
 String reaction;
 List<ReactiveIconDefinition> _reactions = <ReactiveIconDefinition>[
   ReactiveIconDefinition(
-    assetIcon: 'allAssets/images/like.gif',
+    assetIcon: 'assets/images/like.gif',
     code: 'like',
   ),
   ReactiveIconDefinition(
-    assetIcon: 'allAssets/images/haha.gif',
+    assetIcon: 'assets/images/haha.gif',
     code: 'haha',
   ),
   ReactiveIconDefinition(
-    assetIcon: 'allAssets/images/love.gif',
+    assetIcon: 'assets/images/love.gif',
     code: 'love',
   ),
   ReactiveIconDefinition(
-    assetIcon: 'allAssets/images/sad.gif',
+    assetIcon: 'assets/images/sad.gif',
     code: 'sad',
   ),
   ReactiveIconDefinition(
-    assetIcon: 'allAssets/images/wow.gif',
+    assetIcon: 'assets/images/wow.gif',
     code: 'wow',
   ),
   ReactiveIconDefinition(
-    assetIcon: 'allAssets/images/angry.gif',
+    assetIcon: 'assets/images/angry.gif',
     code: 'angry',
   ),
 ];
@@ -65,7 +65,10 @@ class _FeedState extends State<Feed> {
       body: ListView.separated(
         itemBuilder: (context, position) {
           return Padding(
-            padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 5.0,),
+            padding: EdgeInsets.symmetric(
+              vertical: 20.0,
+              horizontal: 5.0,
+            ),
             child: Card(
               elevation: 20,
               child: Column(
@@ -84,7 +87,7 @@ class _FeedState extends State<Feed> {
                         Text("Acc Type"),
                         Padding(
                           padding: EdgeInsets.only(right: 15),
-                          child:Text("Date & Time"),
+                          child: Text("Date & Time"),
                         ),
                       ],
                     ),
@@ -152,7 +155,7 @@ class _FeedState extends State<Feed> {
                         child: Container(
                           child: reaction != null
                               ? Image.asset(
-                                  'allAssets/images/$reaction.png',
+                                  'assets/images/$reaction.png',
                                   width: 32.0,
                                   height: 32.0,
                                 )

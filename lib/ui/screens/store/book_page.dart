@@ -1,10 +1,9 @@
 /*import 'package:E_Soor/ui/screens/store/authorPage.dart';*/
-
-
 import 'package:E_Soor/ui/widgets/AppSearch.dart';
+import 'package:E_Soor/ui/widgets/previewImage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:auto_size_text/auto_size_text.dart';
+
 
 class BookPage extends StatefulWidget {
   @override
@@ -54,19 +53,26 @@ class _BookState extends State<BookPage> {
         ],
       ),
       body: RefreshIndicator(
-          onRefresh: () {
-            return;
-          },
+        onRefresh: () {
+          return;
+        },
+        child: SingleChildScrollView(
           child: ListView(
-              shrinkWrap: true,
-              children: <Widget>[
-                BookInfo(),
-                BookFeedBack(),
-                BookRating(),
-                PeopelBookFeedBack()
+            primary: false,
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            children: <Widget>[
+              BookInfo(),
+              BookFeedBack(),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: BookRating(),
+              ),
+              PeopelBookFeedBack(),
             ],
-          )
+          ),
         ),
+      ),
     );
   }
 }
@@ -89,72 +95,94 @@ class _BookInfoState extends State<BookInfo> {
       color: Colors.black,
       height: 300,
       width: MediaQuery.of(context).size.width * 1,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Flex(
+        direction: Axis.horizontal,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           ///The column Which holds the `Book INFO`
-          Padding(
-            padding: const EdgeInsets.all(0),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  /// This is the `BOOK NAME`
-                  AutoSizeText(
-                    "David copper field",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                    maxLines: 2,
-                    maxFontSize: 30,
-                  ),
-
-                  /// This is the `Author Name`
-                  AutoSizeText(
-                    "by:-Charles dickens",
-                    maxLines: 2,
-                    maxFontSize: 30,
-                  ),
-
-                  /// This is the `Rating of the book`
-                  RatingBarIndicator(
-                    rating: 4,
-                    itemSize: 30,
-                    unratedColor: Colors.white,
-                    itemCount: 5,
-                    itemBuilder: (context, _) => Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                    ),
-                  ),
-
-                  ///This is the `CATEGORY BUTTON`
-                  RaisedButton(
-                    elevation: 0.0,
-                    child: Text(
-                      "Category",
-                      style: TextStyle(
-                        fontSize: 15,
+          Expanded(
+            flex: 4,
+            child: Padding(
+              padding: const EdgeInsets.all(0),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    /// This is the `BOOK NAME`
+                    Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: Text(
+                        "David copper field",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                    onPressed: () {},
-                  ),
 
-                  ///This is the `PRICE`
-                  Text("price:-$price"),
-                ],
+                    /// This is the `Author Name`
+                    Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: Text(
+                        "by:-Charles dickens",
+                      ),
+                    ),
+
+                    /// This is the `Rating of the book`
+                    RatingBarIndicator(
+                      rating: 4,
+                      itemSize: 30,
+                      unratedColor: Colors.white,
+                      itemCount: 5,
+                      itemBuilder: (context, _) => Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                    ),
+
+                    ///This is the `CATEGORY BUTTON`
+                    RaisedButton(
+                      elevation: 0.0,
+                      child: Text(
+                        "Category",
+                        style: TextStyle(
+                          fontSize: 15,
+                        ),
+                      ),
+                      onPressed: () {},
+                    ),
+
+                    ///This is the `PRICE`
+                    Text("price:-$price"),
+                  ],
+                ),
               ),
             ),
           ),
 
-          ///The `Book Image`
-          Padding(
-            padding: const EdgeInsets.all(10),
+          /// The `Book Image`
+          Expanded(
+            flex: 5,
             child: Container(
-              width: MediaQuery.of(context).size.width * 0.5,
-              height: 250,
-              decoration: BoxDecoration(
-                color: Colors.green,
+              height: double.maxFinite,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PreviewImage(),
+                      ),
+                    );
+                  },
+                  child: Hero(
+                    tag: 'bookImg',
+                    child: Image.network(
+                      "https://maktabati.me/files/2018/03/davidcopperfield-260x300.jpg",
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
@@ -173,8 +201,9 @@ class BookRating extends StatefulWidget {
 class _BookRatingState extends State<BookRating> {
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      children: <Widget> [Column(
+    return Container(
+      width: MediaQuery.of(context).size.width * 1,
+      child: Column(
         children: <Widget>[
           Text("Rate The Book"),
           Center(
@@ -196,7 +225,7 @@ class _BookRatingState extends State<BookRating> {
           ),
         ],
       ),
-      ]);
+    );
   }
 }
 
@@ -209,18 +238,23 @@ class BookFeedBack extends StatefulWidget {
 class _BookFeedBackState extends State<BookFeedBack> {
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      children: <Widget>[ Padding(
+    return Container(
+      height: 120,
+      width: MediaQuery.of(context).size.width * 1,
+      child: Padding(
         padding: EdgeInsets.all(20),
         child: TextField(
-            minLines: 1,
-            maxLines: 5,
-            decoration: InputDecoration(
-                suffixIcon:
-                    IconButton(icon: Icon(Icons.send), onPressed: () {}),
-                labelText: "Write your feedback about the book")),
+          minLines: 1,
+          maxLines: 5,
+          decoration: InputDecoration(
+            suffixIcon: IconButton(
+              icon: Icon(Icons.send),
+              onPressed: () {},
+            ),
+            labelText: "Write your feedback about the book",
+          ),
         ),
-      ]
+      ),
     );
   }
 }

@@ -19,7 +19,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () {
-              showSearch(context: context, delegate: AppSearch());
+              showSearch(
+                context: context,
+                delegate: AppSearch(),
+              );
             },
           ),
         ],
@@ -27,7 +30,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
       body: ListView.builder(
         itemBuilder: (context, index) {
           return CategoryBar(
-              context, openBookPage, openSubCategoryPage, "SubCategory");
+            context,
+            openBookPage,
+            openSubCategoryPage,
+            "SubCategory",
+          );
         },
         itemCount: 10,
       ),
@@ -36,11 +43,19 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   void openBookPage() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => BookPage()));
+      context,
+      MaterialPageRoute(
+        builder: (context) => BookPage(),
+      ),
+    );
   }
 
   void openSubCategoryPage() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => SubCategory()));
+      context,
+      MaterialPageRoute(
+        builder: (context) => SubCategory(),
+      ),
+    );
   }
 }
