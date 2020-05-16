@@ -11,6 +11,7 @@ class GoogleAuthSignIn {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final Firestore _firestore = Firestore.instance;
+  final String _usersCollectionData = "users";
   bool _isNewUser;
 
   bool get isNewUser => _isNewUser;
@@ -70,18 +71,17 @@ class GoogleAuthSignIn {
     final DateTime creationTime = DateTime.now();
     try {
       String userID = (await _firebaseAuth.currentUser()).uid;
-      await _firestore
-          .collection("usersData/$userID/about")
-          .document("user info")
-          .setData(
-            User(
-              uid: userID,
-              emailAddress: userEmail,
-              creationTime: creationTime,
-              lastInfoUpdate: creationTime,
-              displayName: authResultUser.user.displayName,
-            ).toJson(),
-          );
+      var userDoc =
+          _firestore.collection(_usersCollectionData).document(userID);
+      await userDoc.setData(
+        User(
+          uid: userID,
+          emailAddress: userEmail,
+          creationTime: creationTime,
+          lastInfoUpdate: creationTime,
+          displayName: authResultUser.user.displayName,
+        ).toJson(),
+      );
     } on PlatformException catch (uploadUserInitialDataError) {
       throw PlatformException(
           code: 'ERROR_WHILE_SAVING_USER_DATA',
