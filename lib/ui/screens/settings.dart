@@ -307,7 +307,7 @@ class _BottomSheetState extends State<BottomSheet> {
 }
 
 ///An `Alert Dialog` that warns user before Deactivating the account
-void alertDialog(BuildContext context1) {
+void alertDialog(BuildContext _context) {
   var alertDialog = AlertDialog(
     title: Text(
       'Deactivating Account',
@@ -336,15 +336,16 @@ void alertDialog(BuildContext context1) {
           style: TextStyle(),
         ),
         onPressed: () {
-          Navigator.pop(context1);
+          Navigator.pop(_context);
         },
       ),
     ],
   );
 
   showDialog(
-    context: context1,
-    builder: (BuildContext context1) {
+    context: _context,
+    barrierDismissible: true,
+    builder: (BuildContext _context) {
       return alertDialog;
     },
   );

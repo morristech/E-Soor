@@ -1,4 +1,5 @@
 import 'package:E_Soor/models/message_model.dart';
+import 'package:E_Soor/ui/widgets/chatPage.dart';
 import 'package:flutter/material.dart';
 
 class RecentChats extends StatefulWidget {
@@ -19,7 +20,15 @@ class _RecentChatsState extends State<RecentChats> {
               itemBuilder: (BuildContext context, int index) {
                 final Message chat = chats[index];
                 return GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                       Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChatPage(),
+                      ),
+                    );
+                      
+                  },
                   child: Container(
                     margin: EdgeInsets.symmetric(
                       vertical: 5,

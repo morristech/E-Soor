@@ -113,11 +113,11 @@ class _SlidingPanelState extends State<SlidingPanel> {
                   borderRadius: new BorderRadius.circular(50.0),
                 ),
                 onPressed: () {
-                   /*Navigator.push(
+                   Navigator.push(
                      context,
                      MaterialPageRoute(builder: (context)=>CheckOutPage()
                      )
-                   );*/
+                   );
                 },
               ),
             ),
