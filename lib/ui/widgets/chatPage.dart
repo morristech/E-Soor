@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ChatPage extends StatefulWidget {
+/*class ChatPage extends StatefulWidget {
   @override
   _ChatPageState createState() => _ChatPageState();
 }
@@ -9,21 +9,12 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       body: ChatPageView(),
+      body: ChatPageView(),
     );
   }
 }
 
-
-
-
-
-
-
-
-
-
-/// the class that holds the 
+/// the class that holds the
 class ReceivedMessageWidget extends StatelessWidget {
   final String content;
   final String time;
@@ -49,25 +40,21 @@ class ReceivedMessageWidget extends StatelessWidget {
           color: Colors.blue,
           child: Stack(children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(right: 12.0, left: 23.0, top: 8.0, bottom: 15.0),
+              padding: const EdgeInsets.only(
+                  right: 12.0, left: 23.0, top: 8.0, bottom: 15.0),
               child: Text(
-                "Hello everyone how are you all doing",
-                style: TextStyle(
-                  fontSize : 15,
-                  color : Colors.white
-                ),
+                "يا بروو انت اكتر وااله",
+                style: TextStyle(fontSize: 15, color: Colors.white),
               ),
             ),
             Positioned(
               bottom: 5,
               right: 10,
-              child: Text(
-              "12:54",
-               style: TextStyle(
-                 fontSize: 10,
-                 color: Colors.white,
-               )
-              ),
+              child: Text("12:54",
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: Colors.white,
+                  )),
             )
           ]),
         ),
@@ -75,15 +62,6 @@ class ReceivedMessageWidget extends StatelessWidget {
     ));
   }
 }
-
-
-
-
-
-
-
-
-
 
 class SendedMessageWidget extends StatelessWidget {
   final String content;
@@ -107,28 +85,25 @@ class SendedMessageWidget extends StatelessWidget {
               topLeft: Radius.circular(15),
               topRight: Radius.circular(15)),
           child: Container(
-            color : Colors.orange,
+            color: Colors.orange,
             // margin: const EdgeInsets.only(left: 10.0),
             child: Stack(children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(right: 12.0, left: 23.0, top: 8.0, bottom: 15.0),
+                padding: const EdgeInsets.only(
+                    right: 12.0, left: 23.0, top: 8.0, bottom: 15.0),
                 child: Text(
-                  "tHIS IS NOT fUNYY AT ALL MAN FUCK YOU AND FUCK EVERY Piece of shit in youilaweuaweuaweuaweuaweuaweuaweuaweuaweuaweuaweuaweuaweuaweuaweuaweuaweuaweuaweuaweuaweudarv hui",
-                  style: TextStyle(
+                    "يسطا واحشني فششخ عامل ايه",
+                    style: TextStyle(
                       color: Colors.white,
                       fontSize: 15,
-                  )
-                ),
+                    )),
               ),
               Positioned(
                 bottom: 5,
                 right: 10,
                 child: Text(
                   "12:55",
-                  style: TextStyle(
-                    fontSize: 10,
-                    color :Colors.white
-                  ),
+                  style: TextStyle(fontSize: 10, color: Colors.white),
                 ),
               )
             ]),
@@ -138,15 +113,6 @@ class SendedMessageWidget extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
-
 
 class ChatPageView extends StatefulWidget {
   final String username;
@@ -255,11 +221,13 @@ class _ChatPageViewState extends State<ChatPageView> {
                             children: <Widget>[
                               Text(
                                 widget.username ?? "Jimi Cooke",
-                                style: TextStyle(color: Colors.white, fontSize: 15),
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 15),
                               ),
                               Text(
                                 "online",
-                                style: TextStyle(color: Colors.white60, fontSize: 12),
+                                style: TextStyle(
+                                    color: Colors.white60, fontSize: 12),
                               ),
                             ],
                           ),
@@ -276,17 +244,16 @@ class _ChatPageViewState extends State<ChatPageView> {
                                         fit: BoxFit.cover,
                                       ),
                                     ),
-                                    color: Colors.black
-                                    ),
+                                    color: Colors.black),
                                 borderRadius: new BorderRadius.circular(50),
                               ),
                               height: 55,
                               width: 55,
                               padding: const EdgeInsets.all(0.0),
                               decoration: new BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                  ),
+                                shape: BoxShape.circle,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ],
@@ -299,13 +266,10 @@ class _ChatPageViewState extends State<ChatPageView> {
                   ),
                   Flexible(
                     fit: FlexFit.tight,
-               
                     child: Container(
                       width: MediaQuery.of(context).size.width,
-                     
                       child: SingleChildScrollView(
                           controller: _scrollController,
-                         
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -314,26 +278,25 @@ class _ChatPageViewState extends State<ChatPageView> {
                     ),
                   ),
                   Divider(height: 0, color: Colors.black26),
-               
-                 Padding(
-                      padding: const EdgeInsets.only(left:10),
-                      child: TextField(
-                        maxLines: 6,
-                        minLines: 1,
-                        controller: _text,
-                        decoration: InputDecoration(
-                          
-                          suffixIcon: IconButton(
-                            icon: Icon(Icons.send, color: Colors.white,),
-                            onPressed: () {},
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: TextField(
+                      maxLines: 6,
+                      minLines: 1,
+                      controller: _text,
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            Icons.send,
+                            color: Colors.white,
                           ),
-                          border: InputBorder.none,
-                          hintText: "enter your message",
+                          onPressed: () {},
                         ),
+                        border: InputBorder.none,
+                        hintText: "enter your message",
                       ),
                     ),
-                  
-               
+                  ),
                 ],
               ),
             ],
@@ -342,4 +305,4 @@ class _ChatPageViewState extends State<ChatPageView> {
       ),
     );
   }
-}
+}*/
