@@ -6,12 +6,9 @@ class PreviewImage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: Hero(
-          tag: 'bookImg',
-          child: Image.asset(
-            "assets/images/logo.png",
-            fit: BoxFit.cover,
-          ),
+        child: Image.asset(
+          "assets/images/logo.png",
+          fit: BoxFit.cover,
         ),
       ),
     );

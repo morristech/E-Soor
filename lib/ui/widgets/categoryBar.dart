@@ -127,15 +127,13 @@ class CategoryBar extends StatefulWidget {
   final String name;
   final Function onViewMore;
   final Function onTap;
-  final provider;
 
   CategoryBar(
     this.context,
     this.onTap,
     this.onViewMore,
-    this.name, {
-    this.provider,
-  });
+    this.name,
+  );
   @override
   _CategoryBarState createState() => _CategoryBarState();
 }
@@ -143,7 +141,8 @@ class CategoryBar extends StatefulWidget {
 class _CategoryBarState extends State<CategoryBar> {
   @override
   Widget build(BuildContext context) {
-    var selectionProvider = widget.provider;
+    var selectionProvider = Provider.of<SelectionNotifier>(context);
+
     bool isSelected = selectionProvider.getValue();
 
     return GestureDetector(
@@ -153,7 +152,6 @@ class _CategoryBarState extends State<CategoryBar> {
         } else {
           return selectionProvider.setValue(true);
         }
-        // showAlertDialog(context, widget.name);
       },
       child: _buildCategoryBar(
         context,
