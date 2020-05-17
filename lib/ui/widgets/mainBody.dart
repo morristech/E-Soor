@@ -80,7 +80,7 @@ class _MainBodyState extends State<MainBody>
                 pinned: true,
                 forceElevated: innerBoxIsScrolled,
                 bottom: isSelected
-                    ? selectionAppBar()
+                    ? selectionAppBar(context)
                     : TabBar(
                         controller: tabController,
                         indicatorColor: Colors.white,
