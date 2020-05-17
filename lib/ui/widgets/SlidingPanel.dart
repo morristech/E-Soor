@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:E_Soor/ui/screens/store/checkout.dart';
+
 BorderRadiusGeometry radius = BorderRadius.only(
   topLeft: Radius.circular(25.0),
   topRight: Radius.circular(25.0),
@@ -12,7 +13,6 @@ class SlidingPanel extends StatefulWidget {
 }
 
 class _SlidingPanelState extends State<SlidingPanel> {
-  
   static int price = 75;
   int total = 2 * price;
 
@@ -40,7 +40,7 @@ class _SlidingPanelState extends State<SlidingPanel> {
                 ),
               ),
               trailing: IconButton(
-                onPressed: (){},
+                onPressed: () {},
                 icon: Icon(Icons.delete),
               ),
             ),
@@ -113,11 +113,12 @@ class _SlidingPanelState extends State<SlidingPanel> {
                   borderRadius: new BorderRadius.circular(50.0),
                 ),
                 onPressed: () {
-                   Navigator.push(
-                     context,
-                     MaterialPageRoute(builder: (context)=>CheckOutPage()
-                     )
-                   );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CheckOutPage(),
+                    ),
+                  );
                 },
               ),
             ),
