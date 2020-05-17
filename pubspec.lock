@@ -432,9 +432,11 @@ packages:
   settings_ui:
     dependency: "direct main"
     description:
-      name: settings_ui
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: "64e0470ef55e7b3052cdb193ed1ff2aeff9d6f73"
+      url: "git://github.com/OmarYehiaDev/flutter-settings-ui"
+    source: git
     version: "0.2.0"
   shared_preferences:
     dependency: "direct main"
@@ -609,6 +611,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.8"
+  velocity_x:
+    dependency: "direct main"
+    description:
+      name: velocity_x
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.4"
   xml:
     dependency: transitive
     description:

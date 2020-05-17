@@ -26,18 +26,146 @@ class _CheckOutPageState extends State<CheckOutPage> {
       body: Stack(
         children: <Widget>[
           ListView(
-            children: <Widget>[],
+            children: <Widget>[
+                ///
+                Center(child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Text("Insert Your Payment Info"),
+                )),
+
+                /// Text Field For Card Number
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                       labelText: "Card Number"
+                      ),
+                    keyboardType: TextInputType.number,
+                  ),
+                ),
+
+                /// MM && YY TextFields
+                Wrap(
+                  children: <Widget>[
+                    Container(
+                      width: MediaQuery.of(context).size.width*0.5,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                           labelText: "MM"
+                         ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width*0.5,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            labelText: "YY"
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                
+                /// Security CODE TextField
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      TextField(
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: "Security Code"
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 7),
+                        child: Text("The 3 or 4 digits at the back of your card"),
+                      )
+                    ],
+                  ),
+                ),
+
+              /// Name && LastName TextFields
+              Wrap(
+                children: <Widget>[
+                  Container(
+                    width: MediaQuery.of(context).size.width*0.5,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        decoration: InputDecoration(
+                            labelText: "Name"
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width*0.5,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        decoration: InputDecoration(
+                            labelText: "LastName"
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        minLines: 1,
+                        maxLines: 5,
+                        decoration: InputDecoration(
+                            labelText: "Billing Address"
+                        ),
+                      ),
+                    ),
+                  
+                ],
+              ),
+
+            ],
           ),
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.7,
+            top: MediaQuery.of(context).size.height * 0.65,
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.grey[900],
+                border: Border(
+                  top: BorderSide(
+                    width: 2,
+                    color:Colors.grey[900]
+                  )
+                )
               ),
-              height: 300,
+              height: 400,
               width: MediaQuery.of(context).size.width * 1,
               child: ListView(
                 children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Colors.grey,
+                          width: 0.5
+                        )
+                      )
+                    ),
+                    height: 40,
+                    child: Center(
+                      child: Text('Payment Summary'),
+                    )
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
