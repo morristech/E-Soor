@@ -9,9 +9,9 @@ class bookMarks extends StatefulWidget {
 
 class _bookMarksState extends State<bookMarks> {
   /// the List tht hols the Saved Book Items
-  List <Widget> items = [
-    BookItem(),
-  ];
+  /*List <Widget> items = [
+    BookItem((){}),
+  ];*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +32,7 @@ class _bookMarksState extends State<bookMarks> {
             ///new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemBuilder: (BuildContext context, int index){
             return Dismissible(
-              child: BookItem(),
+              child: BookItem((){}),
               key: UniqueKey(),
               onDismissed: (direction){
                 /*setState(() {

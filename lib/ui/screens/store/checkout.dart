@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class CheckOutPage extends StatefulWidget {
@@ -6,7 +8,7 @@ class CheckOutPage extends StatefulWidget {
 }
 
 class _CheckOutPageState extends State<CheckOutPage> {
-  int totalPrice = 84756;
+  Float totalPrice;
   int booksAmmount = 46375;
   @override
   Widget build(BuildContext context) {
@@ -37,8 +39,10 @@ class _CheckOutPageState extends State<CheckOutPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
+                    maxLines: 16,
                     decoration: InputDecoration(
-                       labelText: "Card Number"
+                       labelText: "Card Number",
+                       
                       ),
                     keyboardType: TextInputType.number,
                   ),
@@ -52,6 +56,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextField(
+                          maxLength: 2,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                            labelText: "MM"
@@ -64,6 +69,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextField(
+                          maxLength: 4,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             labelText: "YY"
@@ -81,6 +87,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       TextField(
+                        maxLength: 4,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           labelText: "Security Code"
@@ -130,7 +137,6 @@ class _CheckOutPageState extends State<CheckOutPage> {
                         ),
                       ),
                     ),
-                  
                 ],
               ),
 
