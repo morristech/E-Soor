@@ -7,7 +7,7 @@ Widget categoryItems(context, onTap, scrollDirection) {
     child: ListView.builder(
       scrollDirection: scrollDirection,
       itemBuilder: (context, index) {
-        return BookItem(onTap);
+        return BookItem(/*onTap*/);
       },
       itemCount: 20,
     ),
