@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 import 'languages_screen.dart';
@@ -21,28 +22,6 @@ class _SettingsState extends State<Settings> {
         body: SettingsList(
           sections: [
             SettingsSection(
-              title: 'Common',
-              tiles: [
-                SettingsTile(
-                  title: 'Language',
-                  subtitle: 'English',
-                  leading: Icon(Icons.language),
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => LanguagesScreen(),
-                      ),
-                    );
-                  },
-                ),
-                SettingsTile(
-                  title: 'Environment',
-                  subtitle: 'Production',
-                  leading: Icon(Icons.cloud_queue),
-                ),
-              ],
-            ),
-            SettingsSection(
               title: 'Account',
               tiles: [
                 SettingsTile(
@@ -60,29 +39,30 @@ class _SettingsState extends State<Settings> {
               ],
             ),
             SettingsSection(
-              title: 'Secutiry',
+              title: 'Common',
               tiles: [
-                SettingsTile.switchTile(
-                  title: 'Lock app in background',
-                  leading: Icon(Icons.phonelink_lock),
-                  switchValue: lockInBackground,
-                  onToggle: (bool value) {
-                    setState(() {
-                      lockInBackground = value;
-                    });
+                SettingsTile(
+                  title: 'Language',
+                  subtitle: 'English',
+                  leading: Icon(Icons.language),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => LanguagesScreen(),
+                      ),
+                    );
                   },
                 ),
-                SettingsTile.switchTile(
-                  title: 'Use fingerprint',
-                  leading: Icon(Icons.fingerprint),
-                  onToggle: (bool value) {},
-                  switchValue: false,
-                ),
-                SettingsTile.switchTile(
+                SettingsTile(
                   title: 'Change password',
-                  leading: Icon(Icons.lock),
-                  switchValue: true,
-                  onToggle: (bool value) {},
+                  leading: Icon(MdiIcons.formTextboxPassword),
+                  onTap: () {
+                    // Navigator.of(context).push(
+                    //   MaterialPageRoute(
+                    //     builder: (BuildContext context) => // change password screen,
+                    //   ),
+                    // );
+                  },
                 ),
               ],
             ),
@@ -94,8 +74,8 @@ class _SettingsState extends State<Settings> {
                   leading: Icon(Icons.description),
                 ),
                 SettingsTile(
-                  title: 'Open source licenses',
-                  leading: Icon(Icons.collections_bookmark),
+                  title: 'Privacy',
+                  leading: Icon(Icons.security),
                 ),
               ],
             ),
