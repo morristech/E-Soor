@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:settings_ui/settings_ui.dart';
-
 import 'languages_screen.dart';
 
 class Settings extends StatefulWidget {

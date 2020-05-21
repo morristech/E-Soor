@@ -3,6 +3,7 @@ import 'package:E_Soor/ui/screens/login_signup_reset/emailLogin.dart';
 import 'package:E_Soor/ui/screens/other/about_us.dart';
 import 'package:E_Soor/ui/screens/settings/settings.dart';
 import 'package:flutter/material.dart';
+import 'package:E_Soor/ui/screens/store/bookMarks.dart';
 
 class MyDrawer extends StatelessWidget {
   final FirebaseAuthService _firebaseAuthService = FirebaseAuthService();
@@ -80,9 +81,14 @@ class MyDrawer extends StatelessWidget {
                     )),
               ),
               ListTile(
-                leading: Icon(Icons.security),
-                title: Text("Privacy"),
-                onTap: () {},
+                leading: Icon(Icons.bookmark),
+                title: Text("Book Marks"),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => bookMarks()
+                  ));
+                },
               ),
               ListTile(
                 leading: Icon(Icons.info),
