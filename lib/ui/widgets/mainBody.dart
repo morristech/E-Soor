@@ -4,6 +4,7 @@ import 'package:E_Soor/ui/screens/tabs/social.dart';
 import 'package:E_Soor/ui/screens/tabs/store.dart';
 import 'package:E_Soor/ui/widgets/AppSearch.dart';
 import 'package:E_Soor/ui/widgets/ThemeSwitch.dart';
+import 'package:E_Soor/ui/widgets/selectionAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -79,20 +80,22 @@ class _MainBodyState extends State<MainBody>
                 pinned: true,
                 forceElevated: innerBoxIsScrolled,
                 bottom: isSelected
-                    ? AppBar(
-                        title: Text("This is working!"),
-                      )
+                    ? selectionAppBar(context)
                     : TabBar(
                         controller: tabController,
                         indicatorColor: Colors.white,
                         tabs: <Widget>[
                           Tab(
                             text: "Store",
-                            icon: Icon(Icons.store),
+                            icon: Icon(
+                              Icons.store,
+                            ),
                           ),
                           Tab(
                             text: "Social",
-                            icon: Icon(Icons.people),
+                            icon: Icon(
+                              Icons.people,
+                            ),
                           ),
                         ],
                       ),

@@ -112,44 +112,54 @@ class _BookInfoState extends State<BookInfo> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     /// This is the `BOOK NAME`
-                    Text(
-                      "David copper field",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal:5),
+                      child: Text(
+                          "David copper field",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                     ),
+                    
 
                     /// This is the `Author Name`
-                    Text(
-                      "by:-Charles dickens",
-                    ),
+                   Padding(
+                     padding: const EdgeInsets.symmetric(horizontal:5),
+                     child: Text(
+                          "by:-Charles dickens",
+                        ),
+                   ),
 
                     /// This is the `Rating of the book`
-                    RatingBarIndicator(
-                      rating: 4,
-                      itemSize: 30,
-                      unratedColor: Colors.white,
-                      itemCount: 5,
-                      itemBuilder: (context, _) => Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                      ),
-                    ),
-
-                    ///This is the `CATEGORY BUTTON`
-                    RaisedButton(
-                      elevation: 0.0,
-                      child: Text(
-                        "Category",
-                        style: TextStyle(
-                          fontSize: 15,
+                   RatingBarIndicator(
+                        rating: 4,
+                        itemSize: 30,
+                        unratedColor: Colors.white,
+                        itemCount: 5,
+                        itemBuilder: (context, _) => Icon(
+                          Icons.star,
+                          color: Colors.amber,
                         ),
                       ),
-                      onPressed: () {},
-                    ),
+                    
+
+                    ///This is the `CATEGORY BUTTON`
+                     RaisedButton(
+                        elevation: 0.0,
+                        child: Text(
+                          "Category",
+                          style: TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                        onPressed: () {},
+                      ),
+                    
 
                     ///This is the `PRICE`
-                    Text("price:-$price"),
+                  Text("price:-$price"),
+                    
                   ],
                 ),
               ),
@@ -172,12 +182,9 @@ class _BookInfoState extends State<BookInfo> {
                       ),
                     );
                   },
-                  child: Hero(
-                    tag: 'bookImg',
-                    child: Image.network(
-                      "https://maktabati.me/files/2018/03/davidcopperfield-260x300.jpg",
-                      fit: BoxFit.contain,
-                    ),
+                  child: Image.network(
+                    "https://maktabati.me/files/2018/03/davidcopperfield-260x300.jpg",
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),
@@ -288,19 +295,16 @@ List<Item> items = [
     headerValue: ListTile(
       title: Text("See other's feedbacks"),
     ),
-    bodyValue: ListView.builder(
-      itemCount: 7,
-      shrinkWrap: true,
-      itemBuilder: (BuildContext ctx, int index) {
-        return Wrap(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Text("This is a book feedback"),
-            ),
-          ],
-        );
-      },
+    bodyValue: SingleChildScrollView(
+      child: Column(
+        children: List.generate(
+          40,
+          (index) => Padding(
+            padding: const EdgeInsets.all(20),
+            child: Text("This is a book feedback"),
+          ),
+        ),
+      ),
     ),
   ),
 ];

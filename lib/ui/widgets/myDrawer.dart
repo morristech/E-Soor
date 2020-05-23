@@ -1,7 +1,7 @@
 import 'package:E_Soor/services/firebase.auth.dart';
 import 'package:E_Soor/ui/screens/login_signup_reset/emailLogin.dart';
 import 'package:E_Soor/ui/screens/other/about_us.dart';
-import 'package:E_Soor/ui/screens/settings.dart';
+import 'package:E_Soor/ui/screens/settings/settings.dart';
 import 'package:flutter/material.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -84,7 +84,6 @@ class MyDrawer extends StatelessWidget {
                 title: Text("Privacy"),
                 onTap: () {},
               ),
-
               ListTile(
                 leading: Icon(Icons.info),
                 title: Text("About us"),

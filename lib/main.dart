@@ -1,6 +1,6 @@
 import 'package:E_Soor/helpers/logic/constants.dart';
 import 'package:E_Soor/models/selection.dart';
-import 'package:E_Soor/services/fasebook.auth.dart';
+import 'package:E_Soor/services/facebook.auth.dart';
 import 'package:E_Soor/services/firebase.auth.dart';
 import 'package:E_Soor/services/google.auth.dart';
 import 'package:E_Soor/ui/screens/splash_screen/splash_screen.dart';

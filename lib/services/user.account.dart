@@ -63,7 +63,7 @@ class UserAccount {
       final DateTime profileImageCreationTime = DateTime.now();
       final FirebaseUser currentUser = await _firebaseAuth.currentUser();
       final String userID = (await _firebaseAuth.currentUser()).uid;
-      StorageReference ref = FirebaseStorage.instance
+      StorageReference ref = FirebaseStorage(storageBucket: 'gs://e-soor-29d6c.appspot.com')
           .ref()
           .child("$userID/$userID-profilePic.jpg");
       StorageUploadTask uploadTask = ref.putFile(
