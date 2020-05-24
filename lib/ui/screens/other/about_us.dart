@@ -1,17 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 ///package that offers custom icons.
-import 'package:url_launcher/url_launcher.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 ///package that launches URLs.
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutUs extends StatelessWidget {
   ///function that launches URLs by pressing on a button
   void customLaunch(command) async {
     if (await canLaunch(command)) {
-      await launch(command);
+      await launch(command, forceWebView: true);
     } else {
       print(" could not launch $command");
     }
