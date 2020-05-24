@@ -21,11 +21,19 @@ class _BookMarksState extends State<BookMarks> {
         body: GridView.builder(
           itemCount: 10,
           gridDelegate:
-          new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+          new SliverGridDelegateWithFixedCrossAxisCount(
+            childAspectRatio: 2/3,
+            crossAxisCount: 2
+            ),
           itemBuilder: (BuildContext context, int index) {
             return
-               BookItem(
-                  () {}
+               GestureDetector(
+                onLongPress:(){
+                  dismissAlert(context);
+                },
+                child: BookItem(
+                   () {}
+            ),
           );
         },
       )
