@@ -27,13 +27,6 @@ class _CheckOutPageState extends State<CheckOutPage> {
       resizeToAvoidBottomInset: true,
       body: ListView(
         children: <Widget>[
-          ///
-          Center(
-              child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Text("Insert Your Payment Info"),
-          )),
-
           /// Text Field For Card Number
           Padding(
             padding: const EdgeInsets.all(8.0),
