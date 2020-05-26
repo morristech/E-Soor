@@ -1,4 +1,5 @@
 import 'package:E_Soor/helpers/logic/constants.dart';
+import 'package:E_Soor/helpers/sharedPrefs.dart';
 import 'package:E_Soor/models/selection.dart';
 import 'package:E_Soor/services/facebook.auth.dart';
 import 'package:E_Soor/services/firebase.auth.dart';
@@ -18,13 +19,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  var isDarkTheme = prefs.getBool(SharedPreferencesKeys.isDarkTheme);
+  await SharedPrefsUtils.init();
+//  SharedPreferences prefs = await SharedPreferences.getInstance();
+//  var isDarkTheme = prefs.getBool(SharedPreferencesKeys.isDarkTheme);
+  final SharedPrefsUtils _sharedPrefs = SharedPrefsUtils.getInstance();
+  var isDarkTheme = _sharedPrefs.getData(SharedPreferencesKeys.isDarkTheme);
   ThemeData theme;
   if (isDarkTheme != null) {
     theme = isDarkTheme ? Constants.kDarkTheme : Constants.kLightTheme;
   } else {
-    theme = Constants.kLightTheme;
+    theme = Constants.kDarkTheme;
   }
 
   //You can add your providers as a list

@@ -1,4 +1,4 @@
-import 'package:E_Soor/services/users.api.dart';
+import 'package:E_Soor/models/UserModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';

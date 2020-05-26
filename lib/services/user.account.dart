@@ -1,3 +1,4 @@
+import 'package:E_Soor/models/UserModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -59,13 +60,15 @@ class UserAccount {
 
   //! weak error handling --> needs to be improved
   Future<void> uploadUserProfilePic(File imageFile) async {
+    assert(imageFile != null);
     try {
       final DateTime profileImageCreationTime = DateTime.now();
       final FirebaseUser currentUser = await _firebaseAuth.currentUser();
       final String userID = (await _firebaseAuth.currentUser()).uid;
-      StorageReference ref = FirebaseStorage(storageBucket: 'gs://e-soor-29d6c.appspot.com')
-          .ref()
-          .child("$userID/$userID-profilePic.jpg");
+      StorageReference ref =
+          FirebaseStorage(storageBucket: 'gs://e-soor-29d6c.appspot.com')
+              .ref()
+              .child("$userID/$userID-profilePic.jpg");
       StorageUploadTask uploadTask = ref.putFile(
           imageFile,
           StorageMetadata(
@@ -196,8 +199,8 @@ class UserAccount {
   }
 
   //*
-  //! DON'T USE
-  //! NOT IMPLEMENTED
+  ///! DON'T USE
+  ///! NOT IMPLEMENTED
   Future<String> getCurrentUserPhoneNumber() async {
     final user = await _firebaseAuth.currentUser();
     if (user.phoneNumber != null) {
@@ -209,6 +212,7 @@ class UserAccount {
             'check if the user is logged in or has entered his phone number');
   }
 
+  ///! DO NOT USE
   Future<void> updateUserPhoneNumber(
       String newPhoneNumber, String password, String email) async {
     final FirebaseUser user = await _firebaseAuth.currentUser();
@@ -221,7 +225,17 @@ class UserAccount {
       print(e);
     }
   }
-  //*
+
+  //* get user data snapshot
+  Future<User> getUser() async {
+    final currentUser = await _firebaseAuth.currentUser();
+    final _userDocSnapshot = await _firestore
+        .collection("$_usersCollectionData")
+        .document("${currentUser.uid}")
+        .get();
+    if (_userDocSnapshot == null) throw "User doc couldn't be found";
+    return User.fromSnapshot(_userDocSnapshot);
+  }
 }
 
 /**

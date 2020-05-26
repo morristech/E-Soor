@@ -1,7 +1,8 @@
+import 'package:E_Soor/helpers/sharedPrefs.dart';
+import 'package:E_Soor/models/UserModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:E_Soor/services/users.api.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 
@@ -10,11 +11,17 @@ import 'dart:async';
 class FirebaseAuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final Firestore _firestore = Firestore.instance;
+  final SharedPrefsUtils _sharedPrefs = SharedPrefsUtils.getInstance();
   //* User status/info
   bool _isUserLoggedin = false;
   String _userPassword;
   String _userEmailAddress;
   final String _usersCollectionData = "users";
+
+  Future<bool> saveUserLogin(bool value) async {
+    return await _sharedPrefs.saveData<bool>("isUserLoggedIn", value);
+    // return await _sharedPrefs.saveBool("isUserLoggedIn", value);
+  }
 
   //* check weather the user has loggeed in or not
   //!needs passing to widgets improvment
@@ -23,7 +30,13 @@ class FirebaseAuthService {
 
   Stream<FirebaseUser> onAuthSateChange() => _firebaseAuth.onAuthStateChanged;
 
-  bool get isUserLoggeedIn => _isUserLoggedin;
+  Future<bool> get isUserLoggedIn {
+    bool value = _sharedPrefs.getData("isUserLoggedIn");
+    if (value == null) {
+      return Future.value(false);
+    }
+    return Future.value(value);
+  }
 
   //* GET CURRENT USER
   Future<FirebaseUser> getCurrentUser() async {
@@ -51,6 +64,11 @@ class FirebaseAuthService {
       );
       await _createUserData(userEmail: _userEmailAddress);
       _isUserLoggedin = true;
+      try {
+        await saveUserLogin(_isUserLoggedin);
+      } catch (e) {
+        print(e);
+      }
       //* if Everything went will return `null`
       return null;
     } catch (signUpError) {
@@ -88,6 +106,11 @@ class FirebaseAuthService {
         password: _userPassword,
       );
       _isUserLoggedin = true;
+      try {
+        await saveUserLogin(_isUserLoggedin);
+      } catch (e) {
+        print(e);
+      }
       return null;
     } catch (signInError) {
       if (signInError is PlatformException) {
@@ -170,6 +193,11 @@ class FirebaseAuthService {
     try {
       await _firebaseAuth.signOut();
       _isUserLoggedin = false;
+      try {
+        await saveUserLogin(_isUserLoggedin);
+      } catch (e) {
+        print(e);
+      }
     } catch (logOutError) {
       throw "Unexpected logout error: $logOutError";
     }

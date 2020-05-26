@@ -28,16 +28,18 @@ class _ProfilePageState extends State<ProfilePage> {
                    Center(
                      child: ProfileBio()
                      ),
-                   Center(
-                     child:FlatButton(
-                       color :Colors.grey[700],
-                       onPressed: (){},
-                       child:Padding(
-                         padding: EdgeInsets.symmetric(horizontal: 120, vertical: 10),
-                         child:Text("Edit Profile"), 
-                       )
-                     )
-                   )
+                  Center(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width*1,
+                      child: FlatButton(
+                           color :Colors.grey[700],
+                           onPressed: (){
+                             
+                           },
+                           child:Text("Edit Profile"), 
+                      ),
+                    ),
+                  )
                 ]
               )
             ]

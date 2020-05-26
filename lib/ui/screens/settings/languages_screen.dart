@@ -21,14 +21,14 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
             tiles: [
               SettingsTile(
                 title: "English",
-                leading: trailingWidget(0),
+                trailing: trailingWidget(0),
                 onTap: () {
                   changeLanguage(0);
                 },
               ),
               SettingsTile(
                 title: "العربية",
-                leading: trailingWidget(1),
+                trailing: trailingWidget(1),
                 onTap: () {
                   changeLanguage(1);
                 },
