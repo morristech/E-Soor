@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:E_Soor/ui/widgets/bookItem.dart';
 
-
-class bookMarks extends StatefulWidget {
+class BookMarks extends StatefulWidget {
   @override
-  _bookMarksState createState() => _bookMarksState();
+  _BookMarksState createState() => _BookMarksState();
 }
 
-class _bookMarksState extends State<bookMarks> {
+class _BookMarksState extends State<BookMarks> {
   /// the List tht hols the Saved Book Items
   /*List <Widget> items = [
     BookItem((){}),
@@ -15,30 +14,26 @@ class _bookMarksState extends State<bookMarks> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        title: Text(
-          "Book Marks",
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w300
-          )
-        )
-      ),
-
-      body: ListView.builder(
-        itemCount: 5,
-        ///gridDelegate:
-            ///new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-        itemBuilder: (BuildContext context, int index){
-            return Dismissible(
-              child: BookItem((){}),
-              key: UniqueKey(),
-              onDismissed: (direction){
-                /*setState(() {
-                  items.removeAt(index);
-                });*/
-              },
+        appBar: AppBar(
+            elevation: 0,
+            title: Text("Book Marks",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300))),
+        body: GridView.builder(
+          itemCount: 10,
+          gridDelegate:
+          new SliverGridDelegateWithFixedCrossAxisCount(
+            childAspectRatio: 2/3,
+            crossAxisCount: 2
+            ),
+          itemBuilder: (BuildContext context, int index) {
+            return
+               GestureDetector(
+                onLongPress:(){
+                  dismissAlert(context);
+                },
+                child: BookItem(
+                  (){}
+                )
           );
         },
       )
@@ -46,5 +41,28 @@ class _bookMarksState extends State<bookMarks> {
   }
 }
 
-
-
+void dismissAlert(BuildContext context) {
+  var alertDialog = AlertDialog(
+    title: Text("Delete Book Item"),
+    content: Text("Are you sure you want to delete book item?"),
+    actions: <Widget>[
+      FlatButton(
+        child: Text("Yes"),
+        onPressed: () {},
+      ),
+      FlatButton(
+        child: Text("No"),
+        onPressed: () {
+          /*Navigator.pop(context);*/
+        },
+      )
+    ],
+  );
+  showDialog(
+      barrierDismissible: true,
+      context: context,
+      builder: (BuildContext context) {
+        return alertDialog;
+    }
+  );
+}

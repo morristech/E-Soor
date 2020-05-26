@@ -18,28 +18,24 @@ class _ProfilePageState extends State<ProfilePage> {
          Wrap(
             children: <Widget>[
               Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children:<Widget>[
-                  Center(
-                    child: ProfilePicture()
-                    ),
-                   Center(
-                     child: ProfileName()
-                     ),
-                   Center(
-                     child: ProfileBio()
-                     ),
-                  Center(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width*1,
-                      child: FlatButton(
-                           color :Colors.grey[700],
-                           onPressed: (){
-                             
-                           },
-                           child:Text("Edit Profile"), 
+                   ProfilePicture(imageUrl:""),
+                   ProfileName(profileName: "Omar Hany Hassan Fouad"),
+                   ProfileBio(profileBio: "This is my E-soor Bio"),
+                   Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width*1,
+                        child: FlatButton(
+                          color :Colors.grey[700],
+                          onPressed: (){
+                               
+                        },
+                          child:Text("Edit Profile"), 
                       ),
                     ),
-                  )
+                  ),
                 ]
               )
             ]
@@ -52,11 +48,14 @@ class _ProfilePageState extends State<ProfilePage> {
 /////Profile picture class
 
 class ProfilePicture extends StatefulWidget {
+  final String imageUrl;
+  ProfilePicture({Key key, this.imageUrl}) : super(key: key);
   @override
   _ProfilePictureState createState() => _ProfilePictureState();
 }
 
 class _ProfilePictureState extends State<ProfilePicture> {
+ 
   @override
   Widget build(BuildContext context) {
     return 
@@ -64,7 +63,7 @@ class _ProfilePictureState extends State<ProfilePicture> {
         padding:EdgeInsets.all(5),
         child:CircleAvatar(
         radius: 70,
-            backgroundImage: NetworkImage("") ///get the profile image from the database
+            backgroundImage: NetworkImage( "${widget.imageUrl}" ) ///get the profile image from the database
      )
     );
   }
@@ -74,9 +73,9 @@ class _ProfilePictureState extends State<ProfilePicture> {
 ////Profile name class
 
 class ProfileName extends StatefulWidget {
-  final String profile_name;
+  final String profileName;
   /// constructor to recieve the data and address it to the variable above
-  ProfileName({Key key, this.profile_name}) : super(key: key); 
+  ProfileName({Key key, this.profileName}) : super(key: key); 
 
   @override
   _ProfileNameState createState() => _ProfileNameState();
@@ -86,9 +85,9 @@ class _ProfileNameState extends State<ProfileName> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-     padding:EdgeInsets.all(5),
+     padding:EdgeInsets.symmetric(horizontal: 10, vertical:10),
      child:AutoSizeText(
-     "${widget.profile_name}", /// get the value of the string stored inside the profile_name variable
+     "${widget.profileName}", /// get the value of the string stored inside the profile_name variable
       maxLines: 1,
       overflow: TextOverflow.ellipsis ,
       style: TextStyle(
@@ -103,8 +102,8 @@ class _ProfileNameState extends State<ProfileName> {
 ////Profile Bio class
 
 class ProfileBio extends StatefulWidget {
-  final String profile_bio;
-  ProfileBio({Key key, this.profile_bio}) : super(key: key);
+  final String profileBio;
+  ProfileBio({Key key, this.profileBio}) : super(key: key);
 
   @override
   _ProfileBioState createState() => _ProfileBioState();
@@ -116,7 +115,7 @@ class _ProfileBioState extends State<ProfileBio> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5), 
       child: Text(
-      '${widget.profile_bio}', 
+      '${widget.profileBio}', 
      )
     );
   }

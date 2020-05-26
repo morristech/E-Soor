@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-
 class Network extends StatefulWidget {
 	@override
 	_NetworkState createState() => _NetworkState();
