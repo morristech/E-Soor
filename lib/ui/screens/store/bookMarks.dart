@@ -32,8 +32,8 @@ class _BookMarksState extends State<BookMarks> {
                   dismissAlert(context);
                 },
                 child: BookItem(
-                   () {}
-            ),
+                  (){}
+                )
           );
         },
       )
