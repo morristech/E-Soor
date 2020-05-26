@@ -25,157 +25,145 @@ class _CheckOutPageState extends State<CheckOutPage> {
         ),
       ),
       resizeToAvoidBottomInset: true,
-      body: Column(
-        
-        children: <Widget>[
-           Container(
-             height: MediaQuery.of(context).size.height*0.635,
-             child: ListView(
+      body: Container(
+        child: Flex(
+          direction: Axis.vertical,
+          children: <Widget>[
+            Expanded(
+              flex: 8,
+              child: ListView(
+                shrinkWrap: true,
                 children: <Widget>[
-                    ///
-                    Center(child: Padding(
+                  ///
+                  Center(
+                    child: Padding(
                       padding: const EdgeInsets.all(20),
                       child: Text("Insert Your Payment Info"),
-                    )),
-
-                    /// Text Field For Card Number
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextField(
-                        maxLength: 16,
-                        decoration: InputDecoration(
-                           labelText: "Card Number",
-                           
-                          ),
-                        keyboardType: TextInputType.number,
-                      ),
                     ),
+                  ),
 
-                    /// MM && YY TextFields
-                    Wrap(
-                      children: <Widget>[
-                        Container(
-                          width: MediaQuery.of(context).size.width*0.5,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: TextField(
-                              maxLength: 2,
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                               labelText: "MM"
-                             ),
-                            ),
+                  /// Text Field For Card Number
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      maxLength: 16,
+                      decoration: InputDecoration(
+                        labelText: "Card Number",
+                      ),
+                      keyboardType: TextInputType.number,
+                    ),
+                  ),
+
+                  /// MM && YY TextFields
+                  Wrap(
+                    children: <Widget>[
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextField(
+                            maxLength: 2,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(labelText: "MM"),
                           ),
                         ),
-                        Container(
-                          width: MediaQuery.of(context).size.width*0.5,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: TextField(
-                              maxLength: 4,
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                labelText: "YY"
-                              ),
-                            ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextField(
+                            maxLength: 4,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(labelText: "YY"),
                           ),
+                        ),
+                      )
+                    ],
+                  ),
+
+                  /// Security CODE TextField
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        TextField(
+                          maxLength: 4,
+                          keyboardType: TextInputType.number,
+                          decoration:
+                              InputDecoration(labelText: "Security Code"),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 7),
+                          child: Text(
+                              "The 3 or 4 digits at the back of your card"),
                         )
                       ],
                     ),
-                    
-                    /// Security CODE TextField
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          TextField(
-                            maxLength: 4,
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              labelText: "Security Code"
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 7),
-                            child: Text("The 3 or 4 digits at the back of your card"),
-                          )
-                        ],
-                      ),
-                    ),
+                  ),
 
                   /// Name && LastName TextFields
                   Wrap(
                     children: <Widget>[
                       Container(
-                        width: MediaQuery.of(context).size.width*0.5,
+                        width: MediaQuery.of(context).size.width * 0.5,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextField(
-                            decoration: InputDecoration(
-                                labelText: "Name"
-                            ),
+                            decoration: InputDecoration(labelText: "Name"),
                           ),
                         ),
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.width*0.5,
+                        width: MediaQuery.of(context).size.width * 0.5,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextField(
-                            decoration: InputDecoration(
-                                labelText: "LastName"
-                            ),
+                            decoration: InputDecoration(labelText: "LastName"),
                           ),
                         ),
                       ),
-
                       Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextField(
-                            minLines: 1,
-                            maxLines: 5,
-                            decoration: InputDecoration(
-                                labelText: "Billing Address"
-                            ),
-                          ),
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          minLines: 1,
+                          maxLines: 5,
+                          decoration:
+                              InputDecoration(labelText: "Billing Address"),
                         ),
+                      ),
                     ],
                   ),
-                  ///payment summary
-              
 
+                  ///payment summary
                 ],
               ),
-           ),
-           Container(
+            ),
+            Container(
               decoration: BoxDecoration(
                 color: Colors.grey[900],
                 border: Border(
                   top: BorderSide(
                     width: 2,
-                    color:Colors.grey[900]
-                  )
-                )
+                    color: Colors.grey[900],
+                  ),
+                ),
               ),
-              height: 200,
               width: MediaQuery.of(context).size.width * 1,
               child: ListView(
+                shrinkWrap: true,
                 children: <Widget>[
                   Container(
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                          color: Colors.grey,
-                          width: 0.5
-                        )
-                      )
-                    ),
-                    height: 40,
-                    child: Center(
-                      child: Text('Payment Summary'),
-                    )
-                  ),
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(color: Colors.grey, width: 0.5),
+                        ),
+                      ),
+                      height: 40,
+                      child: Center(
+                        child: Text('Payment Summary'),
+                      )),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -259,8 +247,8 @@ class _CheckOutPageState extends State<CheckOutPage> {
                 ],
               ),
             ),
-        
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -51,39 +51,43 @@ class HiddenDrawerState extends State<HiddenDrawer>
       child: AnimatedBuilder(
         animation: animationController,
         builder: (context, _) {
-          return Material(
-            color: Colors.black54,
-            child: Stack(
-              children: <Widget>[
-                Transform.translate(
-                  offset: Offset(maxSlide * (animationController.value - 1), 0),
-                  child: Transform(
-                    transform: Matrix4.identity()
-                      ..setEntry(3, 2, 0.001)
-                      ..rotateY(math.pi / 2 * (1 - animationController.value)),
-                    alignment: Alignment.centerRight,
-                    child: MyDrawer(),
+          return SafeArea(
+            child: Material(
+              color: Colors.black54,
+              child: Stack(
+                children: <Widget>[
+                  Transform.translate(
+                    offset:
+                        Offset(maxSlide * (animationController.value - 1), 0),
+                    child: Transform(
+                      transform: Matrix4.identity()
+                        ..setEntry(3, 2, 0.001)
+                        ..rotateY(
+                            math.pi / 2 * (1 - animationController.value)),
+                      alignment: Alignment.centerRight,
+                      child: MyDrawer(),
+                    ),
                   ),
-                ),
-                Transform.translate(
-                  offset: Offset(maxSlide * animationController.value, 0),
-                  child: Transform(
-                    transform: Matrix4.identity()
-                      ..setEntry(3, 2, 0.001)
-                      ..rotateY(-math.pi * animationController.value / 2),
-                    alignment: Alignment.centerLeft,
-                    child: widget.child,
+                  Transform.translate(
+                    offset: Offset(maxSlide * animationController.value, 0),
+                    child: Transform(
+                      transform: Matrix4.identity()
+                        ..setEntry(3, 2, 0.001)
+                        ..rotateY(-math.pi * animationController.value / 2),
+                      alignment: Alignment.centerLeft,
+                      child: widget.child,
+                    ),
                   ),
-                ),
-                Positioned(
-                  top: 4.0 + MediaQuery.of(context).padding.top,
-                  left: 4.0 + animationController.value * maxSlide,
-                  child: IconButton(
-                    icon: Icon(Icons.menu),
-                    onPressed: toggle,
+                  Positioned(
+                    top: MediaQuery.of(context).size.height * 0.008,
+                    left: 4.0 + animationController.value * maxSlide,
+                    child: IconButton(
+                      icon: Icon(Icons.menu),
+                      onPressed: toggle,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         },

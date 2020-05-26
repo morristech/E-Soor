@@ -11,17 +11,18 @@ class MySplashScreen extends StatelessWidget {
     final _userAuthProvider = Provider.of<FirebaseAuthService>(context);
     return SafeArea(
       child: SplashScreen(
-        photoSize: 200,
         backgroundColor: Color.fromRGBO(35, 35, 35, 100),
         seconds: 2,
         navigateAfterSeconds:
             _userAuthProvider.isUserLoggeedIn ? ProfilePage() : LoginPage(),
-        image: Image.asset("assets/images/logo.png"),
+        image: Expanded(
+          flex: 5,
+          child: Image.asset("assets/images/logo.png"),
+        ),
         loaderColor: Colors.white,
         loadingText: Text(
           "Loading",
           style: TextStyle(
-            color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
         ),

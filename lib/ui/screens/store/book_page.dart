@@ -4,7 +4,6 @@ import 'package:E_Soor/ui/widgets/previewImage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-
 class BookPage extends StatefulWidget {
   @override
   _BookState createState() => _BookState();
@@ -42,10 +41,47 @@ class _BookState extends State<BookPage> {
             itemBuilder: (context) => [
               PopupMenuItem(
                 value: 0,
-                child: Chip(
-                  backgroundColor: Colors.blueGrey,
-                  label: Text("Report"),
-                  avatar: Icon(Icons.flag),
+                child: InkWell(
+                  onTap: () {
+                    print("Tapped");
+                    showDialog(
+                      context: context,
+                      builder: (_) => SimpleDialog(
+                        title: ListTile(
+                          leading: Icon(Icons.report_problem),
+                          title: Text("Report a problem"),
+                          trailing: Icon(Icons.close),
+                        ),
+                        children: <Widget>[
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.3,
+                            child: SizedBox.expand(),
+                          ),
+                          ButtonBar(
+                            alignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              RaisedButton(
+                                child: Text("Cancel"),
+                                onPressed: () {},
+                              ),
+                              RaisedButton(
+                                child: Text("Send"),
+                                onPressed: () {},
+                              ),
+                            ],
+                          ),
+                        ],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                      ),
+                    );
+                  },
+                  child: Chip(
+                    backgroundColor: Colors.blueGrey,
+                    label: Text("Report"),
+                    avatar: Icon(Icons.flag),
+                  ),
                 ),
               ),
             ],
@@ -110,53 +146,49 @@ class _BookInfoState extends State<BookInfo> {
                   children: <Widget>[
                     /// This is the `BOOK NAME`
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal:5),
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
                       child: Text(
-                          "David copper field",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
+                        "David copper field",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
                         ),
+                      ),
                     ),
-                    
 
                     /// This is the `Author Name`
-                   Padding(
-                     padding: const EdgeInsets.symmetric(horizontal:5),
-                     child: Text(
-                          "by:-Charles dickens",
-                        ),
-                   ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: Text(
+                        "by:-Charles dickens",
+                      ),
+                    ),
 
                     /// This is the `Rating of the book`
-                   RatingBarIndicator(
-                        rating: 4,
-                        itemSize: 30,
-                        unratedColor: Colors.white,
-                        itemCount: 5,
-                        itemBuilder: (context, _) => Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                        ),
+                    RatingBarIndicator(
+                      rating: 4,
+                      itemSize: 30,
+                      unratedColor: Colors.white,
+                      itemCount: 5,
+                      itemBuilder: (context, _) => Icon(
+                        Icons.star,
+                        color: Colors.amber,
                       ),
-                    
+                    ),
 
                     ///This is the `CATEGORY BUTTON`
-                     RaisedButton(
-                        elevation: 0.0,
-                        child: Text(
-                          "Category",
-                          style: TextStyle(
-                            fontSize: 15,
-                          ),
+                    RaisedButton(
+                      elevation: 0.0,
+                      child: Text(
+                        "Category",
+                        style: TextStyle(
+                          fontSize: 15,
                         ),
-                        onPressed: () {},
                       ),
-                    
+                      onPressed: () {},
+                    ),
 
                     ///This is the `PRICE`
-                  Text("price:-$price"),
-                    
+                    Text("price:-$price"),
                   ],
                 ),
               ),

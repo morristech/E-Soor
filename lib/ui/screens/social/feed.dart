@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_reactive_button/flutter_reactive_button.dart';
+import 'package:flutter_reaction_button/flutter_reaction_button.dart';
+// import 'package:flutter_reactive_button/flutter_reactive_button.dart';
 import 'package:audioplayers/audio_cache.dart';
 
 class Feed extends StatefulWidget {
@@ -14,34 +15,117 @@ const sounds = [
   'icon_choose.mp3',
   'box_up.mp3',
 ];
-bool isChecked = false;
-String reaction;
-List<ReactiveIconDefinition> _reactions = <ReactiveIconDefinition>[
-  ReactiveIconDefinition(
-    assetIcon: 'assets/images/like.gif',
-    code: 'like',
+
+final defaultInitialReaction = Reaction(
+  previewIcon: _buildPreviewIconFacebook('assets/images/like.gif'),
+  icon: _buildIconFacebook(
+    'assets/images/like.png',
+    Text(
+      'Like',
+      style: TextStyle(
+        color: Colors.grey[600],
+      ),
+    ),
   ),
-  ReactiveIconDefinition(
-    assetIcon: 'assets/images/haha.gif',
-    code: 'haha',
+);
+
+final facebookReactions = [
+  Reaction(
+    previewIcon: _buildPreviewIconFacebook('assets/images/like.gif'),
+    icon: _buildIconFacebook(
+      'assets/images/like_fill.png',
+      Text(
+        'Like',
+        style: TextStyle(
+          color: Color(0XFF3b5998),
+        ),
+      ),
+    ),
   ),
-  ReactiveIconDefinition(
-    assetIcon: 'assets/images/love.gif',
-    code: 'love',
+  Reaction(
+    previewIcon: _buildPreviewIconFacebook('assets/images/love.gif'),
+    icon: _buildIconFacebook(
+      'assets/images/love.png',
+      Text(
+        'Love',
+        style: TextStyle(
+          color: Color(0XFFed5168),
+        ),
+      ),
+    ),
   ),
-  ReactiveIconDefinition(
-    assetIcon: 'assets/images/sad.gif',
-    code: 'sad',
+  Reaction(
+    previewIcon: _buildPreviewIconFacebook('assets/images/wow.gif'),
+    icon: _buildIconFacebook(
+      'assets/images/wow.png',
+      Text(
+        'Wow',
+        style: TextStyle(
+          color: Color(0XFFffda6b),
+        ),
+      ),
+    ),
   ),
-  ReactiveIconDefinition(
-    assetIcon: 'assets/images/wow.gif',
-    code: 'wow',
+  Reaction(
+    previewIcon: _buildPreviewIconFacebook('assets/images/haha.gif'),
+    icon: _buildIconFacebook(
+      'assets/images/haha.png',
+      Text(
+        'Haha',
+        style: TextStyle(
+          color: Color(0XFFffda6b),
+        ),
+      ),
+    ),
   ),
-  ReactiveIconDefinition(
-    assetIcon: 'assets/images/angry.gif',
-    code: 'angry',
+  Reaction(
+    previewIcon: _buildPreviewIconFacebook('assets/images/sad.gif'),
+    icon: _buildIconFacebook(
+      'assets/images/sad.png',
+      Text(
+        'Sad',
+        style: TextStyle(
+          color: Color(0XFFffda6b),
+        ),
+      ),
+    ),
+  ),
+  Reaction(
+    previewIcon: _buildPreviewIconFacebook('assets/images/angry.gif'),
+    icon: _buildIconFacebook(
+      'assets/images/angry.png',
+      Text(
+        'Angry',
+        style: TextStyle(
+          color: Color(0XFFf05766),
+        ),
+      ),
+    ),
   ),
 ];
+
+Widget _buildPreviewIconFacebook(String path) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 3.5, vertical: 5),
+    child: Image.asset(path, height: 40),
+  );
+}
+
+Widget _buildIconFacebook(String path, Text text) {
+  return Container(
+    color: Colors.transparent,
+    child: Row(
+      children: <Widget>[
+        Image.asset(path, height: 20),
+        SizedBox(
+          width: 5,
+        ),
+        text,
+      ],
+    ),
+  );
+}
+
 int reacts = 0;
 
 class _FeedState extends State<Feed> {
@@ -147,47 +231,13 @@ class _FeedState extends State<Feed> {
                     direction: Axis.horizontal,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      ReactiveButton(
-                        padding: EdgeInsets.all(0),
-                        containerPadding: 0,
-                        iconPadding: 2,
-                        iconWidth: 32,
-                        child: Container(
-                          child: reaction != null
-                              ? Image.asset(
-                                  'assets/images/$reaction.png',
-                                  width: 32.0,
-                                  height: 32.0,
-                                )
-                              : FlatButton(
-                                  onPressed: () {},
-                                  color: Colors.green,
-                                  child: Text("React"),
-                                ),
-                        ),
-                        icons: _reactions,
-                        onTap: () {
-                          setState(
-                            () {
-                              audioPlayer.play('short_press_like.mp3');
-                              if (reaction == null) {
-                                reaction = 'like';
-                              } else {
-                                reaction = null;
-                              }
-                            },
-                          );
+                      FlutterReactionButtonCheck(
+                        onReactionChanged:
+                            (reaction, selectedIndex, isChecked) {
+                          print('reaction changed at $selectedIndex');
                         },
-                        onSelected: (ReactiveIconDefinition button) {
-                          setState(
-                            () {
-                              audioPlayer.play('box_up.mp3');
-                              reacts++;
-                              audioPlayer.play('icon_choose.mp3');
-                              reaction = button.code;
-                            },
-                          );
-                        },
+                        reactions: facebookReactions,
+                        initialReaction: defaultInitialReaction,
                       ),
                       RaisedButton(
                         child: Text("Comment"),

@@ -16,9 +16,9 @@ class FirebaseAuthService {
   String _userEmailAddress;
   final String _usersCollectionData = "users";
 
-  //* check weather the user has loggeed in or not
+  //* check wheather the user has loggeed in or not
   //!needs passing to widgets improvment
-  Future<bool> isUserAllradyLoggedIn() async =>
+  Future<bool> isUserAlreadyLoggedIn() async =>
       await _firebaseAuth.currentUser() != null ? true : false;
 
   bool get isUserLoggeedIn => _isUserLoggedin;
