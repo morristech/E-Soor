@@ -18,6 +18,7 @@ class SharedPrefsUtils {
     }
   }
 
+  /// T is the  `runTimeType` data which you are trying to save (bool - String - double)
   Future<bool> saveData<T>(String key, T value) async {
     print("SharedPreferences: [Saving data] -> key: $key, value: $value");
     assert(_instance != null);
@@ -55,6 +56,12 @@ class SharedPrefsUtils {
   }
 
   Future<bool> clearData(String key) async {
-    return await _preferences.remove(key);
+    assert(_preferences != null);
+    assert(_instance != null);
+    try {
+      return await _preferences.remove(key);
+    } on Exception catch (e) {
+      throw e;
+    }
   }
 }
