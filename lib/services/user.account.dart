@@ -1,11 +1,9 @@
+import 'package:E_Soor/models/UserModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 enum UpdateType { photoUrl, diplayName, bioStatus }
@@ -62,13 +60,15 @@ class UserAccount {
 
   //! weak error handling --> needs to be improved
   Future<void> uploadUserProfilePic(File imageFile) async {
+    assert(imageFile != null);
     try {
       final DateTime profileImageCreationTime = DateTime.now();
       final FirebaseUser currentUser = await _firebaseAuth.currentUser();
       final String userID = (await _firebaseAuth.currentUser()).uid;
-      StorageReference ref = FirebaseStorage.instance
-          .ref()
-          .child("$userID/$userID-profilePic.jpg");
+      StorageReference ref =
+          FirebaseStorage(storageBucket: 'gs://e-soor-29d6c.appspot.com')
+              .ref()
+              .child("$userID/$userID-profilePic.jpg");
       StorageUploadTask uploadTask = ref.putFile(
           imageFile,
           StorageMetadata(
@@ -96,48 +96,20 @@ class UserAccount {
     }
   }
 
-  Future<String> _getAPI_KEY() async {
+  ///
+  /// Errors:
+  ///   • `ERROR_WEAK_PASSWORD` - If the password is not strong enough.
+  ///   • `ERROR_USER_DISABLED` - If the user has been disabled (for example, in the Firebase console)
+  ///   • `ERROR_USER_NOT_FOUND` - If the user has been deleted (for example, in the Firebase console)
+  ///   • `ERROR_REQUIRES_RECENT_LOGIN` - If the user's last sign-in time does not meet the security threshold. Use reauthenticate methods to resolve.
+  ///   • `ERROR_OPERATION_NOT_ALLOWED` - Indicates that Email & Password accounts are not enabled.
+  Future<void> updateUserPassword(String newPassword) async {
+    final user = await _firebaseAuth.currentUser();
     try {
-      RemoteConfig remoteConfig = await RemoteConfig.instance;
-      await remoteConfig.fetch(expiration: const Duration(hours: 1));
-      await remoteConfig.activateFetched();
-      return remoteConfig.getValue('firebase_api_key').asString();
+      await user.updatePassword(newPassword);
     } catch (e) {
       print(e);
     }
-  }
-
-  /// Common error codes
-  ///    `INVALID_ID_TOKEN`:The user's credential is no longer valid. The user must sign in again.
-  ///    `WEAK_PASSWORD`: The password must be 6 characters long or more.
-  Future<void> changePassword(String newPassword) async {
-    FirebaseUser currentUser = await _firebaseAuth.currentUser();
-    if (currentUser == null) {
-      throw "current user can't be 'null'";
-    }
-    final String FIREBASE_API_KEY = await _getAPI_KEY();
-    final String changePasswordUrl =
-        'https://www.googleapis.com/identitytoolkit/v3/relyingparty/setAccountInfo?key=$FIREBASE_API_KEY';
-    final String idToken = (await currentUser.getIdToken()).token;
-    final Map<String, dynamic> payload = {
-      'email': idToken,
-      'password': newPassword,
-      'returnSecureToken': true,
-    };
-    try {
-      await http.post(
-        changePasswordUrl,
-        body: json.encode(payload),
-        headers: {'Content-Type': 'application/json'},
-      );
-    } on PlatformException catch (httpPostError) {
-      throw PlatformException(
-          code: 'CHANGEING_USER_PASSWORD_FAILED',
-          message: httpPostError.message,
-          details:
-              "Details --> code: ${httpPostError.code}: message: ${httpPostError.message}");
-    }
-    await currentUser.reload();
   }
 
   //* Changging userName
@@ -209,6 +181,60 @@ class UserAccount {
       throw PlatformException(
           code: deleteError.code, message: deleteError.message);
     }
+  }
+
+  Future<FirebaseUserMetadata> getCurrentUserMetadata() async {
+    final user = await _firebaseAuth.currentUser();
+
+    try {
+      return user.metadata;
+    } on PlatformException catch (getCurrentUserMetadataError) {
+      throw PlatformException(
+        code: 'NO_USER_METADATA_FOUND',
+        message: 'check if the user is logged in',
+        details:
+            "Details --> code: ${getCurrentUserMetadataError.code}: message: ${getCurrentUserMetadataError.message}",
+      );
+    }
+  }
+
+  //*
+  ///! DON'T USE
+  ///! NOT IMPLEMENTED
+  Future<String> getCurrentUserPhoneNumber() async {
+    final user = await _firebaseAuth.currentUser();
+    if (user.phoneNumber != null) {
+      return user.phoneNumber;
+    }
+    throw PlatformException(
+        code: 'NO_USER_PHONE_NUMBER_FOUND',
+        message:
+            'check if the user is logged in or has entered his phone number');
+  }
+
+  ///! DO NOT USE
+  Future<void> updateUserPhoneNumber(
+      String newPhoneNumber, String password, String email) async {
+    final FirebaseUser user = await _firebaseAuth.currentUser();
+    try {
+      //* add new phone number
+      user.updatePhoneNumberCredential(
+        PhoneAuthProvider.getCredential(smsCode: null, verificationId: null),
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  //* get user data snapshot
+  Future<User> getUser() async {
+    final currentUser = await _firebaseAuth.currentUser();
+    final _userDocSnapshot = await _firestore
+        .collection("$_usersCollectionData")
+        .document("${currentUser.uid}")
+        .get();
+    if (_userDocSnapshot == null) throw "User doc couldn't be found";
+    return User.fromSnapshot(_userDocSnapshot);
   }
 }
 

@@ -1,11 +1,10 @@
-/*import 'dart:ffi';*/
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class BookItem extends StatelessWidget {
-final Function onTap;
- BookItem(this.onTap);
+  final Function onTap;
+  BookItem(this.onTap);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

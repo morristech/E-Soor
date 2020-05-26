@@ -237,13 +237,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1+1"
-  flutter_reactive_button:
+  flutter_reaction_button:
     dependency: "direct main"
     description:
-      name: flutter_reactive_button
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.0"
+      path: "."
+      ref: HEAD
+      resolved-ref: "6939a344aff1200c4924448d840c30cfa6b4de56"
+      url: "git://github.com/OmarYehiaDev/flutter-reaction-button"
+    source: git
+    version: "1.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -422,13 +424,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.0.1+4"
-  rxdart:
-    dependency: transitive
-    description:
-      name: rxdart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.21.0"
   settings_ui:
     dependency: "direct main"
     description:
@@ -488,10 +483,12 @@ packages:
   splashscreen:
     dependency: "direct main"
     description:
-      name: splashscreen
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.2.0"
+      path: "."
+      ref: HEAD
+      resolved-ref: "9bfcac01f087d9302018c398bcd27aeeffb1d903"
+      url: "git://github.com/OmarYehiaDev/SplashScreenFlutterPackage"
+    source: git
+    version: "1.1.0"
   sqflite:
     dependency: transitive
     description:
@@ -617,7 +614,7 @@ packages:
       name: velocity_x
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.4"
+    version: "0.4.0"
   xml:
     dependency: transitive
     description:

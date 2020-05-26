@@ -11,39 +11,33 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      children: <Widget>[
-        /// the Wraper that holds the profile name, bio and picture
-         Wrap(
-            children: <Widget>[
-              Column(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        children: <Widget>[
+          /// the Wraper that holds the profile name, bio and picture
+          Wrap(children: <Widget>[
+            Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children:<Widget>[
-                   ProfilePicture(imageUrl:""),
-                   ProfileName(profileName: "Omar Hany Hassan Fouad"),
-                   ProfileBio(profileBio: "This is my E-soor Bio"),
-                   Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width*1,
-                        child: FlatButton(
-                          color :Colors.grey[700],
-                          onPressed: (){
-                               
-                        },
-                          child:Text("Edit Profile"), 
+                children: <Widget>[
+                  ProfilePicture(imageUrl: ""),
+                  ProfileName(profileName: "Omar Hany Hassan Fouad"),
+                  ProfileBio(profileBio: "This is my E-soor Bio"),
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 1,
+                      child: FlatButton(
+                        color: Colors.grey[700],
+                        onPressed: () {},
+                        child: Text("Edit Profile"),
                       ),
                     ),
                   ),
-                ]
-              )
-            ]
-          ),
-        ]
-      );
-    }
+                ])
+          ]),
+        ]);
   }
+}
 
 /////Profile picture class
 
@@ -55,27 +49,25 @@ class ProfilePicture extends StatefulWidget {
 }
 
 class _ProfilePictureState extends State<ProfilePicture> {
- 
   @override
   Widget build(BuildContext context) {
-    return 
-        Padding(
-        padding:EdgeInsets.all(5),
-        child:CircleAvatar(
-        radius: 70,
-            backgroundImage: NetworkImage( "${widget.imageUrl}" ) ///get the profile image from the database
-     )
-    );
+    return Padding(
+        padding: EdgeInsets.all(5),
+        child: CircleAvatar(
+            radius: 70, backgroundImage: NetworkImage("${widget.imageUrl}")
+
+            ///get the profile image from the database
+            ));
   }
 }
-
 
 ////Profile name class
 
 class ProfileName extends StatefulWidget {
   final String profileName;
+
   /// constructor to recieve the data and address it to the variable above
-  ProfileName({Key key, this.profileName}) : super(key: key); 
+  ProfileName({Key key, this.profileName}) : super(key: key);
 
   @override
   _ProfileNameState createState() => _ProfileNameState();
@@ -85,17 +77,18 @@ class _ProfileNameState extends State<ProfileName> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-     padding:EdgeInsets.symmetric(horizontal: 10, vertical:10),
-     child:AutoSizeText(
-     "${widget.profileName}", /// get the value of the string stored inside the profile_name variable
-      maxLines: 1,
-      overflow: TextOverflow.ellipsis ,
-      style: TextStyle(
-        fontSize: 30, 
-        fontWeight: FontWeight.bold,
-      ),
-     )
-    ); 
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        child: AutoSizeText(
+          "${widget.profileName}",
+
+          /// get the value of the string stored inside the profile_name variable
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
+        ));
   }
 }
 
@@ -113,44 +106,12 @@ class _ProfileBioState extends State<ProfileBio> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5), 
-      child: Text(
-      '${widget.profileBio}', 
-     )
-    );
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+        child: Text(
+          '${widget.profileBio}',
+        ));
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ///book highlights List View
 
