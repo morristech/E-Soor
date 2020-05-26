@@ -1,29 +1,12 @@
-import 'package:E_Soor/models/CatMode.dart';
 import 'package:E_Soor/services/firebase.auth.dart';
 import 'package:E_Soor/ui/screens/login_signup_reset/emailLogin.dart';
 import 'package:E_Soor/ui/screens/other/about_us.dart';
 import 'package:E_Soor/ui/screens/settings/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:E_Soor/ui/screens/store/bookMarks.dart';
-import 'package:http/http.dart' as http;
 
 class MyDrawer extends StatelessWidget {
   final FirebaseAuthService _firebaseAuthService = FirebaseAuthService();
-
-  // Future<List<Cat>> _getCatPic() async {
-  //   try {
-  //     final request = await http.get(
-  //         "https://api.thecatapi.com/v1/images/search?limit=1&format=json",
-  //         headers: {
-  //           'x-api-key': "dc480b93-fbae-418c-8884-c7906a7a031a",
-  //         });
-  //     if (request.statusCode == 200) {
-  //       return catFromJson(request.body);
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +55,8 @@ class MyDrawer extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: Image.network(
-                                "https://cdn2.thecatapi.com/images/2a1.jpg"),
+                              'https://placekitten.com/200/200',
+                            ),
                           ),
                         ),
                         Padding(
@@ -100,8 +84,10 @@ class MyDrawer extends StatelessWidget {
                 leading: Icon(Icons.bookmark),
                 title: Text("Book Marks"),
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => bookMarks()));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => BookMarks()),
+                  );
                 },
               ),
               ListTile(

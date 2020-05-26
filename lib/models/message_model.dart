@@ -143,7 +143,8 @@ List<Message> messages = [
   Message(
     sender: currentUser,
     time: '2:30 PM',
-    text: 'Nice! What kind of food did you eat?',
+    text:
+        'Nice! What kind of food did you eat today tomorrow after tomorrwo hello evereyone this E-soor it is very amazing and unique and got to hell everyoune smash the heAD?',
     isLiked: false,
     isRead: true,
   ),
