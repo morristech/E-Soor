@@ -33,7 +33,7 @@ final facebookReactions = [
   Reaction(
     previewIcon: _buildPreviewIconFacebook('assets/images/like.gif'),
     icon: _buildIconFacebook(
-      'assets/images/like_fill.png',
+      'assets/images/like.png',
       Text(
         'Like',
         style: TextStyle(
@@ -231,14 +231,16 @@ class _FeedState extends State<Feed> {
                     direction: Axis.horizontal,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      FlutterReactionButtonCheck(
-                        onReactionChanged:
-                            (reaction, selectedIndex, isChecked) {
-                          print('reaction changed at $selectedIndex');
-                        },
-                        reactions: facebookReactions,
-                        initialReaction: defaultInitialReaction,
-                      ),
+                      // TODO: FB Reactions
+                      // FlutterReactionButtonCheck(
+                      //   onReactionChanged:
+                      //       (reaction, selectedIndex, isChecked) {
+                      //     audioPlayer.play(sounds[1]);
+                      //     print('reaction changed at $selectedIndex');
+                      //   },
+                      //   reactions: facebookReactions,
+                      //   initialReaction: defaultInitialReaction,
+                      // ),
                       RaisedButton(
                         child: Text("Comment"),
                         color: Colors.green,
