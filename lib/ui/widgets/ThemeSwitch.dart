@@ -1,4 +1,5 @@
 import 'package:E_Soor/helpers/logic/constants.dart';
+import 'package:E_Soor/helpers/sharedPrefs.dart';
 import 'package:E_Soor/models/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,8 +17,11 @@ class _ThemeSwitchState extends State<ThemeSwitch> {
     (value)
         ? themeNotifier.setTheme(Constants.kDarkTheme)
         : themeNotifier.setTheme(Constants.kLightTheme);
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(SharedPreferencesKeys.isDarkTheme, value);
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
+    // prefs.setBool(SharedPreferencesKeys.isDarkTheme, value);
+    final _sharedPrefsUtils = SharedPrefsUtils.getInstance();
+    var isSuccess = await _sharedPrefsUtils.saveData<bool>(
+        SharedPreferencesKeys.isDarkTheme, value);
   }
 
   @override

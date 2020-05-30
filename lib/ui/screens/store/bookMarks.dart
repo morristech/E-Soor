@@ -20,24 +20,16 @@ class _BookMarksState extends State<BookMarks> {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300))),
         body: GridView.builder(
           itemCount: 10,
-          gridDelegate:
-          new SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio: 2/3,
-            crossAxisCount: 2
-            ),
+          gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+              childAspectRatio: 2 / 3, crossAxisCount: 2),
           itemBuilder: (BuildContext context, int index) {
-            return
-               GestureDetector(
-                onLongPress:(){
+            return GestureDetector(
+                onLongPress: () {
                   dismissAlert(context);
                 },
-                child: BookItem(
-                  (){}
-                )
-          );
-        },
-      )
-    );
+                child: BookItem(() {}));
+          },
+        ));
   }
 }
 
@@ -63,6 +55,5 @@ void dismissAlert(BuildContext context) {
       context: context,
       builder: (BuildContext context) {
         return alertDialog;
-    }
-  );
+      });
 }

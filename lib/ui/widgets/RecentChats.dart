@@ -21,14 +21,12 @@ class _RecentChatsState extends State<RecentChats> {
                 final Message chat = chats[index];
                 return GestureDetector(
                   onTap: () {
-                      Navigator.push(
+                    Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => ChatScreen(),
                       ),
                     );
-
-                      
                   },
                   child: Container(
                     margin: EdgeInsets.symmetric(
