@@ -1,7 +1,7 @@
 import 'package:E_Soor/services/firebase.auth.dart';
 import 'package:E_Soor/ui/screens/login_signup_reset/emailLogin.dart';
 import 'package:E_Soor/ui/widgets/actionsButton.dart';
-import 'package:E_Soor/ui/widgets/userCard.dart';
+//import 'package:E_Soor/ui/widgets/userCard.dart';
 import 'package:E_Soor/ui/screens/other/about_us.dart';
 import 'package:E_Soor/ui/screens/settings/settings.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +45,7 @@ class MyDrawer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              UserCard(),
+              //UserCard(),
               ActionsButton(),
               ListTile(
                 leading: Icon(Icons.bookmark),

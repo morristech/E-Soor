@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'dart:async';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 class AuthorPage extends StatefulWidget {
   @override
@@ -8,11 +11,13 @@ class AuthorPage extends StatefulWidget {
 }
 
 class _AuthorPageState extends State<AuthorPage> {
+  
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
+       
         appBar: AppBar(),
         body: ListView(
           shrinkWrap: true,

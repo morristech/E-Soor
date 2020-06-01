@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'dart:async';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 class Item {
   const Item(this.name);
   final String name;
@@ -25,6 +27,85 @@ class _AddNewBookScreenState extends State<AddNewBookScreen> {
   TextEditingController titleController;
   final globalKey = GlobalKey<ScaffoldState>();
 
+  /// Function That Displays An `AlertDialog`
+  Future<void> _alertDialogChoiceScreen(BuildContext context){
+    return showDialog(context:context, builder:(BuildContext context){
+      return AlertDialog(
+        title: Text("Select Image Source"),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GestureDetector(
+                  onTap: (){
+                    getImagefromGallery(context);
+                  },
+                  child: Text("Gallery")
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GestureDetector(
+                  onTap: (){
+                    getImageFromCamera(context);
+                  }, 
+                  child: Text("Camera"),
+                ),
+              )
+            ],
+          )
+        ),
+      ) ;
+    });
+  }
+
+  /// Function That Picks Images From `Camera` 
+  File image;
+  final picker = ImagePicker();
+  Future getImageFromCamera(BuildContext context) async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    setState(() {
+      image = File(pickedFile.path);
+    });
+    Navigator.of(context).pop();
+  }
+  
+  ///Function That Picks Images from `Gallery`
+  Future getImagefromGallery(BuildContext context) async{
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    setState(() {
+      image = File(pickedFile.path);
+    });
+    Navigator.of(context).pop();
+  }
+
+  ///Function that decides what widget to display
+  Widget decide(){
+    if(image == null){
+      return GestureDetector(
+        onTap: (){
+          _alertDialogChoiceScreen(context);
+        },
+        child: CircleAvatar(
+          backgroundColor: Colors.grey[900],
+         child: Center(
+           child: Icon(
+             Icons.image,
+             size: 40,
+             color: Colors.white,
+           ),
+         ), 
+          radius: MediaQuery.of(context).size.width * 0.2,
+        ),
+      );
+    }else{
+      return Container(
+        child: Image.file(image)
+      );
+    }
+  }
+ 
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
@@ -40,6 +121,7 @@ class _AddNewBookScreenState extends State<AddNewBookScreen> {
       backgroundColor: Colors.green,
     );
     return Scaffold(
+      
       key: globalKey,
       appBar: AppBar(
         actions: <Widget>[
@@ -67,13 +149,23 @@ class _AddNewBookScreenState extends State<AddNewBookScreen> {
             children: <Widget>[
               //! TODO:- To be implemented
               /// `Book Pic`
-
-              CircleAvatar(
-                radius: width * 0.25,
-              ),
-
+               decide(),
+              
+              /// `Button for ImagePic`
+              /*Padding(
+                padding: const EdgeInsets.all(10),
+                child: Container(
+                  width:MediaQuery.of(context).size.width ,
+                  height: 20,
+                  child: FlatButton(
+                    child: Text("Select Book Image"),
+                    onPressed:(){
+                      _alertDialogChoiceScreen(context);
+                    }
+                  ),
+                ),
+              ),*/
               /// `Book Name`
-
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -249,3 +341,4 @@ class _AddNewBookScreenState extends State<AddNewBookScreen> {
     );
   }
 }
+
