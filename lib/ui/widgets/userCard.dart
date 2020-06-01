@@ -2,7 +2,7 @@ import 'package:E_Soor/services/firebase.auth.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
-/*class UserCard extends StatefulWidget {
+class UserCard extends StatefulWidget {
   @override
   _UserCardState createState() => _UserCardState();
 }
@@ -91,4 +91,4 @@ class _UserCardState extends State<UserCard> {
       ),
     );
   }
-}*/
+}
