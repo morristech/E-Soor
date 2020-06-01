@@ -48,6 +48,21 @@ class FirebaseAuthService {
     return (await _firebaseAuth.currentUser()).uid;
   }
 
+  //* GET User ProflePicUrl
+  Future<String> getCurrentUserProfilePic() async {
+    return (await _firebaseAuth.currentUser()).photoUrl;
+  }
+
+  //* GET User Name
+  Future<String> getCurrentUserName() async {
+    return (await _firebaseAuth.currentUser()).displayName;
+  }
+
+  //* GET User Email
+  Future<String> getCurrentUserEmail() async {
+    return (await _firebaseAuth.currentUser()).email;
+  }
+
   //* Resister a New user
   /// Errors:
   ///   • `ERROR_WEAK_PASSWORD` - If the password is not strong enough.

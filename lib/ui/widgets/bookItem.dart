@@ -14,6 +14,7 @@ class BookItem extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(5.0),
           child: Card(
+            elevation: 20,
             child: Padding(
               padding: const EdgeInsets.all(5.0),
               child: Column(
