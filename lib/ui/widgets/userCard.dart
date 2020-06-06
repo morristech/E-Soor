@@ -57,7 +57,6 @@ class _UserCardState extends State<UserCard> {
               child: Container(
                 margin: EdgeInsets.all(10.0),
                 decoration: BoxDecoration(
-                  shape: BoxShape.circle,
                   image: DecorationImage(
                     fit: BoxFit.fill,
                     image: NetworkImage(
@@ -84,6 +83,9 @@ class _UserCardState extends State<UserCard> {
                 maxLines: 1,
                 stepGranularity: 1,
                 minFontSize: 13,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],

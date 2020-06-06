@@ -1,5 +1,5 @@
+import 'package:E_Soor/ui/widgets/bookmarkItem.dart';
 import 'package:flutter/material.dart';
-import 'package:E_Soor/ui/widgets/bookItem.dart';
 
 class BookMarks extends StatefulWidget {
   @override
@@ -7,10 +7,6 @@ class BookMarks extends StatefulWidget {
 }
 
 class _BookMarksState extends State<BookMarks> {
-  /// the List tht hols the Saved Book Items
-  /*List <Widget> items = [
-    BookItem((){}),
-  ];*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,20 +20,12 @@ class _BookMarksState extends State<BookMarks> {
           ),
         ),
       ),
-      body: GridView.builder(
+      body: ListView.builder(
         itemCount: 10,
-        gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 4 / 6,
-        ),
-        itemBuilder: (BuildContext context, int index) {
-          return GestureDetector(
-            onLongPress: () {
-              dismissAlert(context);
-            },
-            child: BookItem(
-              () {},
-            ),
+        itemBuilder: (context, index) {
+          return Margin(
+            margin: const EdgeInsets.all(20.0),
+            child: BookmarkItem(keyString: "$index"),
           );
         },
       ),
@@ -45,27 +33,21 @@ class _BookMarksState extends State<BookMarks> {
   }
 }
 
-void dismissAlert(BuildContext context) {
-  var alertDialog = AlertDialog(
-    title: Text("Delete Book Item"),
-    content: Text("Are you sure you want to delete book item?"),
-    actions: <Widget>[
-      FlatButton(
-        child: Text("Yes"),
-        onPressed: () {},
-      ),
-      FlatButton(
-        child: Text("No"),
-        onPressed: () {
-          /*Navigator.pop(context);*/
-        },
-      )
-    ],
-  );
-  showDialog(
-      barrierDismissible: true,
-      context: context,
-      builder: (BuildContext context) {
-        return alertDialog;
-      });
+class Margin extends StatelessWidget {
+  final EdgeInsetsGeometry margin;
+  final Widget child;
+  final Key key;
+  const Margin({
+    this.key,
+    @required this.margin,
+    this.child,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.green,
+      margin: margin,
+      child: child,
+    );
+  }
 }
