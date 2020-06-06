@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+
 class Item {
   const Item(this.name);
   final String name;
@@ -28,89 +29,120 @@ class _AddNewBookScreenState extends State<AddNewBookScreen> {
   final globalKey = GlobalKey<ScaffoldState>();
 
   /// Function That Displays An `AlertDialog`
-  Future<void> _alertDialogChoiceScreen(BuildContext context){
-    return showDialog(context:context, builder:(BuildContext context){
-      return AlertDialog(
-        title: Text("Select Image Source"),
-        content: SingleChildScrollView(
-          child: ListBody(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GestureDetector(
-                  onTap: (){
-                    getImagefromGallery(context);
-                  },
-                  child: Text("Gallery")
+  Future<void> _alertDialogChoiceScreen(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Select Image Source"),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      getImagefromGallery(context);
+                    },
+                    child: Text("Gallery"),
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GestureDetector(
-                  onTap: (){
-                    getImageFromCamera(context);
-                  }, 
-                  child: Text("Camera"),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      getImageFromCamera(context);
+                    },
+                    child: Text("Camera"),
+                  ),
                 ),
-              )
-            ],
-          )
-        ),
-      ) ;
-    });
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
-  /// Function That Picks Images From `Camera` 
+  /// Function That Picks Images From `Camera`
   File image;
   final picker = ImagePicker();
   Future getImageFromCamera(BuildContext context) async {
     final pickedFile = await picker.getImage(source: ImageSource.camera);
-    setState(() {
-      image = File(pickedFile.path);
-    });
+    try {
+      setState(() {
+        image = File(pickedFile.path);
+      });
+    } catch (err) {
+      final failedSnackBar = SnackBar(
+        content: Text(
+          err,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.subtitle1.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+        ),
+        backgroundColor: Colors.red,
+      );
+      globalKey.currentState.showSnackBar(failedSnackBar);
+    }
     Navigator.of(context).pop();
   }
-  
+
   ///Function That Picks Images from `Gallery`
-  Future getImagefromGallery(BuildContext context) async{
+  Future getImagefromGallery(BuildContext context) async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
-    setState(() {
-      image = File(pickedFile.path);
-    });
+    try {
+      setState(() {
+        image = File(pickedFile.path);
+      });
+    } catch (err) {
+      final failedSnackBar = SnackBar(
+        content: Text(
+          err,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.subtitle1.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+        ),
+        backgroundColor: Colors.red,
+      );
+      globalKey.currentState.showSnackBar(failedSnackBar);
+    }
     Navigator.of(context).pop();
   }
 
   ///Function that decides what widget to display
-  Widget decide(){
-    if(image == null){
+  Widget decide() {
+    if (image == null) {
       return GestureDetector(
-        onTap: (){
+        onTap: () {
           _alertDialogChoiceScreen(context);
         },
         child: CircleAvatar(
           backgroundColor: Colors.grey[900],
-         child: Center(
-           child: Icon(
-             Icons.image,
-             size: 40,
-             color: Colors.white,
-           ),
-         ), 
+          child: Center(
+            child: Icon(
+              Icons.image,
+              size: 40,
+              color: Colors.white,
+            ),
+          ),
           radius: MediaQuery.of(context).size.width * 0.2,
         ),
       );
-    }else{
+    } else {
       return Container(
-        child: Image.file(image)
+        child: Image.file(image),
       );
     }
   }
- 
+
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
 
-    final snackBar = SnackBar(
+    final savedSnackBar = SnackBar(
       content: Text(
         "Added successfully",
         textAlign: TextAlign.center,
@@ -121,14 +153,13 @@ class _AddNewBookScreenState extends State<AddNewBookScreen> {
       backgroundColor: Colors.green,
     );
     return Scaffold(
-      
       key: globalKey,
       appBar: AppBar(
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add_box),
             onPressed: () {
-              globalKey.currentState.showSnackBar(snackBar);
+              globalKey.currentState.showSnackBar(savedSnackBar);
               // TODO: Add FireStore functionality
             },
           ),
@@ -149,8 +180,8 @@ class _AddNewBookScreenState extends State<AddNewBookScreen> {
             children: <Widget>[
               //! TODO:- To be implemented
               /// `Book Pic`
-               decide(),
-              
+              decide(),
+
               /// `Button for ImagePic`
               /*Padding(
                 padding: const EdgeInsets.all(10),
@@ -341,4 +372,3 @@ class _AddNewBookScreenState extends State<AddNewBookScreen> {
     );
   }
 }
-
