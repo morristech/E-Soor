@@ -15,7 +15,7 @@ class BooksService {
   final Firestore _firestore = Firestore.instance;
   final String _booksCollectionData = "books";
 
-  Future<dynamic> _getCurrentUser({bool getUID = false}) async {
+  Future<dynamic> getCurrentUser({bool getUID = false}) async {
     final user = await _firebaseAuth.currentUser();
     if (user == null) throw "User can't equal null";
     if (getUID) {
@@ -102,4 +102,15 @@ class BooksService {
       );
     }
   }
+
+
+
+  /*loadBook()async {
+    var snapshot = _firestore.collection(_booksCollectionData).getDocuments();
+    for(var doc in snapshot.documents){
+
+    }
+  }*/
 }
+
+
