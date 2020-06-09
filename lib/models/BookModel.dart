@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Book {
   final String id;
+  final String info;
   final String authorID;
   final String authorName;
   final String displayName;
@@ -12,6 +13,7 @@ class Book {
   final String category;
   final String categoryID;
   Book({
+    this.info,
     this.category,
     this.categoryID,
     this.authorName,
@@ -27,6 +29,7 @@ class Book {
   // formatting for upload to Firbase when creating the new Book
   Map<String, dynamic> toJson() {
     return {
+      'info': info,
       'id': id,
       'displayName': displayName,
       'authorID': authorID,
@@ -43,6 +46,7 @@ class Book {
   // creating a Book object from a firebase snapshot
   Book.fromSnapshot(DocumentSnapshot snapshot)
       : id = snapshot['id'],
+        info = snapshot['info'],
         displayName = snapshot['displayName'],
         authorID = snapshot['authorID'],
         authorName = snapshot['authorName'],

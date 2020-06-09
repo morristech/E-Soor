@@ -76,7 +76,7 @@ class _AddNewBookScreenState extends State<AddNewBookScreen> {
     } catch (err) {
       final failedSnackBar = SnackBar(
         content: Text(
-          err,
+          err.toString(),
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.subtitle1.copyWith(
                 fontWeight: FontWeight.bold,
@@ -99,7 +99,7 @@ class _AddNewBookScreenState extends State<AddNewBookScreen> {
     } catch (err) {
       final failedSnackBar = SnackBar(
         content: Text(
-          err,
+          err.toString(),
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.subtitle1.copyWith(
                 fontWeight: FontWeight.bold,
