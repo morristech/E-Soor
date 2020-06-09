@@ -12,7 +12,9 @@ class Book {
   final DateTime lastInfoUpdate;
   final String category;
   final String categoryID;
+  final int quantity;
   Book({
+    this.quantity,
     this.info,
     this.category,
     this.categoryID,
@@ -29,6 +31,7 @@ class Book {
   // formatting for upload to Firbase when creating the new Book
   Map<String, dynamic> toJson() {
     return {
+      'quantity': quantity,
       'info': info,
       'id': id,
       'displayName': displayName,
@@ -46,6 +49,7 @@ class Book {
   // creating a Book object from a firebase snapshot
   Book.fromSnapshot(DocumentSnapshot snapshot)
       : id = snapshot['id'],
+        quantity = snapshot['quantity'],
         info = snapshot['info'],
         displayName = snapshot['displayName'],
         authorID = snapshot['authorID'],
