@@ -7,6 +7,7 @@ class Network extends StatefulWidget {
 
 class _NetworkState extends State<Network> {
   int members = 20;
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +44,7 @@ class _NetworkState extends State<Network> {
           itemCount: 18,
         ),
       ),
-      floatingActionButton: PopupMenuButton<int>(
+floatingActionButton: PopupMenuButton<int>(
         icon: Icon(Icons.more_vert),
         onSelected: (value) {
           print("value:$value");
@@ -95,3 +96,6 @@ class _NetworkState extends State<Network> {
     );
   }
 }
+
+
+ 

@@ -4,6 +4,7 @@ import 'package:E_Soor/ui/widgets/previewImage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
+
 class BookPage extends StatefulWidget {
   @override
   _BookState createState() => _BookState();
@@ -11,10 +12,21 @@ class BookPage extends StatefulWidget {
 
 class _BookState extends State<BookPage> {
   int price = 60;
-
+  bool isSaved = false;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  showSnackBar(){
+      final snackBar = SnackBar(
+        content: isSaved
+        ? Text("Book is added to book mark")
+        : Text("Book is removed from book marks")
+      );
+      _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
+   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -23,12 +35,35 @@ class _BookState extends State<BookPage> {
           },
         ),
         actions: <Widget>[
+           IconButton(
+            icon: isSaved 
+            ? Icon(
+              Icons.bookmark,
+              color:Colors.red,
+              size: 27,
+              )
+            
+            : Icon(
+                Icons.bookmark_border, 
+                color: Colors.white, 
+                size: 27
+                ),
+
+            onPressed: () {
+              //
+              setState(() {
+                isSaved = !isSaved;
+                ///write a function that saves the value of the isSaved in firestore
+              });
+              showSnackBar();
+            },
+          ),
           IconButton(
-            icon: Icon(Icons.add_shopping_cart),
+            icon: Icon(Icons.add_shopping_cart, size: 27,),
             onPressed: () {},
           ),
           IconButton(
-            icon: Icon(Icons.search),
+            icon: Icon(Icons.search,size: 27),
             onPressed: () {
               showSearch(
                 context: context,
@@ -37,7 +72,7 @@ class _BookState extends State<BookPage> {
             },
           ),
           PopupMenuButton(
-            icon: Icon(Icons.more_vert),
+            icon: Icon(Icons.more_vert, size : 27,),
             itemBuilder: (context) => [
               PopupMenuItem(
                 value: 0,
