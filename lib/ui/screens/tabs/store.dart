@@ -34,7 +34,7 @@ class _StoreState extends State<Store> {
           expandableCard: ExpandableCard(
             backgroundColor: Theme.of(context).primaryColor,
             hasRoundedCorners: true,
-            minHeight: 80,
+            minHeight: 130,
             hasShadow: true,
             children: <Widget>[
               ListTile(
