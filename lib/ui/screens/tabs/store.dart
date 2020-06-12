@@ -112,20 +112,23 @@ class _StoreState extends State<Store> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(75, 0, 75, 2),
-                child: RaisedButton(
-                  child: Text("Order"),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(50.0),
+                padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 1,
+                  child: RaisedButton(
+                    child: Text("Order"),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(50.0),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CheckOutPage(),
+                        ),
+                      );
+                    },
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CheckOutPage(),
-                      ),
-                    );
-                  },
                 ),
               ),
             ],
