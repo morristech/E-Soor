@@ -112,7 +112,7 @@ class _StoreState extends State<Store> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
+                padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
                 child: Container(
                   width: MediaQuery.of(context).size.width * 1,
                   child: RaisedButton(
