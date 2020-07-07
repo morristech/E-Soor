@@ -68,6 +68,7 @@ class FirebaseAuthService {
   ///   • `ERROR_WEAK_PASSWORD` - If the password is not strong enough.
   ///   • `ERROR_INVALID_EMAIL` - If the email address is malformed.
   ///   • `ERROR_EMAIL_ALREADY_IN_USE` - If the email is already in use by a different account.
+  // ignore: missing_return
   Future<String> registerNewUser(LoginData singinFormIncommingData) async {
     _userPassword = singinFormIncommingData.password;
     _userEmailAddress = singinFormIncommingData.name;
@@ -111,6 +112,7 @@ class FirebaseAuthService {
   ///   • `ERROR_USER_DISABLED` - If the user has been disabled (for example, in the Firebase console)
   ///   • `ERROR_TOO_MANY_REQUESTS` - If there was too many attempts to sign in as this user.
   ///   • `ERROR_OPERATION_NOT_ALLOWED` - Indicates that Email & Password accounts are not enabled.
+  // ignore: missing_return
   Future<String> loginUser(LoginData singinFormIncommingData) async {
     _userPassword = singinFormIncommingData.password;
     _userEmailAddress = singinFormIncommingData.name;
@@ -157,6 +159,7 @@ class FirebaseAuthService {
   /// Errors:
   ///   • `ERROR_INVALID_EMAIL` - If the [email] address is malformed.
   ///   • `ERROR_USER_NOT_FOUND` - If there is no user corresponding to the given [email] address.
+  // ignore: missing_return
   Future<String> recoverPassword(String email) async {
     try {
       await _firebaseAuth.sendPasswordResetEmail(
@@ -232,6 +235,7 @@ class FirebaseAuthService {
   ///   • `ERROR_USER_DISABLED` - If the user has been disabled (for example, in the Firebase console)
   ///   • `ERROR_USER_NOT_FOUND` - If the user has been deleted (for example, in the Firebase console)
   ///   • `ERROR_OPERATION_NOT_ALLOWED` - Indicates that Email & Password accounts are not enabled.
+  // ignore: missing_return
   Future<FirebaseUser> reAuthanticateUser(String password,
       {String email}) async {
     final FirebaseUser user = await _firebaseAuth.currentUser();

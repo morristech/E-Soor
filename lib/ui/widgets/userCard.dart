@@ -60,8 +60,7 @@ class _UserCardState extends State<UserCard> {
                   image: DecorationImage(
                     fit: BoxFit.fill,
                     image: NetworkImage(
-                      "https://placekitten.com/400/400",
-                      // _picUrl,
+                      _picUrl,
                     ),
                   ),
                 ),

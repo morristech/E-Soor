@@ -19,6 +19,7 @@ class SharedPrefsUtils {
   }
 
   /// T is the  `runTimeType` data which you are trying to save (bool - String - double)
+  // ignore: missing_return
   Future<bool> saveData<T>(String key, T value) async {
     print("SharedPreferences: [Saving data] -> key: $key, value: $value");
     assert(_instance != null);

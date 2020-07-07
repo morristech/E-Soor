@@ -9,6 +9,7 @@ class SignInValidator {
     return null;
   }
 
+  // ignore: missing_return
   String passwordValidator(String value) {
     //* Main Validation terms
     if (value.isEmpty) {

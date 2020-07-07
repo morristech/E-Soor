@@ -160,7 +160,7 @@ class _AddNewBookScreenState extends State<AddNewBookScreen> {
             icon: Icon(Icons.add_box),
             onPressed: () {
               globalKey.currentState.showSnackBar(savedSnackBar);
-              // TODO: Add FireStore functionality
+              // TODO: Add Saving functionality
             },
           ),
         ],
@@ -178,7 +178,7 @@ class _AddNewBookScreenState extends State<AddNewBookScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              //! TODO:- To be implemented
+              // TODO:- To be implemented
               /// `Book Pic`
               decide(),
 

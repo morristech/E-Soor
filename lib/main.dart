@@ -19,8 +19,6 @@ import 'package:provider/single_child_widget.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPrefsUtils.init();
-//  SharedPreferences prefs = await SharedPreferences.getInstance();
-//  var isDarkTheme = prefs.getBool(SharedPreferencesKeys.isDarkTheme);
   final SharedPrefsUtils _sharedPrefs = SharedPrefsUtils.getInstance();
   var isDarkTheme = _sharedPrefs.getData(SharedPreferencesKeys.isDarkTheme);
   ThemeData theme;

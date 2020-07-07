@@ -1,6 +1,5 @@
 import 'package:E_Soor/helpers/logic/constants.dart';
 import 'package:E_Soor/models/selection.dart';
-import 'package:E_Soor/ui/screens/tabs/social.dart';
 import 'package:E_Soor/ui/screens/tabs/store.dart';
 import 'package:E_Soor/ui/widgets/AppSearch.dart';
 import 'package:E_Soor/ui/widgets/ThemeSwitch.dart';

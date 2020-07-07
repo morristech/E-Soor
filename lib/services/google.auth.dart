@@ -81,6 +81,7 @@ class GoogleAuthService {
           displayName: authResultUser.user.displayName,
         ).toJson(),
       );
+      // ignore: unused_catch_clause
     } on PlatformException catch (uploadUserInitialDataError) {
       throw PlatformException(
           code: 'ERROR_WHILE_SAVING_USER_DATA',
