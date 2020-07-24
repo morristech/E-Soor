@@ -20,7 +20,6 @@ class FirebaseAuthService {
 
   Future<bool> saveUserLogin(bool value) async {
     return await _sharedPrefs.saveData<bool>("isUserLoggedIn", value);
-    // return await _sharedPrefs.saveBool("isUserLoggedIn", value);
   }
 
   //* check weather the user has loggeed in or not
