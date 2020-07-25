@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class User {
   final String uid;
   final String bioStatus;
@@ -33,7 +31,7 @@ class User {
   }
 
   // creating a User object from a firebase snapshot
-  User.fromSnapshot(DocumentSnapshot snapshot)
+  User.fromSnapshot(dynamic snapshot)
       : uid = snapshot['uid'],
         bioStatus = snapshot['bioStatus'],
         displayName = snapshot['displayName'],
