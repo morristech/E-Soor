@@ -46,7 +46,6 @@ class MyDrawer extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               UserCard(),
-              ActionsButton(),
               ListTile(
                 leading: Icon(Icons.bookmark),
                 title: Text("Book Marks"),

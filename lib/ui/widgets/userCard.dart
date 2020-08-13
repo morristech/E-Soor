@@ -13,7 +13,8 @@ class _UserCardState extends State<UserCard> {
   String _userEmail = "";
   final FirebaseAuthService _auth = FirebaseAuthService();
 
-  _UserCardState() {
+  @override
+  void initState() {
     _auth.getCurrentUserProfilePic().then(
           (value) => setState(
             () {
@@ -35,6 +36,7 @@ class _UserCardState extends State<UserCard> {
             },
           ),
         );
+    super.initState();
   }
 
   @override
@@ -60,7 +62,8 @@ class _UserCardState extends State<UserCard> {
                   image: DecorationImage(
                     fit: BoxFit.fill,
                     image: NetworkImage(
-                      _picUrl,
+                      // _picUrl,
+                      "https://placekitten.com/400/400",
                     ),
                   ),
                 ),
@@ -69,7 +72,8 @@ class _UserCardState extends State<UserCard> {
             Padding(
               padding: const EdgeInsets.all(0),
               child: Text(
-                _userName,
+                "Name",
+                // _userName,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
@@ -78,7 +82,8 @@ class _UserCardState extends State<UserCard> {
             Padding(
               padding: const EdgeInsets.all(4.0),
               child: AutoSizeText(
-                _userEmail,
+                "email",
+                // _userEmail,
                 maxLines: 1,
                 stepGranularity: 1,
                 minFontSize: 13,

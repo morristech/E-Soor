@@ -1,5 +1,4 @@
 import 'package:E_Soor/models/UserModel.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
@@ -7,7 +6,6 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 class FacebookAuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FacebookLogin _facebookLogin = FacebookLogin();
-  final Firestore _firestore = Firestore.instance;
   final String _usersCollectionData = "users";
   bool _isNewUser;
   bool get isNewUser => _isNewUser;
@@ -35,17 +33,17 @@ class FacebookAuthService {
     final DateTime creationTime = DateTime.now();
     try {
       String userID = (await _firebaseAuth.currentUser()).uid;
-      var userDoc =
-          _firestore.collection(_usersCollectionData).document(userID);
-      await userDoc.setData(
-        User(
-          uid: userID,
-          emailAddress: userEmail,
-          creationTime: creationTime,
-          lastInfoUpdate: creationTime,
-          displayName: authResultUser.user.displayName,
-        ).toJson(),
-      );
+      // var userDoc =
+      //     _firestore.collection(_usersCollectionData).document(userID);
+      // await userDoc.setData(
+      //   User(
+      //     uid: userID,
+      //     emailAddress: userEmail,
+      //     creationTime: creationTime,
+      //     lastInfoUpdate: creationTime,
+      //     displayName: authResultUser.user.displayName,
+      //   ).toJson(),
+      // );
       // ignore: unused_catch_clause
     } on PlatformException catch (uploadUserInitialDataError) {
       throw PlatformException(

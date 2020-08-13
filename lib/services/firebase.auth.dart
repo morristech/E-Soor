@@ -1,6 +1,5 @@
 import 'package:E_Soor/helpers/sharedPrefs.dart';
 import 'package:E_Soor/models/UserModel.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +9,6 @@ import 'dart:async';
 
 class FirebaseAuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final Firestore _firestore = Firestore.instance;
   final SharedPrefsUtils _sharedPrefs = SharedPrefsUtils.getInstance();
   //* User status/info
   bool _isUserLoggedin = false;
@@ -77,7 +75,7 @@ class FirebaseAuthService {
         email: _userEmailAddress,
         password: _userPassword,
       );
-      await _createUserData(userEmail: _userEmailAddress);
+      // await _createUserData(userEmail: _userEmailAddress);
       _isUserLoggedin = true;
       try {
         await saveUserLogin(_isUserLoggedin);
@@ -179,25 +177,25 @@ class FirebaseAuthService {
     }
   }
 
-  //* Adding user initail/Important data to the `about` section on Firebase
-  Future<void> _createUserData({String userEmail}) async {
-    DateTime creationTime = DateTime.now();
-    try {
-      String userID = (await _firebaseAuth.currentUser()).uid;
-      var userDoc =
-          _firestore.collection(_usersCollectionData).document(userID);
-      await userDoc.setData(
-        User(
-          uid: userID,
-          emailAddress: userEmail,
-          creationTime: creationTime,
-          lastInfoUpdate: creationTime,
-        ).toJson(),
-      );
-    } catch (uploadUserInitialDataError) {
-      throw uploadUserInitialDataError;
-    }
-  }
+  // //* Adding user initail/Important data to the `about` section on Firebase
+  // Future<void> _createUserData({String userEmail}) async {
+  //   DateTime creationTime = DateTime.now();
+  //   try {
+  //     String userID = (await _firebaseAuth.currentUser()).uid;
+  //     var userDoc =
+  //         _firestore.collection(_usersCollectionData).document(userID);
+  //     await userDoc.setData(
+  //       User(
+  //         uid: userID,
+  //         emailAddress: userEmail,
+  //         creationTime: creationTime,
+  //         lastInfoUpdate: creationTime,
+  //       ).toJson(),
+  //     );
+  //   } catch (uploadUserInitialDataError) {
+  //     throw uploadUserInitialDataError;
+  //   }
+  // }
 
   //* checking if the user has verified his account
   Future<bool> isEmailVerified() async {
