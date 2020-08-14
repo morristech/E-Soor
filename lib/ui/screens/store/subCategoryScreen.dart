@@ -3,14 +3,14 @@ import 'package:E_Soor/ui/widgets/AppSearch.dart';
 import 'package:E_Soor/ui/widgets/categoryBar.dart';
 import 'package:flutter/material.dart';
 
-class SubCategory extends StatefulWidget {
-  SubCategory({Key key}) : super(key: key);
+class SubCategoryScreen extends StatefulWidget {
+  SubCategoryScreen({Key key}) : super(key: key);
 
   @override
-  _SubCategoryState createState() => _SubCategoryState();
+  _SubCategoryScreenState createState() => _SubCategoryScreenState();
 }
 
-class _SubCategoryState extends State<SubCategory> {
+class _SubCategoryScreenState extends State<SubCategoryScreen> {
   final List chars = const [
     "A",
     "B",
@@ -44,7 +44,7 @@ class _SubCategoryState extends State<SubCategory> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("SubCategory Name"),
+        title: Text("SubCategoryScreen Name"),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),

@@ -1,7 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class Book {
   final String id;
+  final String info;
   final String authorID;
   final String authorName;
   final String displayName;
@@ -11,7 +10,10 @@ class Book {
   final DateTime lastInfoUpdate;
   final String category;
   final String categoryID;
+  final int quantity;
   Book({
+    this.quantity,
+    this.info,
     this.category,
     this.categoryID,
     this.authorName,
@@ -27,6 +29,8 @@ class Book {
   // formatting for upload to Firbase when creating the new Book
   Map<String, dynamic> toJson() {
     return {
+      'quantity': quantity,
+      'info': info,
       'id': id,
       'displayName': displayName,
       'authorID': authorID,
@@ -40,18 +44,20 @@ class Book {
     };
   }
 
-  // creating a Book object from a firebase snapshot
-  Book.fromSnapshot(DocumentSnapshot snapshot)
-      : id = snapshot['id'],
-        displayName = snapshot['displayName'],
-        authorID = snapshot['authorID'],
-        authorName = snapshot['authorName'],
-        price = snapshot['price'],
-        picUrl = snapshot['picUrl'],
-        category = snapshot['category'],
-        categoryID = snapshot['categoryID'],
-        creationTime = snapshot['creationTime'],
-        lastInfoUpdate = snapshot['lastInfoUpdate'];
+  // creating a Book object from request data
+  Book.fromJson(dynamic data)
+      : id = data['id'],
+        quantity = data['quantity'],
+        info = data['info'],
+        displayName = data['displayName'],
+        authorID = data['authorID'],
+        authorName = data['authorName'],
+        price = data['price'],
+        picUrl = data['picUrl'],
+        category = data['category'],
+        categoryID = data['categoryID'],
+        creationTime = data['creationTime'],
+        lastInfoUpdate = data['lastInfoUpdate'];
 }
 
 /*

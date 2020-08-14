@@ -1,3 +1,5 @@
+![Flutter CI/CD](https://github.com/OmarYehiaDev/E-Soor/workflows/Flutter%20CI/CD/badge.svg?branch=master)
+
 # E-Soor
 
 An online bookstore and social media app.

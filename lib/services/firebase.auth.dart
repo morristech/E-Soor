@@ -1,6 +1,5 @@
 import 'package:E_Soor/helpers/sharedPrefs.dart';
 import 'package:E_Soor/models/UserModel.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +9,6 @@ import 'dart:async';
 
 class FirebaseAuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final Firestore _firestore = Firestore.instance;
   final SharedPrefsUtils _sharedPrefs = SharedPrefsUtils.getInstance();
   //* User status/info
   bool _isUserLoggedin = false;
@@ -20,7 +18,6 @@ class FirebaseAuthService {
 
   Future<bool> saveUserLogin(bool value) async {
     return await _sharedPrefs.saveData<bool>("isUserLoggedIn", value);
-    // return await _sharedPrefs.saveBool("isUserLoggedIn", value);
   }
 
   //* check weather the user has loggeed in or not
@@ -48,11 +45,27 @@ class FirebaseAuthService {
     return (await _firebaseAuth.currentUser()).uid;
   }
 
+  //* GET User ProflePicUrl
+  Future<String> getCurrentUserProfilePic() async {
+    return (await _firebaseAuth.currentUser()).photoUrl;
+  }
+
+  //* GET User Name
+  Future<String> getCurrentUserName() async {
+    return (await _firebaseAuth.currentUser()).displayName;
+  }
+
+  //* GET User Email
+  Future<String> getCurrentUserEmail() async {
+    return (await _firebaseAuth.currentUser()).email;
+  }
+
   //* Resister a New user
   /// Errors:
   ///   • `ERROR_WEAK_PASSWORD` - If the password is not strong enough.
   ///   • `ERROR_INVALID_EMAIL` - If the email address is malformed.
   ///   • `ERROR_EMAIL_ALREADY_IN_USE` - If the email is already in use by a different account.
+  // ignore: missing_return
   Future<String> registerNewUser(LoginData singinFormIncommingData) async {
     _userPassword = singinFormIncommingData.password;
     _userEmailAddress = singinFormIncommingData.name;
@@ -62,7 +75,7 @@ class FirebaseAuthService {
         email: _userEmailAddress,
         password: _userPassword,
       );
-      await _createUserData(userEmail: _userEmailAddress);
+      // await _createUserData(userEmail: _userEmailAddress);
       _isUserLoggedin = true;
       try {
         await saveUserLogin(_isUserLoggedin);
@@ -96,6 +109,7 @@ class FirebaseAuthService {
   ///   • `ERROR_USER_DISABLED` - If the user has been disabled (for example, in the Firebase console)
   ///   • `ERROR_TOO_MANY_REQUESTS` - If there was too many attempts to sign in as this user.
   ///   • `ERROR_OPERATION_NOT_ALLOWED` - Indicates that Email & Password accounts are not enabled.
+  // ignore: missing_return
   Future<String> loginUser(LoginData singinFormIncommingData) async {
     _userPassword = singinFormIncommingData.password;
     _userEmailAddress = singinFormIncommingData.name;
@@ -142,6 +156,7 @@ class FirebaseAuthService {
   /// Errors:
   ///   • `ERROR_INVALID_EMAIL` - If the [email] address is malformed.
   ///   • `ERROR_USER_NOT_FOUND` - If there is no user corresponding to the given [email] address.
+  // ignore: missing_return
   Future<String> recoverPassword(String email) async {
     try {
       await _firebaseAuth.sendPasswordResetEmail(
@@ -162,25 +177,25 @@ class FirebaseAuthService {
     }
   }
 
-  //* Adding user initail/Important data to the `about` section on Firebase
-  Future<void> _createUserData({String userEmail}) async {
-    DateTime creationTime = DateTime.now();
-    try {
-      String userID = (await _firebaseAuth.currentUser()).uid;
-      var userDoc =
-          _firestore.collection(_usersCollectionData).document(userID);
-      await userDoc.setData(
-        User(
-          uid: userID,
-          emailAddress: userEmail,
-          creationTime: creationTime,
-          lastInfoUpdate: creationTime,
-        ).toJson(),
-      );
-    } catch (uploadUserInitialDataError) {
-      throw uploadUserInitialDataError;
-    }
-  }
+  // //* Adding user initail/Important data to the `about` section on Firebase
+  // Future<void> _createUserData({String userEmail}) async {
+  //   DateTime creationTime = DateTime.now();
+  //   try {
+  //     String userID = (await _firebaseAuth.currentUser()).uid;
+  //     var userDoc =
+  //         _firestore.collection(_usersCollectionData).document(userID);
+  //     await userDoc.setData(
+  //       User(
+  //         uid: userID,
+  //         emailAddress: userEmail,
+  //         creationTime: creationTime,
+  //         lastInfoUpdate: creationTime,
+  //       ).toJson(),
+  //     );
+  //   } catch (uploadUserInitialDataError) {
+  //     throw uploadUserInitialDataError;
+  //   }
+  // }
 
   //* checking if the user has verified his account
   Future<bool> isEmailVerified() async {
@@ -217,6 +232,7 @@ class FirebaseAuthService {
   ///   • `ERROR_USER_DISABLED` - If the user has been disabled (for example, in the Firebase console)
   ///   • `ERROR_USER_NOT_FOUND` - If the user has been deleted (for example, in the Firebase console)
   ///   • `ERROR_OPERATION_NOT_ALLOWED` - Indicates that Email & Password accounts are not enabled.
+  // ignore: missing_return
   Future<FirebaseUser> reAuthanticateUser(String password,
       {String email}) async {
     final FirebaseUser user = await _firebaseAuth.currentUser();

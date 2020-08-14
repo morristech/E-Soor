@@ -3,7 +3,6 @@ import 'package:E_Soor/helpers/sharedPrefs.dart';
 import 'package:E_Soor/models/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeSwitch extends StatefulWidget {
   @override
@@ -17,9 +16,8 @@ class _ThemeSwitchState extends State<ThemeSwitch> {
     (value)
         ? themeNotifier.setTheme(Constants.kDarkTheme)
         : themeNotifier.setTheme(Constants.kLightTheme);
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
-    // prefs.setBool(SharedPreferencesKeys.isDarkTheme, value);
     final _sharedPrefsUtils = SharedPrefsUtils.getInstance();
+    // ignore: unused_local_variable
     var isSuccess = await _sharedPrefsUtils.saveData<bool>(
         SharedPreferencesKeys.isDarkTheme, value);
   }

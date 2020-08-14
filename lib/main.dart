@@ -13,15 +13,12 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:E_Soor/models/theme.dart';
 import 'package:provider/single_child_widget.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 //flutter build ios && tar -zcf build/app.ipa build/ios/iphoneos/Runner.app && ls -lh build/app.ipa
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPrefsUtils.init();
-//  SharedPreferences prefs = await SharedPreferences.getInstance();
-//  var isDarkTheme = prefs.getBool(SharedPreferencesKeys.isDarkTheme);
   final SharedPrefsUtils _sharedPrefs = SharedPrefsUtils.getInstance();
   var isDarkTheme = _sharedPrefs.getData(SharedPreferencesKeys.isDarkTheme);
   ThemeData theme;

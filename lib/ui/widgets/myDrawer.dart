@@ -1,5 +1,7 @@
 import 'package:E_Soor/services/firebase.auth.dart';
 import 'package:E_Soor/ui/screens/login_signup_reset/emailLogin.dart';
+import 'package:E_Soor/ui/widgets/actionsButton.dart';
+import 'package:E_Soor/ui/widgets/userCard.dart';
 import 'package:E_Soor/ui/screens/other/about_us.dart';
 import 'package:E_Soor/ui/screens/settings/settings.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +12,7 @@ class MyDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
 
     void goToSettings() {
       Navigator.push(
@@ -31,11 +33,11 @@ class MyDrawer extends StatelessWidget {
     }
 
     return Container(
-      color: ThemeData.dark().primaryColor,
+      color: Theme.of(context).primaryColor,
       height: double.infinity,
-      width: 300.0,
+      width: screenWidth - (screenWidth * 0.23),
       child: Align(
-        alignment: Alignment.centerLeft,
+        alignment: Alignment.center,
         child: Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: Column(
@@ -43,62 +45,28 @@ class MyDrawer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              SizedBox(
-                height: 0.22 * screenHeight,
-                width: 0.22 * screenHeight,
-                child: Card(
-                    elevation: 5,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Image.network(
-                              'https://placekitten.com/200/200',
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(0),
-                          child: Text(
-                            "Account Name",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text(
-                            "@meshmeshCat123",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ),
-                      ],
-                    )),
-              ),
+              UserCard(),
               ListTile(
                 leading: Icon(Icons.bookmark),
                 title: Text("Book Marks"),
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => BookMarks()),
+                    MaterialPageRoute(
+                      builder: (context) => BookMarks(),
+                    ),
                   );
                 },
-              ),
-              ListTile(
-                leading: Icon(Icons.info),
-                title: Text("About us"),
-                onTap: goToAboutUs,
               ),
               ListTile(
                 leading: Icon(Icons.settings),
                 title: Text("Settings"),
                 onTap: goToSettings,
+              ),
+              ListTile(
+                leading: Icon(Icons.info),
+                title: Text("About us"),
+                onTap: goToAboutUs,
               ),
               ListTile(
                 leading: Icon(Icons.backspace),
@@ -107,7 +75,9 @@ class MyDrawer extends StatelessWidget {
                   _firebaseAuthService.logOut();
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
+                    MaterialPageRoute(
+                      builder: (context) => LoginPage(),
+                    ),
                   );
                 },
               ),

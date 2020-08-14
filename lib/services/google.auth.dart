@@ -1,5 +1,4 @@
 import 'package:E_Soor/models/UserModel.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -10,7 +9,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 class GoogleAuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-  final Firestore _firestore = Firestore.instance;
   final String _usersCollectionData = "users";
   bool _isNewUser;
   bool get isNewUser => _isNewUser;
@@ -70,17 +68,18 @@ class GoogleAuthService {
     final DateTime creationTime = DateTime.now();
     try {
       String userID = (await _firebaseAuth.currentUser()).uid;
-      var userDoc =
-          _firestore.collection(_usersCollectionData).document(userID);
-      await userDoc.setData(
-        User(
-          uid: userID,
-          emailAddress: userEmail,
-          creationTime: creationTime,
-          lastInfoUpdate: creationTime,
-          displayName: authResultUser.user.displayName,
-        ).toJson(),
-      );
+      // var userDoc =
+      //     _firestore.collection(_usersCollectionData).document(userID);
+      // await userDoc.setData(
+      //   User(
+      //     uid: userID,
+      //     emailAddress: userEmail,
+      //     creationTime: creationTime,
+      //     lastInfoUpdate: creationTime,
+      //     displayName: authResultUser.user.displayName,
+      //   ).toJson(),
+      // );
+      // ignore: unused_catch_clause
     } on PlatformException catch (uploadUserInitialDataError) {
       throw PlatformException(
           code: 'ERROR_WHILE_SAVING_USER_DATA',
